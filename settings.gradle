@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':chat'
 rootProject.name='Kifu'

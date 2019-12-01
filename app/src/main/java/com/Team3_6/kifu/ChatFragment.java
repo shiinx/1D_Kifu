@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.chat21.android.ui.ChatUI;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,12 +22,23 @@ public class ChatFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static ChatFragment newInstance() {
+        return new ChatFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+
+        setHasOptionsMenu(false); // disable fragment option menu
+
+        // starts the chat inside a container
+        ChatUI.getInstance().openConversationsListFragment(getChildFragmentManager(), R.id.container);
+
+        return rootView;
     }
 
 }
