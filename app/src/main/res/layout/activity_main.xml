@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/mapButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Donation locations" />
-
 
     <FrameLayout
         android:id="@+id/container"
@@ -32,6 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="540dp">
+
+        </FrameLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavBar"
@@ -41,15 +31,10 @@
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/colorPrimaryDark"
             app:itemTextColor="@color/colorPrimaryDark"
-            app:menu="@menu/bottom_nav_bar" />
+            app:menu="@menu/bottom_nav_bar">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
         <!-- to include the menu items for the bottom navigation bar -->
-
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="550dp">
-
-        </FrameLayout>
 
 
     </FrameLayout>
