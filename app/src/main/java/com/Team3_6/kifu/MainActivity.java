@@ -3,6 +3,7 @@ package com.Team3_6.kifu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -33,16 +34,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mapButton = findViewById(R.id.mapButton);
+        Fragment mFragment = null;
+        mFragment = new HomeFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MapActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
         // initialise bottom navigation bar
         bottomNavBar =findViewById(R.id.bottomNavBar);
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.navigation_home:
                         LoadFragment(homeFragment);
-                        findViewById(R.id.mainact).setVisibility(View.VISIBLE);
+                        //findViewById(R.id.mainact).setVisibility(View.VISIBLE);
                         return true;
                     case R.id.navigation_post:
                         LoadFragment(postFragment);
@@ -80,17 +76,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
 
 
     // methods to change to other fragments
     private void LoadFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        findViewById(R.id.mainact).setVisibility(View.GONE);
+        //findViewById(R.id.mainact).setVisibility(View.GONE);
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }

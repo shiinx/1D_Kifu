@@ -6,10 +6,92 @@
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home Layout Here" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/mainact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Home Layout Here" />
+
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Donation locations" />
+
+            <Button
+                android:id="@+id/menu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Electronic and Mobile" />
+
+            <Button
+                android:id="@+id/menu2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Men's Fashion" />
+
+            <Button
+                android:id="@+id/menu3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Women's Fashion" />
+
+            <Button
+                android:id="@+id/menu4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Furniture" />
+
+            <Button
+                android:id="@+id/menu5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Books and Stationery" />
+
+            <Button
+                android:id="@+id/menu6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Home Appliances" />
+
+            <Button
+                android:id="@+id/menu7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gardening" />
+
+            <Button
+                android:id="@+id/menu8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Music and Media" />
+
+            <Button
+                android:id="@+id/menu9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toys and Games" />
+
+            <Button
+                android:id="@+id/menu10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bicycle and PMDs" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </FrameLayout>
