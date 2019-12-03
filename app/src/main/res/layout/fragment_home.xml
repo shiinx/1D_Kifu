@@ -2,96 +2,32 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="475dp"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
 
-        <LinearLayout
-            android:id="@+id/mainact"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/mapButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:text="Donation locations" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Home Layout Here" />
+        <!--recycler view layout-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menu_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/mapButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Donation locations" />
-
-            <Button
-                android:id="@+id/menu1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Electronic and Mobile" />
-
-            <Button
-                android:id="@+id/menu2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Men's Fashion" />
-
-            <Button
-                android:id="@+id/menu3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Women's Fashion" />
-
-            <Button
-                android:id="@+id/menu4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Furniture" />
-
-            <Button
-                android:id="@+id/menu5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Books and Stationery" />
-
-            <Button
-                android:id="@+id/menu6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Home Appliances" />
-
-            <Button
-                android:id="@+id/menu7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Gardening" />
-
-            <Button
-                android:id="@+id/menu8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Music and Media" />
-
-            <Button
-                android:id="@+id/menu9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Toys and Games" />
-
-            <Button
-                android:id="@+id/menu10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bicycle and PMDs" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 
 </FrameLayout>

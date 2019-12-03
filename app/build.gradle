@@ -11,7 +11,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
-		multiDexEnabled true
+
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -45,6 +47,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services:12.0.1'
     implementation 'com.google.android.material:material:1.0.0'
 
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
     implementation 'com.vanniktech:emoji-ios:0.5.1'
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     implementation 'com.github.bumptech.glide:glide:4.3.1'
@@ -52,6 +61,7 @@ dependencies {
     //CHAT 21 sdk
     //implementation 'org.chat21.android:chat21:1.0.15'
     implementation project(':chat')
+
 }
 
 

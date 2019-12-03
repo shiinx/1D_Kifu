@@ -17,6 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="540dp">
+
+        </FrameLayout>
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -37,11 +43,10 @@
             app:itemTextColor="@color/colorPrimaryDark"
             app:menu="@menu/bottom_nav_bar">
 
+
         </com.google.android.material.bottomnavigation.BottomNavigationView>
         <!-- to include the menu items for the bottom navigation bar -->
 
-
-    </FrameLayout>
 
 
 

@@ -27,9 +27,14 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MapActivity"
-            android:label="Donate here">
+        <activity android:name=".MapActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+
+        <activity android:name=".ClothesList"
+            android:parentActivityName=".MainActivity">
+
         </activity>
     </application>
 
