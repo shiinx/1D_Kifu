@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,17 +25,23 @@ public class HomeFragment extends Fragment {
 
     Button mapButton;
 
+
     //initialise category list
     List<Category> lstCategory;
+
+
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View rootview = inflater.inflate(R.layout.fragment_home, container, false);
+
         // Inflate the layout for this fragment
+
          View rootview = inflater.inflate(R.layout.fragment_home, container, false);
 
         mapButton = rootview.findViewById(R.id.mapButton);
@@ -42,11 +49,14 @@ public class HomeFragment extends Fragment {
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(),MapActivity.class);
+
                 startActivity(intent);
 
             }
         });
+
 
 
         // add all the categories
@@ -66,6 +76,7 @@ public class HomeFragment extends Fragment {
         MenuRecyclerView.setAdapter(menuAdapter);
 
         return rootview;
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.Team3_6.kifu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.navigation_home:
                         LoadFragment(homeFragment);
+                        //findViewById(R.id.mainact).setVisibility(View.VISIBLE);
                         return true;
                     case R.id.navigation_post:
                         LoadFragment(postFragment);
@@ -72,9 +74,11 @@ public class MainActivity extends AppCompatActivity {
     // methods to change to other fragments
     private void LoadFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //findViewById(R.id.mainact).setVisibility(View.GONE);
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }
+
 
 
 }

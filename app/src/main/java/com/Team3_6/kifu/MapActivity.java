@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -21,7 +21,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -51,14 +51,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng MandaiStation = new LatLng(1.408700, 103.755997);
         LatLng GraceHaven = new LatLng(1.371720, 103.877190);
         // Add a marker in different places for donation with the salvation army
-        googleMap.addMarker(new MarkerOptions().position(PraiseHaven).title("Marker in Praisehaven"));
-        googleMap.addMarker(new MarkerOptions().position(TanglinFamHub).title("Marker in Tanglin Family Hub"));
-        googleMap.addMarker(new MarkerOptions().position(Hopectr).title("Marker in Hope Centre"));
-        googleMap.addMarker(new MarkerOptions().position(SalvationArmyHQ).title("Marker in The Salvation Army HQ"));
-        googleMap.addMarker(new MarkerOptions().position(TheHaven).title("Marker in The Haven"));
-        googleMap.addMarker(new MarkerOptions().position(IMMopenCP).title("Marker in IMM Open Carpark"));
-        googleMap.addMarker(new MarkerOptions().position(MandaiStation).title("Marker in Mandai Station"));
-        googleMap.addMarker(new MarkerOptions().position(GraceHaven).title("Marker in Gracehaven"));
+        googleMap.addMarker(new MarkerOptions().position(PraiseHaven).title("Donate here at Praisehaven"));
+        googleMap.addMarker(new MarkerOptions().position(TanglinFamHub).title("Donate here at Tanglin Family Hub"));
+        googleMap.addMarker(new MarkerOptions().position(Hopectr).title("Donate here at Hope Centre"));
+        googleMap.addMarker(new MarkerOptions().position(SalvationArmyHQ).title("Donate here at The Salvation Army HQ"));
+        googleMap.addMarker(new MarkerOptions().position(TheHaven).title("Donate here at The Haven"));
+        googleMap.addMarker(new MarkerOptions().position(IMMopenCP).title("Donate here at IMM Open Carpark"));
+        googleMap.addMarker(new MarkerOptions().position(MandaiStation).title("Donate here at Mandai Station"));
+        googleMap.addMarker(new MarkerOptions().position(GraceHaven).title("Donate here at Gracehaven"));
 
 
     }
