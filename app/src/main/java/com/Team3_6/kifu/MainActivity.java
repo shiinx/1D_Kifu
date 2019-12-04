@@ -14,6 +14,12 @@ import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.chat21.android.core.ChatManager;
+import org.chat21.android.core.users.models.ChatUser;
+import org.chat21.android.core.users.models.IChatUser;
+import org.chat21.android.ui.ChatUI;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,16 +50,28 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
-                // initialise bottom navigation bar
-                bottomNavBar =findViewById(R.id.bottomNavBar);
+        // initialise bottom navigation bar
+        bottomNavBar =findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
+
+        ChatManager.Configuration mChatConfiguration =
+                new ChatManager.Configuration.Builder("tradingApp")
+                        .firebaseUrl("https://tradingapp-1d-50001.firebaseio.com/")
+                        .storageBucket("gs://tradingapp-1d-50001.appspot.com/")
+                        .build();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        IChatUser loggedUser = convertFirebaseUserToChatUser(currentUser);
+
+
+        ChatManager.start(this, mChatConfiguration, loggedUser);
+        ChatUI.getInstance().setContext(this);
 
         // initialise fragments
         homeFragment = new HomeFragment();
         postFragment = new PostFragment();
         chatFragment = new ChatFragment();
         accountFragment = new AccountFragment();
-
 
         bottomNavBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -73,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_account:
                         LoadFragment(accountFragment);
                         return true;
-
                 }
 
                 return false;
@@ -101,5 +118,25 @@ public class MainActivity extends AppCompatActivity {
         moveTaskToBack(true);
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);
+    }
+
+    @Override
+    protected void onResume() {
+        ChatManager.getInstance().getMyPresenceHandler().connect();
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ChatManager.getInstance().getMyPresenceHandler().dispose();
+        super.onDestroy();
+    }
+
+    private  IChatUser convertFirebaseUserToChatUser (FirebaseUser firebaseUser) {
+        if (firebaseUser!=null){
+            return new ChatUser(firebaseUser.getUid(), firebaseUser.getDisplayName());
+        }else {
+            return null;
+        }
     }
 }

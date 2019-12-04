@@ -31,11 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@color/colorPrimaryDark"
-            app:itemTextColor="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
             app:menu="@menu/bottom_nav_bar">
-
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
         <!-- to include the menu items for the bottom navigation bar -->

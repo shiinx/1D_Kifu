@@ -401,7 +401,6 @@ public class ChatManager {
             FirebaseInstanceId.getInstance().deleteInstanceId();
         } catch (IOException e) {
             Log.e(DEBUG_LOGIN, "cannot delete instanceId. " + e.getMessage());
-            return;
         }
     }
 
