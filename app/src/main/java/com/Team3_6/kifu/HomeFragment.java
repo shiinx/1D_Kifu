@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
-         View rootview = inflater.inflate(R.layout.fragment_home, container, false);
 
         mapButton = rootview.findViewById(R.id.mapButton);
 
