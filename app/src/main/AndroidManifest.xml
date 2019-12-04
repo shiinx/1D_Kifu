@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.Team3_6.kifu">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".AppContext"
@@ -37,6 +38,9 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".LoginActivity"/>
+
     </application>
 
 </manifest>
