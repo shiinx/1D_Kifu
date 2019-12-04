@@ -26,11 +26,18 @@ public class MainActivity extends AppCompatActivity {
     ChatFragment chatFragment;
     AccountFragment accountFragment;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // to make homefragment start when mainactivity is called
+        Fragment mFragment = null;
+        mFragment = new HomeFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
         // initialise bottom navigation bar
         bottomNavBar =findViewById(R.id.bottomNavBar);

@@ -28,6 +28,7 @@
         </activity>
 
         <activity android:name=".MapActivity"
+            android:label="Donate here"
             android:parentActivityName=".MainActivity">
         </activity>
 
