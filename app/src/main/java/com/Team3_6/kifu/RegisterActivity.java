@@ -26,7 +26,6 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String key_username = "username";
-    private static final String key_birthday = "birthday";
     private static final String key_location = "location";
     private static final String TAG = "RegisterActivity";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
