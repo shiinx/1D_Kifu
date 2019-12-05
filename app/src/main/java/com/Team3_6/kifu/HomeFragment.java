@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         lstCategory.add(new Category("Clothes & Accessories", R.drawable.clothes2));
         lstCategory.add(new Category("Electronics", R.drawable.electronics2));
         lstCategory.add(new Category("Furniture", R.drawable.furniture2));
-        lstCategory.add(new Category("Gardening", R.drawable.garderning2));
+        lstCategory.add(new Category("Gardening", R.drawable.garderning3));
         lstCategory.add(new Category("Home Appliances", R.drawable.homeappliance));
         lstCategory.add(new Category("Toys & Games", R.drawable.toy));
         lstCategory.add(new Category("Others", R.drawable.misc));
