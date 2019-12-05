@@ -41,6 +41,7 @@
         <activity android:name=".ListActivity" />
 
         <activity android:name=".PostActivity" />
+        <activity android:name=".GalleryActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
