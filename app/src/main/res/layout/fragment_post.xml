@@ -34,6 +34,7 @@
                 android:id="@+id/imageViewSelected"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
+
             <Button
                 android:id="@+id/buttonSelectImage"
                 android:layout_width="match_parent"

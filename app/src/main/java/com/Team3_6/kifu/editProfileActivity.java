@@ -23,26 +23,29 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firestore.v1.WriteResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class editProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = "editProfileActivity";
     private static final String NAME_KEY = "username";
-    private static final String BIRTHDAY_KEY = "birthday";
     private static final String LOCATION_KEY = "location";
     FirebaseFirestore db;
     private FirebaseAuth mAuth;
     String user_email;
 
 
-    TextView username;
     EditText username_new;
-    TextView birthday;
-    EditText birthday_new;
-    TextView stay;
     EditText stay_new;
     Button updatebutt;
+
+    TextView email_read;
+    EditText bio;
 
 
 
@@ -56,12 +59,10 @@ public class editProfileActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         user_email = currentUser.getEmail();
 
-        username = findViewById(R.id.username);
-        birthday = findViewById(R.id.birthday);
-        stay = findViewById(R.id.staylocation);
         username_new = findViewById(R.id.username_new);
-        birthday_new = findViewById(R.id.birthday_new);
         stay_new = findViewById(R.id.staylocation_new);
+        email_read = findViewById(R.id.email_read);
+        bio = findViewById(R.id.bio);
         ReadUserDeets();
 
 
@@ -87,12 +88,14 @@ public class editProfileActivity extends AppCompatActivity {
                     if (doc.get(NAME_KEY).toString() != ""){
                         username_new.setText(doc.get(NAME_KEY).toString());
                     }
-                    if (doc.get(BIRTHDAY_KEY).toString() != ""){
-                        birthday_new.setText(doc.get(BIRTHDAY_KEY).toString());
-                    }
                     if (doc.get(LOCATION_KEY).toString() != "") {
                         stay_new.setText(doc.get(LOCATION_KEY).toString());
                     }
+                    if (doc.get("bio") != null) {
+                        bio.setText(doc.get("bio").toString());
+                    }
+
+                    email_read.setText(user_email);
                 }
             }
         })
@@ -116,16 +119,6 @@ public class editProfileActivity extends AppCompatActivity {
             });
             username_new.setText("");
         }
-        if (birthday_new.getText().toString() != "") {
-            userdeets.update(BIRTHDAY_KEY, birthday_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(editProfileActivity.this, "Updated Successfully",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-            birthday_new.setText("");
-        }
         if (stay_new.getText().toString() != "") {
             userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
                 @Override
@@ -136,7 +129,37 @@ public class editProfileActivity extends AppCompatActivity {
             });
             stay_new.setText("");
         }
+        // initially database doesnt have bio so need to write to firebase
+        if (bio.getText().toString() == ""){
+            // Create a Map to store the data we want to set
+            Map<String, Object> docData = new HashMap<>();
+            docData.put("bio", bio.getText().toString());
+            db.collection("Users").document(user_email)
+                    .set(docData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error writing document", e);
+                        }
+                    });
 
+        }
+        else{
+            userdeets.update("bio", bio.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(editProfileActivity.this, "Updated Successfully",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+            bio.setText("");
+        }
 
         ReadUserDeets();
     }

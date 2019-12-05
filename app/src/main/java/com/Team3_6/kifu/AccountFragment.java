@@ -65,7 +65,6 @@ public class AccountFragment extends Fragment {
     private String name,email;
     private Uri photoUrl;
     private static final String LOCATION_KEY = "location";
-    private static final String BIRTHDAY_KEY = "birthday";
     private static final String USERNAME_KEY = "username";
 
     private FirebaseFirestore db;
@@ -74,7 +73,7 @@ public class AccountFragment extends Fragment {
 
 
     ImageView UserProfile;
-    TextView UserName,UserGender,UserLocation,UserDescription,UserBirthday;
+    TextView UserName,UserGender,UserLocation,UserDescription,UserBirthday, userbio;
 
 
     public AccountFragment() {}
@@ -98,7 +97,7 @@ public class AccountFragment extends Fragment {
         UserName = rootview.findViewById(R.id.username);
         UserLocation = rootview.findViewById(R.id.userLocation);
         UserDescription = rootview.findViewById(R.id.username);
-        UserBirthday = rootview.findViewById(R.id.userBirthday);
+        userbio = rootview.findViewById(R.id.userbio);
 
         // method that displays user info on UI
         LoadUserInformation();
@@ -158,9 +157,6 @@ public class AccountFragment extends Fragment {
                         if (documentSnapshot.getString(LOCATION_KEY) != null){
                             UserLocation.setText(documentSnapshot.getString(LOCATION_KEY));
                         }
-                        if (documentSnapshot.getString(BIRTHDAY_KEY) != null){
-                            UserBirthday.setText(documentSnapshot.getString(BIRTHDAY_KEY));
-                        }
                         if (documentSnapshot.getString(USERNAME_KEY) != null){
                             UserName.setText(documentSnapshot.getString(USERNAME_KEY));
                         }
@@ -219,11 +215,11 @@ public class AccountFragment extends Fragment {
                         if (documentSnapshot.getString(LOCATION_KEY) != null){
                             UserLocation.setText(documentSnapshot.getString(LOCATION_KEY));
                         }
-                        if (documentSnapshot.getString(BIRTHDAY_KEY) != null){
-                            UserBirthday.setText(documentSnapshot.getString(BIRTHDAY_KEY));
-                        }
                         if (documentSnapshot.getString(USERNAME_KEY) != null){
                             UserName.setText(documentSnapshot.getString(USERNAME_KEY));
+                        }
+                        if (documentSnapshot.getString("bio") != null){
+                            userbio.setText(documentSnapshot.getString("bio"));
                         }
 
                     }else{
