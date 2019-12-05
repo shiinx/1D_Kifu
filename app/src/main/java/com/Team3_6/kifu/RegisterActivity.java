@@ -23,12 +23,10 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String key_username = "username";
-    private static final String key_birthday = "birthday";
     private static final String key_location = "location";
     private static final String TAG = "RegisterActivity";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText editUsername;
-    private EditText editBirthday;
     private EditText editLocation;
     private EditText editEmail;
     private FirebaseAuth mAuth;
@@ -54,20 +52,17 @@ public class RegisterActivity extends AppCompatActivity {
         findViewById(R.id.btn_create).setOnClickListener(onClickListener);
 
         editUsername = findViewById(R.id.et_name);
-        editBirthday = findViewById(R.id.et_birthyear);
         editLocation = findViewById(R.id.et_location);
         editEmail = findViewById(R.id.et_email);
     }
 
     private void writeFirestore(View v) {
         String username = editUsername.getText().toString();
-        String birthday = editBirthday.getText().toString();
         String location = editLocation.getText().toString();
         String email = editEmail.getText().toString();
 
         Map<String, Object> data = new HashMap<>();
         data.put(key_username, username);
-        data.put(key_birthday, birthday);
         data.put(key_location, location);
 
 
@@ -92,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();
         String passwordConfirm = ((EditText) findViewById(R.id.et_confirmpass)).getText().toString();
-        String birthday = ((EditText) findViewById(R.id.et_birthyear)).getText().toString();
         String username = ((EditText) findViewById(R.id.et_name)).getText().toString();
         String location = ((EditText) findViewById(R.id.et_location)).getText().toString();
 
