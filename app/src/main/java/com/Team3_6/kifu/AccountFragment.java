@@ -82,16 +82,29 @@ public class AccountFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-
+        View rootview = inflater.inflate(R.layout.fragment_account, container, false);
         setHasOptionsMenu(true);
 
-        return view;
+        // Initialize Firebase Auth and firestore
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        usersRef = db.collection("Users");
+
+        //initialize imageview and textview
+        UserProfile = rootview.findViewById(R.id.userProfile);
+        UserName = rootview.findViewById(R.id.username);
+        UserLocation = rootview.findViewById(R.id.userLocation);
+        UserDescription = rootview.findViewById(R.id.username);
+        UserBirthday = rootview.findViewById(R.id.userBirthday);
+
+        // method that displays user info on UI
+        LoadUserInformation();
+
+        return rootview;
+
     }
 
     // to specify options menu for account fragment
@@ -119,41 +132,6 @@ public class AccountFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-        View rootview = inflater.inflate(R.layout.fragment_account, container, false);
-
-        // Initialize Firebase Auth and firestore
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        usersRef = db.collection("Users");
-
-        //initialize imageview and textview
-        UserProfile = rootview.findViewById(R.id.userProfile);
-        UserName = rootview.findViewById(R.id.username);
-        UserLocation = rootview.findViewById(R.id.userLocation);
-        UserDescription = rootview.findViewById(R.id.username);
-        UserBirthday = rootview.findViewById(R.id.userBirthday);
-
-        // method that displays user info on UI
-        LoadUserInformation();
-
-        // Logout Button
-        Button button = rootview.findViewById(R.id.btn_logout);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        startLoginActivity();
-                        break;
-                }
-            }
-        });
-        return rootview;
     }
 
 

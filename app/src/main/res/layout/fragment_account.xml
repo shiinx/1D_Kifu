@@ -8,11 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account Layout Here"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,23 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="location"/>
 
-                <Button
-                    android:id="@+id/btn_logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LOG OUT"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/profileEditor"
-                android:background="@drawable/ic_edit_black_24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="100dp"/>
-
 
         </LinearLayout>
 
