@@ -29,7 +29,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class editProfileActivity extends AppCompatActivity {
 
     private static final String NAME_KEY = "username";
-    private static final String GENDER_KEY = "gender";
+    private static final String BIRTHDAY_KEY = "birthday";
     private static final String LOCATION_KEY = "location";
     FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -38,8 +38,8 @@ public class editProfileActivity extends AppCompatActivity {
 
     TextView username;
     EditText username_new;
-    TextView gender;
-    EditText gender_new;
+    TextView birthday;
+    EditText birthday_new;
     TextView stay;
     EditText stay_new;
     Button updatebutt;
@@ -57,10 +57,10 @@ public class editProfileActivity extends AppCompatActivity {
         user_email = currentUser.getEmail();
 
         username = findViewById(R.id.username);
-        gender = findViewById(R.id.gender);
+        birthday = findViewById(R.id.birthday);
         stay = findViewById(R.id.staylocation);
         username_new = findViewById(R.id.username_new);
-        gender_new = findViewById(R.id.gender_new);
+        birthday_new = findViewById(R.id.birthday_new);
         stay_new = findViewById(R.id.staylocation_new);
         ReadUserDeets();
 
@@ -87,8 +87,8 @@ public class editProfileActivity extends AppCompatActivity {
                     if (doc.get(NAME_KEY).toString() != ""){
                         username_new.setText(doc.get(NAME_KEY).toString());
                     }
-                    if (doc.get(GENDER_KEY).toString() != ""){
-                        gender_new.setText(doc.get(GENDER_KEY).toString());
+                    if (doc.get(BIRTHDAY_KEY).toString() != ""){
+                        birthday_new.setText(doc.get(BIRTHDAY_KEY).toString());
                     }
                     if (doc.get(LOCATION_KEY).toString() != "") {
                         stay_new.setText(doc.get(LOCATION_KEY).toString());
@@ -116,15 +116,15 @@ public class editProfileActivity extends AppCompatActivity {
             });
             username_new.setText("");
         }
-        if (gender_new.getText().toString() != "") {
-            userdeets.update(GENDER_KEY, gender_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+        if (birthday_new.getText().toString() != "") {
+            userdeets.update(BIRTHDAY_KEY, birthday_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",
                             Toast.LENGTH_SHORT).show();
                 }
             });
-            gender_new.setText("");
+            birthday_new.setText("");
         }
         if (stay_new.getText().toString() != "") {
             userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {

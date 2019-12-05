@@ -36,19 +36,6 @@ public class AccountFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        Button button = view.findViewById(R.id.btn_logout);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        startLoginActivity();
-                        break;
-                }
-            }
-        });
-
         return view;
     }
 

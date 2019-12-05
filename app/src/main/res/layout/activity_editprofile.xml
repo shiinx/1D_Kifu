@@ -25,19 +25,19 @@
 
 
     <TextView
-        android:id="@+id/gender"
+        android:id="@+id/birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gender"
+        android:text="Birthday"
         android:paddingVertical="10dp"
         android:textStyle="bold"/>
 
 
     <EditText
-        android:id="@+id/gender_new"
+        android:id="@+id/birthday_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Edit Gender here"
+        android:hint="Edit Birthday here"
         android:layout_marginBottom="15dp"/>
 
     <TextView
