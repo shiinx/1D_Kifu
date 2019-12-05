@@ -15,17 +15,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-
-    private static final String TAG = "RegisterActivity";
-    private FirebaseAuth mAuth;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String key_username = "username";
@@ -34,14 +29,14 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editUsername;
     private EditText editBirthday;
     private EditText editLocation;
-    private EditText  editEmail;
+    private EditText editEmail;
+    private static final String TAG = "RegisterActivity";
+    private FirebaseAuth mAuth;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -53,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         editBirthday = findViewById(R.id.et_birthyear);
         editLocation = findViewById(R.id.et_location);
         editEmail = findViewById(R.id.et_email);
-
     }
 
     private void writeFirestore(View v ){
@@ -76,15 +70,14 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                     }
                 });
+      
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
     }
 
 
@@ -100,8 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-
-
+    
     private void register() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();

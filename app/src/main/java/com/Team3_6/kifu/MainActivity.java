@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         // initialise bottom navigation bar
         bottomNavBar = findViewById(R.id.bottomNavBar);
+
         frameLayout = findViewById(R.id.frameLayout);
 
         ChatManager.Configuration mChatConfiguration =
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
 
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
