@@ -61,7 +61,6 @@ public class AccountFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String name,email;
     private Uri photoUrl;
-    private static final String GENDER_KEY = "gender";
     private static final String LOCATION_KEY = "location";
     private static final String BIRTHDAY_KEY = "birthday";
     private static final String USERNAME_KEY = "username";
@@ -94,7 +93,6 @@ public class AccountFragment extends Fragment {
         //initialize imageview and textview
         UserProfile = rootview.findViewById(R.id.userProfile);
         UserName = rootview.findViewById(R.id.username);
-        UserGender = rootview.findViewById(R.id.userGender);
         UserLocation = rootview.findViewById(R.id.userLocation);
         UserDescription = rootview.findViewById(R.id.username);
         UserBirthday = rootview.findViewById(R.id.userBirthday);
@@ -140,9 +138,6 @@ public class AccountFragment extends Fragment {
                     // get data from firestore and display on UI
                     if (documentSnapshot.exists()){
 
-                        if (documentSnapshot.getString(GENDER_KEY) != null){
-                            UserGender.setText(documentSnapshot.getString(GENDER_KEY));
-                        }
                         if (documentSnapshot.getString(LOCATION_KEY) != null){
                             UserLocation.setText(documentSnapshot.getString(LOCATION_KEY));
                         }
@@ -204,9 +199,6 @@ public class AccountFragment extends Fragment {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()){
 
-                        if (documentSnapshot.getString(GENDER_KEY) != null){
-                            UserGender.setText(documentSnapshot.getString(GENDER_KEY));
-                        }
                         if (documentSnapshot.getString(LOCATION_KEY) != null){
                             UserLocation.setText(documentSnapshot.getString(LOCATION_KEY));
                         }

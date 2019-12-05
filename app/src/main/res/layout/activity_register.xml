@@ -86,6 +86,19 @@
         app:layout_constraintStart_toStartOf="@+id/et_birthyear"
         app:layout_constraintTop_toBottomOf="@+id/et_birthyear" />
 
+    <EditText
+        android:id="@+id/et_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="What's your location?"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_name"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
     <Button
         android:id="@+id/btn_create"
         android:layout_width="0dp"
@@ -93,8 +106,8 @@
         android:layout_marginTop="24dp"
         android:text="Create"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_name"
-        app:layout_constraintStart_toStartOf="@+id/et_name"
-        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+        app:layout_constraintEnd_toEndOf="@+id/et_location"
+        app:layout_constraintStart_toStartOf="@+id/et_location"
+        app:layout_constraintTop_toBottomOf="@+id/et_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

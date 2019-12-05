@@ -33,12 +33,7 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="user ID"/>
-                <TextView
-                    android:id="@+id/userGender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="gender"/>
+                    android:text="username"/>
 
                 <TextView
                     android:id="@+id/userBirthday"
@@ -51,12 +46,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="location"/>
-
-                <TextView
-                    android:id="@+id/userDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text ="user description"/>
 
                 <Button
                     android:id="@+id/btn_logout"
