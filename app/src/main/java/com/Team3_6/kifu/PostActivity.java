@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -16,9 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -51,17 +56,23 @@ public class PostActivity extends AppCompatActivity {
 
     private StorageReference mStorageRef;
     private DatabaseReference mDataRef;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_post);
+        setContentView(R.layout.activity_post);
 
         mButtonSelectImage = findViewById(R.id.buttonSelectImage);
         mButtonPost = findViewById(R.id.buttonPost);
         mEditTextTitle = findViewById(R.id.image_title);
         mEditTextDescription = findViewById(R.id.image_description);
         imageView = findViewById((R.id.imageViewSelected));
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         ElectricAndMobile = findViewById(R.id.electric_and_mobile);
         ClothesAndAccessories = findViewById(R.id.clothes_and_accessories);
@@ -75,56 +86,52 @@ public class PostActivity extends AppCompatActivity {
         Others = findViewById(R.id.others);
         categories = new ArrayList<>();
 
+        mButtonSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
 
-        for (String category : categories) {
-            mStorageRef = FirebaseStorage.getInstance().getReference(category);
-            mDataRef = FirebaseDatabase.getInstance().getReference(category);
-
-            mButtonSelectImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openFileChooser();
+        mButtonPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ElectricAndMobile.isChecked()) {
+                    categories.add("Electric & Mobile");
                 }
-            });
-            mButtonPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ElectricAndMobile.isChecked()) {
-                        categories.add("Electric and Mobile");
-                    }
-                    if (ClothesAndAccessories.isChecked()) {
-                        categories.add("Clothes and Accessories");
-                    }
-                    if (Furniture.isChecked()) {
-                        categories.add("Furniture");
-                    }
-                    if (BooksAndStationery.isChecked()) {
-                        categories.add("Books and Stationery");
-                    }
-                    if (HomeAppliances.isChecked()) {
-                        categories.add("Home Appliances");
-                    }
-                    if (Gardening.isChecked()) {
-                        categories.add("Gardening");
-                    }
-                    if (MusicAndMedia.isChecked()) {
-                        categories.add("Music and Media");
-                    }
-                    if (ToysAndGames.isChecked()) {
-                        categories.add("Toys and Games");
-                    }
-                    if (BicyclesAndPMDs.isChecked()) {
-                        categories.add("Bicycles and PMDs");
-                    }
-                    if (Others.isChecked()) {
-                        categories.add("Others");
-                    }
-                    uploadFile();
-                    /**also wanna implement goToHomeFragment(); but unsure of how to do so*/
+                if (ClothesAndAccessories.isChecked()) {
+                    categories.add("Clothes & Accessories");
                 }
-            });
+                if (Furniture.isChecked()) {
+                    categories.add("Furniture");
+                }
+                if (BooksAndStationery.isChecked()) {
+                    categories.add("Books & Stationery");
+                }
+                if (HomeAppliances.isChecked()) {
+                    categories.add("Home Appliances");
+                }
+                if (Gardening.isChecked()) {
+                    categories.add("Gardening");
+                }
+                if (MusicAndMedia.isChecked()) {
+                    categories.add("Music & Media");
+                }
+                if (ToysAndGames.isChecked()) {
+                    categories.add("Toys & Games");
+                }
+                if (BicyclesAndPMDs.isChecked()) {
+                    categories.add("Bicycles & PMDs");
+                }
+                if (Others.isChecked()) {
+                    categories.add("Others");
+                }
+                uploadFile();
+                /**also wanna implement goToHomeFragment(); but unsure of how to do so*/
+            }
+        });
 
-        }
+
     }
 
     private void openFileChooser() {
@@ -134,21 +141,13 @@ public class PostActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-    /**
-     * @Override protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-     * super.onActivityResult(requestCode, resultCode, data);
-     * if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-     * && data != null && data.getData() != null){
-     * mImageUri = data.getData();
-     * Picasso.with(this).load(mImageUri).into(imageView);
-     * }
-     * }
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mImageUri = data.getData();
-        Picasso.with(this).load(mImageUri).into(imageView);
+        if (data != null) {
+            mImageUri = data.getData();
+            Picasso.with(this).load(mImageUri).into(imageView);
+        }
     }
 
     private String getFileExtension(Uri uri) {
@@ -158,24 +157,38 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void uploadFile() {
-        if (mImageUri != null) {
-            StorageReference fileRef = mStorageRef.child(mEditTextTitle.getText().toString() + "." + getFileExtension(mImageUri));
-            fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                    String uploadID = mDataRef.push().getKey();
-                    mDataRef.child(uploadID).setValue(upload);
 
-                }
-            });
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+
+        for (String category : categories) {
+            int i = 0;
+            Log.i("Post", category);
+            mStorageRef = FirebaseStorage.getInstance().getReference(category);
+            mDataRef = FirebaseDatabase.getInstance().getReference(category);
+            StorageMetadata metaData = new StorageMetadata.Builder().setContentType("image/jpg").setCustomMetadata("Category", category)
+                    .setCustomMetadata("UserID", currentUser.getEmail()).build();
+
+            if (mImageUri != null && !TextUtils.isEmpty(mEditTextTitle.getText())) {
+
+                StorageReference fileRef = mStorageRef.child(mEditTextTitle.getText().toString() + "." + getFileExtension(mImageUri));
+                fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                        String uploadID = mDataRef.push().getKey();
+                        mDataRef.child(uploadID).setValue(upload);
+
+                    }
+                });
+                Toast.makeText(this, "Uploaded to " + category, Toast.LENGTH_SHORT).show();
+                goToMainActivity();
+            } else {
+                Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    private void goToHomeFragment() {
-        Intent i = new Intent(this, HomeFragment.class);
+    public void goToMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }

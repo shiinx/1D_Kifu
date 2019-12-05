@@ -39,7 +39,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
 
     @Override
-    public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MenuViewHolder holder, final int position) {
 
         holder.CategoryTitle.setText(mCategory.get(position).getTitle());
         holder.CategoryPic.setImageResource(mCategory.get(position).getPicture());
@@ -47,6 +47,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ListActivity.class);
+                intent.putExtra("Category", mCategory.get(position).getTitle());
                 mContext.startActivity(intent);
             }
         });

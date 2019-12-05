@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     // fragments
     HomeFragment homeFragment;
-    PostFragment postFragment;
     ChatFragment chatFragment;
     AccountFragment accountFragment;
 
@@ -43,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
             startLoginActivity();
         }
         // to make homefragment start when mainactivity is called
-        Fragment mFragment = null;
-        mFragment = new HomeFragment();
+        Fragment mFragment = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         // initialise fragments
         homeFragment = new HomeFragment();
-        postFragment = new PostFragment();
         chatFragment = new ChatFragment();
         accountFragment = new AccountFragment();
 
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.navigation_post:
                         goToPostActivity();
-                        return true;
+                        return false;
                     case R.id.navigation_chat:
                         LoadFragment(chatFragment);
                         return true;
