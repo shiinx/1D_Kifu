@@ -62,8 +62,8 @@ public class SelectedContactListAdapter extends AbstractRecyclerAdapter<IChatUse
 
         SelectedContactViewHolder(View itemView) {
             super(itemView);
-            contact = (TextView) itemView.findViewById(R.id.username);
-            profilePicture = (ImageView) itemView.findViewById(R.id.profile_picture);
+            contact = itemView.findViewById(R.id.username);
+            profilePicture = itemView.findViewById(R.id.profile_picture);
 //            remove = (ImageView) itemView.findViewById(R.id.remove);
         }
 

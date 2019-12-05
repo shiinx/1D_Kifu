@@ -99,11 +99,11 @@ public class GroupAdminPanelActivity extends AppCompatActivity implements
     private void registerViews() {
         Log.d(TAG, "registerViews");
 
-        mMemberList = (RecyclerView) findViewById(R.id.members);
-        mGroupImage = (ImageView) findViewById(R.id.image);
-        mBoxAddMember = (LinearLayout) findViewById(R.id.box_add_member);
-        mBoxMembers = (LinearLayout) findViewById(R.id.box_members);
-        mBoxUnavailableMembers = (LinearLayout) findViewById(R.id.box_unavailable_members);
+        mMemberList = findViewById(R.id.members);
+        mGroupImage = findViewById(R.id.image);
+        mBoxAddMember = findViewById(R.id.box_add_member);
+        mBoxMembers = findViewById(R.id.box_members);
+        mBoxUnavailableMembers = findViewById(R.id.box_unavailable_members);
     }
 
     private List<IChatUser> getGroupAdmins() {
@@ -124,7 +124,7 @@ public class GroupAdminPanelActivity extends AppCompatActivity implements
     private void setToolbar() {
         Log.d(TAG, "GroupAdminPanelActivity.setToolbar");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         // chatGroup name
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
@@ -147,7 +147,7 @@ public class GroupAdminPanelActivity extends AppCompatActivity implements
     private void setCreatedBy() {
         Log.d(TAG, "GroupAdminPanelActivity.setCreatedByOn");
 
-        TextView createdByView = (TextView) findViewById(R.id.created_by);
+        TextView createdByView = findViewById(R.id.created_by);
 
         // if the creator of the chatGroup is the logged user set it
         // otherwise retrieve the chatGroup creator from the chatGroup member list
@@ -165,7 +165,7 @@ public class GroupAdminPanelActivity extends AppCompatActivity implements
     }
 
     private void setCreatedOn() {
-        TextView createdOnView = (TextView) findViewById(R.id.created_on);
+        TextView createdOnView = findViewById(R.id.created_on);
 
         // retrieve the creation date
         String timestamp = TimeUtils.getFormattedTimestamp(this, chatGroup.getCreatedOnLong());

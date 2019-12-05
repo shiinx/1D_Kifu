@@ -59,7 +59,7 @@ public class PublicProfileActivity extends AppCompatActivity implements Presence
         // END contactsSynchronizer
 
         // set toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -99,7 +99,7 @@ public class PublicProfileActivity extends AppCompatActivity implements Presence
     private void initProfilePicture() {
         Log.d(TAG, "initProfilePicture");
 
-        ImageView profilePictureToolbar = (ImageView) findViewById(R.id.image);
+        ImageView profilePictureToolbar = findViewById(R.id.image);
 
         Glide.with(getApplicationContext())
                 .load(contact.getProfilePictureUrl())

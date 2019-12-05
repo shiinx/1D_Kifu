@@ -185,20 +185,12 @@ public class Message implements Serializable, Cloneable {
 
     @Exclude
     public boolean isDirectChannel() {
-        if (this.channelType == null || this.channelType.equals(Message.DIRECT_CHANNEL_TYPE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.channelType == null || this.channelType.equals(Message.DIRECT_CHANNEL_TYPE);
     }
 
     @Exclude
     public boolean isGroupChannel() {
-        if (this.channelType != null && this.channelType.equals(Message.GROUP_CHANNEL_TYPE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.channelType != null && this.channelType.equals(Message.GROUP_CHANNEL_TYPE);
     }
 
     @PropertyName("metadata")
@@ -227,11 +219,7 @@ public class Message implements Serializable, Cloneable {
     public boolean equals(Object object) {
         if (object instanceof Message) {
             Message message = (Message) object;
-            if (this.getId().equals(message.getId())) {
-                return true;
-            } else {
-                return false;
-            }
+            return this.getId().equals(message.getId());
         } else {
             return false;
         }

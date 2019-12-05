@@ -2,12 +2,12 @@ package com.Team3_6.kifu;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import org.chat21.android.ui.ChatUI;
 
@@ -17,20 +17,26 @@ import org.chat21.android.ui.ChatUI;
  */
 public class ChatFragment extends Fragment {
 
-
     public ChatFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Returns a new instance of this fragment
+     */
     public static ChatFragment newInstance() {
-        return new ChatFragment();
+        ChatFragment fragment = new ChatFragment();
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 
         setHasOptionsMenu(false); // disable fragment option menu

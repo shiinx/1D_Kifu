@@ -42,7 +42,7 @@ public class TimeUtils {
         boolean isYesterday = yesterday.get(Calendar.YEAR) == toCheck.get(Calendar.YEAR)
                 && yesterday.get(Calendar.DAY_OF_YEAR) == toCheck.get(Calendar.DAY_OF_YEAR);
 
-        return isYesterday ? true : false;
+        return isYesterday;
     }
 
     public static boolean isDateInCurrentWeek(long milliSeconds) {

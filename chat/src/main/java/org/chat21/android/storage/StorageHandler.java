@@ -91,7 +91,7 @@ public class StorageHandler {
         final String uuid = UUID.randomUUID().toString();
 
         // upload to /public/images/uuid/file.ext
-        StorageReference riversRef = storageReference.child(type.toString() + "/" + uuid + "/" +
+        StorageReference riversRef = storageReference.child(type + "/" + uuid + "/" +
                 file.getLastPathSegment());
         Log.d(TAG, "riversRef ==" + riversRef);
 

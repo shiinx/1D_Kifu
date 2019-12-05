@@ -12,14 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
 
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+
+import androidx.fragment.app.Fragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.widget.ImageView;
@@ -72,6 +78,7 @@ public class AccountFragment extends Fragment {
     public AccountFragment() {}
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,6 +104,7 @@ public class AccountFragment extends Fragment {
 
         // Logout Button
         Button button = rootview.findViewById(R.id.btn_logout);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +163,7 @@ public class AccountFragment extends Fragment {
 
     private void startLoginActivity() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity (intent);
+        startActivity(intent);
     }
 
 

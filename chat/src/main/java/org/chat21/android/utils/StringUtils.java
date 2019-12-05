@@ -26,7 +26,7 @@ public class StringUtils {
 
     public static boolean isValid(String string) {
 //        Log.d(TAG, "isValid");
-        return (string != null && !string.trim().isEmpty()) ? true : false;
+        return string != null && !string.trim().isEmpty();
     }
 
     /**
@@ -54,7 +54,7 @@ public class StringUtils {
     public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-        return pattern.matcher(email).matches() ? true : false;
+        return pattern.matcher(email).matches();
 
     }
 }
