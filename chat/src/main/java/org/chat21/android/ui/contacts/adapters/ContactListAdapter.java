@@ -127,9 +127,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         ViewHolder(View itemView) {
             super(itemView);
-            mContactFullName = (TextView) itemView.findViewById(R.id.fullname);
-            mContactUsername = (TextView) itemView.findViewById(R.id.username);
-            mProfilePicture = (ImageView) itemView.findViewById(R.id.profile_picture);
+            mContactFullName = itemView.findViewById(R.id.fullname);
+            mContactUsername = itemView.findViewById(R.id.username);
+            mProfilePicture = itemView.findViewById(R.id.profile_picture);
         }
     }
 }

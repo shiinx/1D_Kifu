@@ -159,20 +159,12 @@ public class Conversation implements Serializable {
     }
 
     public boolean isGroupChannel() {
-        if (this.channelType!=null && this.channelType.equals(Message.GROUP_CHANNEL_TYPE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.channelType != null && this.channelType.equals(Message.GROUP_CHANNEL_TYPE);
     }
 
     @Exclude
     public boolean isDirectChannel() {
-        if (this.channelType==null || this.channelType.equals(Message.DIRECT_CHANNEL_TYPE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.channelType == null || this.channelType.equals(Message.DIRECT_CHANNEL_TYPE);
     }
 
 
@@ -180,7 +172,7 @@ public class Conversation implements Serializable {
     public boolean equals(Object object) {
         if (object instanceof Conversation) {
             Conversation conversation = (Conversation) object;
-            return this.getConversationId().equals(conversation.getConversationId()) ? true : false;
+            return this.getConversationId().equals(conversation.getConversationId());
         }
 
         return false;
