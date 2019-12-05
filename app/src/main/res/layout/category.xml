@@ -7,7 +7,10 @@
     android:orientation="vertical"
     android:layout_width="150dp"
     android:layout_height="170dp"
-    android:layout_margin="25dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginTop="25dp"
+    android:layout_marginBottom="10dp"
     cardview:cardCornerRadius="20dp">
 
     <!--category cardview layout-->
@@ -20,7 +23,7 @@
             android:id="@+id/CardImageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/white" />
+            android:background="@color/white"/>
         <TextView
             android:id="@+id/CardTextView"
             android:layout_width="match_parent"
