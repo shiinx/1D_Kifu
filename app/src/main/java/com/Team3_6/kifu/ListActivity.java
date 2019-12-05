@@ -2,6 +2,7 @@ package com.Team3_6.kifu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mCategory = intent.getStringExtra("Category");
         mDataRef = FirebaseStorage.getInstance().getReference().child(mCategory);
+
 
         mUploads = new ArrayList<>();
         // ImageView in your Activity

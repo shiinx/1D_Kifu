@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -58,6 +60,8 @@ public class PostActivity extends AppCompatActivity {
     private DatabaseReference mDataRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,7 +164,6 @@ public class PostActivity extends AppCompatActivity {
 
 
         for (String category : categories) {
-            int i = 0;
             Log.i("Post", category);
             mStorageRef = FirebaseStorage.getInstance().getReference(category);
             mDataRef = FirebaseDatabase.getInstance().getReference(category);
@@ -173,7 +176,7 @@ public class PostActivity extends AppCompatActivity {
                 fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getUploadSessionUri().toString());
                         String uploadID = mDataRef.push().getKey();
                         mDataRef.child(uploadID).setValue(upload);
 
