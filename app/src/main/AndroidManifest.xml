@@ -13,42 +13,43 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <!--The API key for Google Maps-based APIs.-->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
+        <activity android:name=".MainActivity"/>
 
         <activity
             android:name=".MapActivity"
             android:label="Donate here"
-            android:parentActivityName=".MainActivity"></activity>
-
+            android:parentActivityName=".MainActivity"/>
 
         <activity
             android:name=".ClothesList"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"/>
 
-        </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
 
-        <activity android:name=".editProfileActivity"
+        <activity
+            android:name=".editProfileActivity"
             android:label="Edit Profile"
-            android:parentActivityName=".MainActivity">
-        </activity>
-    <activity android:name=".ListActivity"/>
-        <activity android:name=".PostActivity"/>
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".ListActivity" />
+
+        <activity android:name=".PostActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!--The API key for Google Maps-based APIs.-->
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
 
 

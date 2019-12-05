@@ -19,7 +19,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     private Context mContext;
     private List<Uploads> mUploads;
 
-    public ImageAdapter(Context context, List<Uploads> uploads){
+    public ImageAdapter(Context context, List<Uploads> uploads) {
         mContext = context;
         mUploads = uploads;
     }
@@ -40,13 +40,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     }
 
     @Override
-    public int getItemCount() { return mUploads.size(); }
+    public int getItemCount() {
+        return mUploads.size();
+    }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder{
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewTitle;
         public ImageView imageView;
         public TextView textViewDescription;
+
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 

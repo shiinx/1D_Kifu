@@ -22,18 +22,27 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String key_username = "username";
     private static final String key_birthday = "birthday";
     private static final String key_location = "location";
+    private static final String TAG = "RegisterActivity";
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText editUsername;
     private EditText editBirthday;
     private EditText editLocation;
     private EditText editEmail;
-    private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
-
-
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_create:
+                    register();
+                    writeFirestore(v);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.et_email);
     }
 
-    private void writeFirestore(View v ){
+    private void writeFirestore(View v) {
         String username = editUsername.getText().toString();
         String birthday = editBirthday.getText().toString();
         String location = editLocation.getText().toString();
@@ -62,7 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
         data.put(key_location, location);
 
 
-
         // Add a new document with a generated ID
         db.collection("Users").document(email).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -70,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                     }
                 });
-      
+
     }
 
     @Override
@@ -80,20 +88,6 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_create:
-                    register();
-                    writeFirestore(v);
-                    break;
-            }
-        }
-    };
-
-    
     private void register() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();

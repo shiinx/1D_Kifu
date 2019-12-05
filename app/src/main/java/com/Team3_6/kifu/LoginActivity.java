@@ -46,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_login).setOnClickListener(onClickListener);
         findViewById(R.id.btn_gotoregister).setOnClickListener(onClickListener);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startMainActivity();
+        }
     }
 
     @Override

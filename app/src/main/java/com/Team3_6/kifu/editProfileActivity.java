@@ -1,8 +1,6 @@
 package com.Team3_6.kifu;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class editProfileActivity extends AppCompatActivity {
 
@@ -32,10 +26,7 @@ public class editProfileActivity extends AppCompatActivity {
     private static final String BIRTHDAY_KEY = "birthday";
     private static final String LOCATION_KEY = "location";
     FirebaseFirestore db;
-    private FirebaseAuth mAuth;
     String user_email;
-
-
     TextView username;
     EditText username_new;
     TextView birthday;
@@ -43,8 +34,7 @@ public class editProfileActivity extends AppCompatActivity {
     TextView stay;
     EditText stay_new;
     Button updatebutt;
-
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +74,10 @@ public class editProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
-                    if (doc.get(NAME_KEY).toString() != ""){
+                    if (doc.get(NAME_KEY).toString() != "") {
                         username_new.setText(doc.get(NAME_KEY).toString());
                     }
-                    if (doc.get(BIRTHDAY_KEY).toString() != ""){
+                    if (doc.get(BIRTHDAY_KEY).toString() != "") {
                         birthday_new.setText(doc.get(BIRTHDAY_KEY).toString());
                     }
                     if (doc.get(LOCATION_KEY).toString() != "") {
@@ -106,8 +96,8 @@ public class editProfileActivity extends AppCompatActivity {
     private void UpdateData() {
         DocumentReference userdeets = db.collection("Users").document(user_email);
 
-        if (username_new.getText().toString() != ""){
-            userdeets.update(NAME_KEY,username_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+        if (username_new.getText().toString() != "") {
+            userdeets.update(NAME_KEY, username_new.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",
@@ -117,7 +107,7 @@ public class editProfileActivity extends AppCompatActivity {
             username_new.setText("");
         }
         if (birthday_new.getText().toString() != "") {
-            userdeets.update(BIRTHDAY_KEY, birthday_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+            userdeets.update(BIRTHDAY_KEY, birthday_new.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",
@@ -127,7 +117,7 @@ public class editProfileActivity extends AppCompatActivity {
             birthday_new.setText("");
         }
         if (stay_new.getText().toString() != "") {
-            userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+            userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",

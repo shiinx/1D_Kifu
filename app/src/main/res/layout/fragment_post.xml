@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".PostActivity"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".PostActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -19,21 +19,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
             <EditText
                 android:id="@+id/image_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="enter name" />
+
             <EditText
                 android:id="@+id/image_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="enter description" />
+
             <ImageView
                 android:id="@+id/imageViewSelected"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
+
             <Button
                 android:id="@+id/buttonSelectImage"
                 android:layout_width="match_parent"
@@ -54,46 +58,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Electric and Mobile" />
+
             <CheckBox
                 android:id="@+id/clothes_and_accessories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clothes and Accessories" />
+
             <CheckBox
                 android:id="@+id/furniture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Furniture" />
+
             <CheckBox
                 android:id="@+id/books_and_stationery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Books and Stationery" />
+
             <CheckBox
                 android:id="@+id/home_appliances"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Home Appliances" />
+
             <CheckBox
                 android:id="@+id/gardening"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gardening" />
+
             <CheckBox
                 android:id="@+id/music_and_media"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Music and Media" />
+
             <CheckBox
                 android:id="@+id/toys_and_games"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Toys and Games" />
+
             <CheckBox
                 android:id="@+id/bicycles_and_pmds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bicycles and PMDs" />
+
             <CheckBox
                 android:id="@+id/others"
                 android:layout_width="match_parent"
@@ -105,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Post" />
+
             <ImageView
                 android:id="@+id/spacer"
                 android:layout_width="wrap_content"
