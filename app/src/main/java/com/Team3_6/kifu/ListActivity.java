@@ -43,6 +43,7 @@ public class ListActivity extends AppCompatActivity {
         mAdapter = new ImageAdapter(ListActivity.this, mUploads);
         mRecyclerView.setAdapter(mAdapter);
 
+
         // ImageView in your Activity
 
         // Download directly from StorageReference using Glide
@@ -57,10 +58,20 @@ public class ListActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         upload = new Uploads();
-                                        upload.setmName(item.getName().substring(0,item.getName().lastIndexOf(".")));
-                                        upload.setmImageUrl(uri);
-                                        mUploads.add(upload);
-                                        mAdapter.notifyDataSetChanged();
+                                        String checkThumb = item.getName();
+                                        String firstsixcheckthumb = "";
+                                        for (int i = 0; i < 6; i++) {
+                                            char c = checkThumb.charAt(i);
+                                            String s = Character.toString(c);
+                                            firstsixcheckthumb += s;
+                                        }
+                                        String thumb = "thumb_";
+                                        if (!firstsixcheckthumb.equals(thumb)){
+                                            upload.setmName(item.getName());
+                                            upload.setmImageUrl(uri);
+                                            mUploads.add(upload);
+                                            mAdapter.notifyDataSetChanged();
+                                        }
                                     }
                                 });
                             }
