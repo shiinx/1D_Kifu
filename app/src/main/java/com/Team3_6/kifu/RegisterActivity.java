@@ -48,8 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         editBirthday = findViewById(R.id.et_birthyear);
         editLocation = findViewById(R.id.et_location);
         editEmail = findViewById(R.id.et_email);
-
-
     }
 
     private void writeFirestore(View v ){
