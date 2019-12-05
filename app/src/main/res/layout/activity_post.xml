@@ -44,16 +44,16 @@
                 android:textSize="30sp" />
 
             <CheckBox
-                android:id="@+id/electric_and_mobile"
+                android:id="@+id/electronics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Electric and Mobile" />
+                android:text="Electronics" />
 
             <CheckBox
                 android:id="@+id/clothes_and_accessories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Clothes and Accessories" />
+                android:text="Clothes &amp; Accessories" />
 
             <CheckBox
                 android:id="@+id/furniture"
@@ -65,7 +65,7 @@
                 android:id="@+id/books_and_stationery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Books and Stationery" />
+                android:text="Books &amp; Stationery" />
 
             <CheckBox
                 android:id="@+id/home_appliances"
@@ -79,11 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gardening" />
 
-            <CheckBox
-                android:id="@+id/music_and_media"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Music and Media" />
+
 
             <CheckBox
                 android:id="@+id/toys_and_games"
@@ -91,11 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="Toys and Games" />
 
-            <CheckBox
-                android:id="@+id/bicycles_and_pmds"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bicycles and PMDs" />
+
 
             <CheckBox
                 android:id="@+id/others"
