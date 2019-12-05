@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
@@ -33,7 +32,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.category,parent,false);
+        view = mInflater.inflate(R.layout.category, parent, false);
 
         return new MenuViewHolder(view);
     }
@@ -47,7 +46,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         holder.categoryCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,ClothesList.class);
+                Intent intent = new Intent(mContext, ClothesList.class);
                 mContext.startActivity(intent);
             }
         });
@@ -58,7 +57,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         return mCategory.size();
     }
 
-    public static class MenuViewHolder extends RecyclerView.ViewHolder{
+    public static class MenuViewHolder extends RecyclerView.ViewHolder {
 
         TextView CategoryTitle;
         ImageView CategoryPic;

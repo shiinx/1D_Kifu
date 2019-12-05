@@ -27,7 +27,7 @@ class SystemViewHolder extends RecyclerView.ViewHolder {
 
     SystemViewHolder(View itemView) {
         super(itemView);
-        mMessage = (EmojiTextView) itemView.findViewById(R.id.message);
+        mMessage = itemView.findViewById(R.id.message);
 //        mDate = (TextView) itemView.findViewById(R.id.date);
 //        mTimestamp = (TextView) itemView.findViewById(R.id.timestamp);
 //        mBackgroundBubble = itemView.findViewById(R.id.message_group);

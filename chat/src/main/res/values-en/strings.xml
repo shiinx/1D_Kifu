@@ -10,7 +10,7 @@
     <string name="string_add_members_activity_title">Add members</string>
 
     <string name="label_no_conversation_error_title">No conversation!</string>
-    <string name="label_no_conversation_error_subtitle">Press the below button to start a new chat!</string>
+    <string name="label_no_conversation_error_subtitle">Contact a fellow trader and start trading!</string>
 
     <string name="action_create_group">Create group</string>
 

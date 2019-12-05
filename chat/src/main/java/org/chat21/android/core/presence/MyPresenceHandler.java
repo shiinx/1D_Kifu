@@ -93,7 +93,7 @@ public class MyPresenceHandler {
         if (myPresenceListeners.size() == 0) {
             return false;
         }
-        return myPresenceListeners.contains(myPresenceListener) ? true : false;
+        return myPresenceListeners.contains(myPresenceListener);
     }
 
     public void upsertPresenceListener(MyPresenceListener myPresenceListener) {

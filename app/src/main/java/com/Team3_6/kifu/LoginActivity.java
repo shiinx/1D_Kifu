@@ -19,6 +19,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_login:
+                    login();
+                    break;
+            }
+
+            switch (v.getId()) {
+                case R.id.btn_gotoregister:
+                    startRegisterActivity();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);
     }
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_login:
-                    login();
-                    break;
-            }
-
-            switch (v.getId()) {
-                case R.id.btn_gotoregister:
-                    startRegisterActivity();
-                    break;
-            }
-        }
-    };
 
     private void login() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
@@ -92,18 +91,18 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void startToast (String msg) {
+    private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void startRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity (intent);
+        startActivity(intent);
     }
 
     private void startMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity (intent);
+        startActivity(intent);
     }
 }

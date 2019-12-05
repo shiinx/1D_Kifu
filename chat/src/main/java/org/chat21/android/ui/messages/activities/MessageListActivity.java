@@ -251,7 +251,7 @@ public class MessageListActivity extends AppCompatActivity
                 return false;
             } else {
                 String recipient = getIntent().getStringExtra("sender");
-                return StringUtils.isValid(recipient) ? true : false;
+                return StringUtils.isValid(recipient);
             }
         }
     }
@@ -336,21 +336,21 @@ public class MessageListActivity extends AppCompatActivity
     private void registerViews() {
         Log.d(TAG, "registerViews");
 
-        recyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mPictureView = (ImageView) findViewById(R.id.toolbar_picture);
-        mTitleTextView = (TextView) findViewById(R.id.toolbar_title);
-        mSubTitleTextView = (TextView) findViewById(R.id.toolbar_subtitle);
+        recyclerView = findViewById(R.id.main_activity_recycler_view);
+        toolbar = findViewById(R.id.toolbar);
+        mPictureView = findViewById(R.id.toolbar_picture);
+        mTitleTextView = findViewById(R.id.toolbar_title);
+        mSubTitleTextView = findViewById(R.id.toolbar_subtitle);
 
-        mNoMessageLayout = (RelativeLayout) findViewById(R.id.no_messages_layout);
+        mNoMessageLayout = findViewById(R.id.no_messages_layout);
 
-        editText = (EmojiEditText) findViewById(R.id.main_activity_chat_bottom_message_edittext);
-        rootView = (ViewGroup) findViewById(R.id.main_activity_root_view);
-        emojiButton = (ImageView) findViewById(R.id.main_activity_emoji);
-        attachButton = (ImageView) findViewById(R.id.main_activity_attach);
-        sendButton = (ImageView) findViewById(R.id.main_activity_send);
-        recyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
-        mEmojiBar = (LinearLayout) findViewById(R.id.main_activity_emoji_bar);
+        editText = findViewById(R.id.main_activity_chat_bottom_message_edittext);
+        rootView = findViewById(R.id.main_activity_root_view);
+        emojiButton = findViewById(R.id.main_activity_emoji);
+        attachButton = findViewById(R.id.main_activity_attach);
+        sendButton = findViewById(R.id.main_activity_send);
+        recyclerView = findViewById(R.id.main_activity_recycler_view);
+        mEmojiBar = findViewById(R.id.main_activity_emoji_bar);
     }
 
     private void initDirectToolbar(final IChatUser recipient) {

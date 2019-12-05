@@ -75,8 +75,6 @@ public class ConversationListFragment extends Fragment implements
     // no conversations layout
     private RelativeLayout noConversationsLayout;
 
-    private FloatingActionButton addNewConversation;
-
     private LinearLayout subheader;
 
     private TextView currentUserGroups;
@@ -153,8 +151,8 @@ public class ConversationListFragment extends Fragment implements
         toggleNoConversationLayoutVisibility(conversationsListAdapter.getItemCount());
 
         // add new conversations button
-        addNewConversation = (FloatingActionButton) view.findViewById(R.id.button_new_conversation);
-        setAddNewConversationClickBehaviour();
+        //addNewConversation = (FloatingActionButton) view.findViewById(R.id.button_new_conversation);
+        //setAddNewConversationClickBehaviour();
 
         currentUserGroups = view.findViewById(R.id.groups);
         subheader = view.findViewById(R.id.subheader);
@@ -218,7 +216,7 @@ public class ConversationListFragment extends Fragment implements
     }
 
     // check if the support account is enabled or not and assign the listener
-    private void setAddNewConversationClickBehaviour() {
+    /*private void setAddNewConversationClickBehaviour() {
         Log.d(TAG, "ConversationListFragment.setAddNewConversationClickBehaviour");
 
         addNewConversation.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +227,7 @@ public class ConversationListFragment extends Fragment implements
                 }
             }
         });
-    }
+    }*/
 
     // toggle the no conversation layout visibilty.
     // if there are items show the list of item, otherwise show a placeholder layout

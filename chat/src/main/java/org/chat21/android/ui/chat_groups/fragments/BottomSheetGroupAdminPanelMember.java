@@ -89,11 +89,11 @@ public class BottomSheetGroupAdminPanelMember extends BottomSheetDialogFragment 
         Log.i(TAG, "registerViews");
 
         // contact username
-        TextView username = (TextView) rootView.findViewById(R.id.username);
+        TextView username = rootView.findViewById(R.id.username);
         username.setText(groupMember.getFullName());
 
         // remove member
-        removeMember = (Button) rootView.findViewById(R.id.btn_remove_member);
+        removeMember = rootView.findViewById(R.id.btn_remove_member);
         removeMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +102,7 @@ public class BottomSheetGroupAdminPanelMember extends BottomSheetDialogFragment 
         });
 
         // see profile
-        Button seeProfile = (Button) rootView.findViewById(R.id.btn_see_profile);
+        Button seeProfile = rootView.findViewById(R.id.btn_see_profile);
         if (!groupMember.equals(loggedUser)) {
             seeProfile.setVisibility(View.VISIBLE);
             seeProfile.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class BottomSheetGroupAdminPanelMember extends BottomSheetDialogFragment 
         }
 
         // send direct message
-        Button sendMessage = (Button) rootView.findViewById(R.id.btn_send_message);
+        Button sendMessage = rootView.findViewById(R.id.btn_send_message);
         if (!groupMember.equals(loggedUser)) {
             sendMessage.setVisibility(View.VISIBLE);
             sendMessage.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class BottomSheetGroupAdminPanelMember extends BottomSheetDialogFragment 
         }
 
         // cancel
-        Button cancel = (Button) rootView.findViewById(R.id.btn_cancel);
+        Button cancel = rootView.findViewById(R.id.btn_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
