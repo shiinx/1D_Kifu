@@ -22,20 +22,6 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String TAG = "RegisterActivity";
-    private FirebaseAuth mAuth;
-  
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_create:
-                    register();
-                    break;
-            }
-        }
-    };
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String key_username = "username";
     private static final String key_birthday = "birthday";
@@ -44,7 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editBirthday;
     private EditText editLocation;
     private EditText editEmail;
-
+    private static final String TAG = "RegisterActivity";
+    private FirebaseAuth mAuth;
 
 
 
@@ -55,16 +42,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
-        findViewById(R.id.btn_create).setOnClickListener(onClickListener);
-
         findViewById(R.id.btn_create).setOnClickListener(onClickListener);
 
         editUsername = findViewById(R.id.et_name);
         editBirthday = findViewById(R.id.et_birthyear);
         editLocation = findViewById(R.id.et_location);
         editEmail = findViewById(R.id.et_email);
+
 
     }
 
@@ -98,10 +82,27 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_create:
+                    register();
+                    writeFirestore(v);
+                    break;
+            }
+        }
+    };
+
+    
     private void register() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();
         String passwordConfirm = ((EditText) findViewById(R.id.et_confirmpass)).getText().toString();
+        String birthday = ((EditText) findViewById(R.id.et_birthyear)).getText().toString();
+        String username = ((EditText) findViewById(R.id.et_name)).getText().toString();
+        String location = ((EditText) findViewById(R.id.et_location)).getText().toString();
 
         if (email.length() > 0 && password.length() > 0 && passwordConfirm.length() > 0) {
             if (password.equals(passwordConfirm)) {
@@ -113,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     startToast("Congratulations! Your account has been successfully created! Please login.");
                                     startLoginActivity();
+
                                 } else {
                                     if (task.getException() != null) {
                                         startToast(task.getException().toString());
@@ -127,6 +129,8 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             startToast("Please enter your email or password.");
         }
+
+
     }
 
     private void startToast(String msg) {
