@@ -6,23 +6,23 @@ package com.Team3_6.kifu;
 public class AccountItem {
 
 
-    private String Title;
+    private String url;
     private int Picture;
 
     public AccountItem() {
     }
 
     public AccountItem(String title, int picture) {
-        Title = title;
+        url = title;
         Picture = picture;
     }
 
     public String getTitle() {
-        return Title;
+        return url;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public void setTitle(String url) {
+        url = url;
     }
 
     public int getPicture() {

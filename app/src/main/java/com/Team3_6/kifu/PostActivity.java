@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +67,8 @@ public class PostActivity extends AppCompatActivity {
     private DatabaseReference mDataRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

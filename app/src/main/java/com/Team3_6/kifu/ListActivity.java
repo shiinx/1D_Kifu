@@ -39,6 +39,7 @@ public class ListActivity extends AppCompatActivity {
         mCategory = intent.getStringExtra("Category");
         mDataRef = FirebaseStorage.getInstance().getReference().child(mCategory);
 
+
         mUploads = new ArrayList<>();
         mAdapter = new ImageAdapter(ListActivity.this, mUploads);
         mRecyclerView.setAdapter(mAdapter);
