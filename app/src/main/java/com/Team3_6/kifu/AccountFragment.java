@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -79,11 +82,11 @@ public class AccountFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_account, container, false);
+        setHasOptionsMenu(true);
 
         // Initialize Firebase Auth and firestore
         mAuth = FirebaseAuth.getInstance();
@@ -100,21 +103,35 @@ public class AccountFragment extends Fragment {
         // method that displays user info on UI
         LoadUserInformation();
 
-        // Logout Button
-        Button button = rootview.findViewById(R.id.btn_logout);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        startLoginActivity();
-                        break;
-                }
-            }
-        });
         return rootview;
+
+    }
+
+    // to specify options menu for account fragment
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.account_settings, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.btn_logout:
+                FirebaseAuth.getInstance().signOut();
+                startLoginActivity();
+                return true;
+
+            case R.id.editProfile:
+                Intent intent = new Intent(this.getContext(),editProfileActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

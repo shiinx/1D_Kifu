@@ -4,6 +4,12 @@
     android:id="@+id/category_cardview"
     android:layout_width="150dp"
     android:layout_height="170dp"
+
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginTop="25dp"
+    android:layout_marginBottom="10dp"
+
     android:layout_margin="25dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -20,7 +26,9 @@
             android:id="@+id/CardImageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:background="@color/white"/>
             android:background="@color/white" />
+
 
         <TextView
             android:id="@+id/CardTextView"

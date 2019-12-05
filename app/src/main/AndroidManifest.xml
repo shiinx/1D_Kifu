@@ -43,6 +43,10 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
 
+        <activity android:name=".editProfileActivity"
+            android:label="Edit Profile"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

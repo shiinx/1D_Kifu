@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editProfileActivity">
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:paddingVertical="10dp"
+        android:textStyle="bold"/>
+
+
+    <EditText
+        android:id="@+id/username_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edit Username Here"
+        android:layout_marginBottom="15dp"/>
+
+
+    <TextView
+        android:id="@+id/birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Birthday"
+        android:paddingVertical="10dp"
+        android:textStyle="bold"/>
+
+
+    <EditText
+        android:id="@+id/birthday_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edit Birthday here"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/staylocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stay Location"
+        android:paddingVertical="10dp"
+        android:textStyle="bold"/>
+
+
+    <EditText
+        android:id="@+id/staylocation_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edit your location here"
+        android:layout_marginBottom="15dp"/>
+
+
+    <Button
+        android:id="@+id/updatebutt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Profile"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
