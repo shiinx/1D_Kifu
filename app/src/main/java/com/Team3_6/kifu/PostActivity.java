@@ -173,9 +173,10 @@ public class PostActivity extends AppCompatActivity {
                 fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().getResult());
+                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
                         String uploadID = mDataRef.push().getKey();
                         mDataRef.child(uploadID).setValue(upload);
+
                     }
                 });
                 Toast.makeText(this, "Uploaded to " + category, Toast.LENGTH_SHORT).show();

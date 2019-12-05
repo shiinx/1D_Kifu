@@ -1,17 +1,15 @@
 package com.Team3_6.kifu;
 
-import android.net.Uri;
-
 public class Uploads {
     private String mName;
-    private Uri mImageUrl;
+    private String mImageUrl;
     private String mDescriptions;
     private String mCategories;
 
     public Uploads() {
     }
 
-    public Uploads(String name, Uri imageUrl) {
+    public Uploads(String name, String imageUrl) {
         this.mName = name;
         this.mImageUrl = imageUrl;
         /**this.mDescriptions = descriptions;
@@ -26,11 +24,11 @@ public class Uploads {
         this.mName = mName;
     }
 
-    public Uri getmImageUrl() {
+    public String getmImageUrl() {
         return mImageUrl;
     }
 
-    public void setmImageUrl(Uri mImageUrl) {
+    public void setmImageUrl(String mImageUrl) {
         this.mImageUrl = mImageUrl;
     }
 
