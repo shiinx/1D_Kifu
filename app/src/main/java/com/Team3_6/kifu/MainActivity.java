@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
-                // initialise bottom navigation bar
-                bottomNavBar =findViewById(R.id.bottomNavBar);
+        // initialise bottom navigation bar
+        bottomNavBar =findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
 
         // initialise fragments
@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }
+
+
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity (intent);
