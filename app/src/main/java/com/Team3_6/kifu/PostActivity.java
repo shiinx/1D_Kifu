@@ -14,14 +14,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -29,6 +36,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PostActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -93,7 +102,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Electronics.isChecked()) {
-                    categories.add("Electric & Mobile");
+                    categories.add("Electronics");
                 }
                 if (ClothesAndAccessories.isChecked()) {
                     categories.add("Clothes & Accessories");
@@ -152,34 +161,61 @@ public class PostActivity extends AppCompatActivity {
 
 
         for (String category : categories) {
-            int i = 0;
             Log.i("Post", category);
             mStorageRef = FirebaseStorage.getInstance().getReference(category);
-            mDataRef = FirebaseDatabase.getInstance().getReference(category);
-            StorageMetadata metaData = new StorageMetadata.Builder().setContentType("image/jpg").setCustomMetadata("Category", category)
-                    .setCustomMetadata("UserID", currentUser.getEmail()).build();
-
             if (mImageUri != null && !TextUtils.isEmpty(mEditTextTitle.getText())) {
+                final StorageReference fileRef = mStorageRef.child(mEditTextTitle.getText().toString() + "." + getFileExtension(mImageUri));
+                // Register observers to listen for when the download is done or if it fails
 
-                StorageReference fileRef = mStorageRef.child(mEditTextTitle.getText().toString() + "." + getFileExtension(mImageUri));
-                fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                UploadTask uploadTask = fileRef.putFile(mImageUri);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uploads upload = new Uploads(mEditTextTitle.getText().toString().trim(), taskSnapshot.getMetadata().getReference().getDownloadUrl().getResult());
-                        String uploadID = mDataRef.push().getKey();
-                        mDataRef.child(uploadID).setValue(upload);
+
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+
                     }
                 });
-                Toast.makeText(this, "Uploaded to " + category, Toast.LENGTH_SHORT).show();
-                goToMainActivity();
+                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+
+                        // Continue with the task to get the download URL
+                        return fileRef.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            Map<String, Object> uriData = new HashMap<>();
+                            uriData.put("uri", downloadUri.toString());
+
+                            FirebaseFirestore fs = FirebaseFirestore.getInstance();
+                            DocumentReference df = fs.collection("Images").document(mAuth.getCurrentUser().getEmail());
+                            df.set(uriData)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            finish();
+                                        }
+                                    });
+                        }
+                    }
+                });
+                Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    public void goToMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
     }
 }
