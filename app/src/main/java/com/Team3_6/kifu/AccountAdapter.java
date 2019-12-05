@@ -2,7 +2,6 @@ package com.Team3_6.kifu;
 
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-/** class for displaying recycler view and card view in account fragment
- *  class help show items posted by current user
+/**
+ * class for displaying recycler view and card view in account fragment
+ * class help show items posted by current user
  */
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
@@ -35,7 +35,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(aContext);
-        view = mInflater.inflate(R.layout.account_item,parent,false);
+        view = mInflater.inflate(R.layout.account_item, parent, false);
 
         return new AccountAdapter.AccountViewHolder(view);
     }
@@ -50,7 +50,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         return aList.size();
     }
 
-    public static class AccountViewHolder extends RecyclerView.ViewHolder{
+    public static class AccountViewHolder extends RecyclerView.ViewHolder {
 
         TextView aItemTitle;
         ImageView aItemImage;
@@ -65,8 +65,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
         }
     }
-
-
 
 
 }

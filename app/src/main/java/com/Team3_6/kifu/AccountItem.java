@@ -1,7 +1,7 @@
 package com.Team3_6.kifu;
 
-/**class for cardview in account fragment
- *
+/**
+ * class for cardview in account fragment
  */
 public class AccountItem {
 
@@ -25,11 +25,11 @@ public class AccountItem {
         Title = title;
     }
 
-    public void setPicture(int picture) {
-        Picture = picture;
-    }
-
     public int getPicture() {
         return Picture;
+    }
+
+    public void setPicture(int picture) {
+        Picture = picture;
     }
 }

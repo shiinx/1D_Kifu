@@ -17,12 +17,12 @@ public class Category {
         return Title;
     }
 
-    public int getPicture() {
-        return Picture;
-    }
-
     public void setTitle(String title) {
         Title = title;
+    }
+
+    public int getPicture() {
+        return Picture;
     }
 
     public void setPicture(int picture) {

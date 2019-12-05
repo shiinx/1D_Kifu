@@ -70,58 +70,80 @@ public class PostActivity extends AppCompatActivity {
         HomeAppliances = findViewById(R.id.home_appliances);
         Gardening = findViewById(R.id.gardening);
         MusicAndMedia = findViewById(R.id.music_and_media);
-        ToysAndGames =  findViewById(R.id.toys_and_games);
+        ToysAndGames = findViewById(R.id.toys_and_games);
         BicyclesAndPMDs = findViewById(R.id.bicycles_and_pmds);
         Others = findViewById(R.id.others);
         categories = new ArrayList<>();
 
 
-        for(String category:categories){
+        for (String category : categories) {
             mStorageRef = FirebaseStorage.getInstance().getReference(category);
             mDataRef = FirebaseDatabase.getInstance().getReference(category);
 
-        mButtonSelectImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
-            }
-        });
-        mButtonPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ElectricAndMobile.isChecked()){categories.add("Electric and Mobile");}
-                if(ClothesAndAccessories.isChecked()){categories.add("Clothes and Accessories");}
-                if (Furniture.isChecked()){categories.add("Furniture");}
-                if (BooksAndStationery.isChecked()){categories.add("Books and Stationery");}
-                if (HomeAppliances.isChecked()){categories.add("Home Appliances");}
-                if (Gardening.isChecked()){categories.add("Gardening");}
-                if (MusicAndMedia.isChecked()){categories.add("Music and Media");}
-                if (ToysAndGames.isChecked()){categories.add("Toys and Games");}
-                if (BicyclesAndPMDs.isChecked()){categories.add("Bicycles and PMDs");}
-                if (Others.isChecked()){categories.add("Others");}
-                uploadFile();
-                /**also wanna implement goToHomeFragment(); but unsure of how to do so*/
-            }
-        });
+            mButtonSelectImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openFileChooser();
+                }
+            });
+            mButtonPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ElectricAndMobile.isChecked()) {
+                        categories.add("Electric and Mobile");
+                    }
+                    if (ClothesAndAccessories.isChecked()) {
+                        categories.add("Clothes and Accessories");
+                    }
+                    if (Furniture.isChecked()) {
+                        categories.add("Furniture");
+                    }
+                    if (BooksAndStationery.isChecked()) {
+                        categories.add("Books and Stationery");
+                    }
+                    if (HomeAppliances.isChecked()) {
+                        categories.add("Home Appliances");
+                    }
+                    if (Gardening.isChecked()) {
+                        categories.add("Gardening");
+                    }
+                    if (MusicAndMedia.isChecked()) {
+                        categories.add("Music and Media");
+                    }
+                    if (ToysAndGames.isChecked()) {
+                        categories.add("Toys and Games");
+                    }
+                    if (BicyclesAndPMDs.isChecked()) {
+                        categories.add("Bicycles and PMDs");
+                    }
+                    if (Others.isChecked()) {
+                        categories.add("Others");
+                    }
+                    uploadFile();
+                    /**also wanna implement goToHomeFragment(); but unsure of how to do so*/
+                }
+            });
 
         }
     }
-    private void openFileChooser(){
+
+    private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-    /**@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-        && data != null && data.getData() != null){
-            mImageUri = data.getData();
-            Picasso.with(this).load(mImageUri).into(imageView);
-        }
-    }*/
+    /**
+     * @Override protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+     * super.onActivityResult(requestCode, resultCode, data);
+     * if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+     * && data != null && data.getData() != null){
+     * mImageUri = data.getData();
+     * Picasso.with(this).load(mImageUri).into(imageView);
+     * }
+     * }
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -129,13 +151,14 @@ public class PostActivity extends AppCompatActivity {
         Picasso.with(this).load(mImageUri).into(imageView);
     }
 
-    private String getFileExtension(Uri uri){
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-    private void uploadFile(){
-        if(mImageUri != null){
+
+    private void uploadFile() {
+        if (mImageUri != null) {
             StorageReference fileRef = mStorageRef.child(mEditTextTitle.getText().toString() + "." + getFileExtension(mImageUri));
             fileRef.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -146,11 +169,12 @@ public class PostActivity extends AppCompatActivity {
 
                 }
             });
-        }else{
+        } else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
-    private void goToHomeFragment(){
+
+    private void goToHomeFragment() {
         Intent i = new Intent(this, HomeFragment.class);
         startActivity(i);
     }

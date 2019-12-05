@@ -27,7 +27,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="What's your email?"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Create a password"
+        android:hint="Password"
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/et_email"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Confirm your password"
+        android:hint="Confirm password"
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/et_pass"
@@ -61,54 +61,39 @@
         app:layout_constraintTop_toBottomOf="@+id/et_pass" />
 
     <EditText
-        android:id="@+id/et_birthyear"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="What's your birth year? (DD/MM/YY)"
-        android:inputType="textPersonName"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_confirmpass"
-        app:layout_constraintStart_toStartOf="@+id/et_confirmpass"
-        app:layout_constraintTop_toBottomOf="@+id/et_confirmpass" />
-
-    <EditText
         android:id="@+id/et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="What's your username?"
+        android:hint="Username"
         android:inputType="textPersonName"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_birthyear"
-        app:layout_constraintStart_toStartOf="@+id/et_birthyear"
-        app:layout_constraintTop_toBottomOf="@+id/et_birthyear" />
+        app:layout_constraintEnd_toEndOf="@+id/et_confirmpass"
+        app:layout_constraintStart_toStartOf="@+id/et_confirmpass"
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmpass" />
 
-    <EditText
-        android:id="@+id/et_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <Spinner
+        android:id="@+id/spn_location"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Where do you stay?"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
+        android:entries="@array/Location"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="@+id/et_name"
         app:layout_constraintStart_toStartOf="@+id/et_name"
-        app:layout_constraintTop_toBottomOf="@+id/et_name"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
     <Button
         android:id="@+id/btn_create"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Create"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_location"
-        app:layout_constraintStart_toStartOf="@+id/et_location"
-        app:layout_constraintTop_toBottomOf="@+id/et_location" />
+        app:layout_constraintEnd_toEndOf="@+id/spn_location"
+        app:layout_constraintStart_toStartOf="@+id/spn_location"
+        app:layout_constraintTop_toBottomOf="@+id/spn_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

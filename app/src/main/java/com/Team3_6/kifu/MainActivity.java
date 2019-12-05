@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
-    private void goToPostActivity(){
+
+    private void goToPostActivity() {
         Intent i = new Intent(this, PostActivity.class);
         startActivity(i);
     }
