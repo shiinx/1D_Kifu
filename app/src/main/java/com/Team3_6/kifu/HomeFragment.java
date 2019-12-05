@@ -54,14 +54,14 @@ public class HomeFragment extends Fragment {
 
         // add all the categories
         lstCategory = new ArrayList<Category>();
-        lstCategory.add(new Category("Books & Stationery", R.drawable.books));
-        lstCategory.add(new Category("Clothes & Accessories", R.drawable.clothes));
-        lstCategory.add(new Category("Electronics", R.drawable.electronics));
-        lstCategory.add(new Category("Furniture", R.drawable.furniture));
-        lstCategory.add(new Category("Gardening", R.drawable.garderning));
-        lstCategory.add(new Category("Home Appliances", R.drawable.homeappliances));
-        lstCategory.add(new Category("Toys & Games", R.drawable.toys));
-        lstCategory.add(new Category("Others", R.drawable.others));
+        lstCategory.add(new Category("Books & Stationery", R.drawable.stationery));
+        lstCategory.add(new Category("Clothes & Accessories", R.drawable.clothes2));
+        lstCategory.add(new Category("Electronics", R.drawable.electronics2));
+        lstCategory.add(new Category("Furniture", R.drawable.furniture2));
+        lstCategory.add(new Category("Gardening", R.drawable.garderning2));
+        lstCategory.add(new Category("Home Appliances", R.drawable.homeappliance));
+        lstCategory.add(new Category("Toys & Games", R.drawable.toy));
+        lstCategory.add(new Category("Others", R.drawable.misc));
 
         RecyclerView MenuRecyclerView = rootview.findViewById(R.id.menu_recycler_view);
         MenuAdapter menuAdapter = new MenuAdapter(getActivity(), lstCategory);
