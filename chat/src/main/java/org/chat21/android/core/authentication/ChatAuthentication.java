@@ -403,13 +403,10 @@ public final class ChatAuthentication {
     private boolean checkPlayServices(Context context) {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(context);
-        if (result != ConnectionResult.SUCCESS) {
-            //Google Play Services app is not available or version is not up to date. Error the
-            // error condition here
-            return false;
-        }
+        //Google Play Services app is not available or version is not up to date. Error the
+        // error condition here
+        return result == ConnectionResult.SUCCESS;
         //Google Play Services is available. Return true.
-        return true;
     }
 
     public void signOut(final String appId, final OnChatLogoutCallback onChatLogoutCallback) {

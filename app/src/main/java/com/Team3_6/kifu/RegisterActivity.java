@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String key_username = "username";
     private static final String key_birthday = "birthday";
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editBirthday;
     private EditText editLocation;
     private EditText editEmail;
+
 
 
 
@@ -86,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -97,6 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     };
+
+
 
     private void register() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
@@ -135,12 +140,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void startToast (String msg) {
+    private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity (intent);
+        startActivity(intent);
     }
 }

@@ -19,11 +19,6 @@ public class ArchivedConversationListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_archived_conversation_list);
 
-        // #### BEGIN TOOLBAR ####
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        // #### END  TOOLBAR ####
 
         // #### BEGIN CONTAINER ####
         getSupportFragmentManager()
