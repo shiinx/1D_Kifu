@@ -40,15 +40,13 @@ public class PostActivity extends AppCompatActivity {
     private ImageView imageView;
 
     private ArrayList<String> categories;
-    private CheckBox ElectricAndMobile;
+    private CheckBox Electronics;
     private CheckBox ClothesAndAccessories;
     private CheckBox Furniture;
     private CheckBox BooksAndStationery;
     private CheckBox HomeAppliances;
     private CheckBox Gardening;
-    private CheckBox MusicAndMedia;
     private CheckBox ToysAndGames;
-    private CheckBox BicyclesAndPMDs;
     private CheckBox Others;
 
 
@@ -74,15 +72,15 @@ public class PostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        ElectricAndMobile = findViewById(R.id.electric_and_mobile);
+        Electronics = findViewById(R.id.electronics);
         ClothesAndAccessories = findViewById(R.id.clothes_and_accessories);
         Furniture = findViewById(R.id.furniture);
         BooksAndStationery = findViewById(R.id.books_and_stationery);
         HomeAppliances = findViewById(R.id.home_appliances);
         Gardening = findViewById(R.id.gardening);
-        MusicAndMedia = findViewById(R.id.music_and_media);
+
         ToysAndGames = findViewById(R.id.toys_and_games);
-        BicyclesAndPMDs = findViewById(R.id.bicycles_and_pmds);
+
         Others = findViewById(R.id.others);
         categories = new ArrayList<>();
 
@@ -96,7 +94,7 @@ public class PostActivity extends AppCompatActivity {
         mButtonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ElectricAndMobile.isChecked()) {
+                if (Electronics.isChecked()) {
                     categories.add("Electric & Mobile");
                 }
                 if (ClothesAndAccessories.isChecked()) {
@@ -114,15 +112,11 @@ public class PostActivity extends AppCompatActivity {
                 if (Gardening.isChecked()) {
                     categories.add("Gardening");
                 }
-                if (MusicAndMedia.isChecked()) {
-                    categories.add("Music & Media");
-                }
+
                 if (ToysAndGames.isChecked()) {
                     categories.add("Toys & Games");
                 }
-                if (BicyclesAndPMDs.isChecked()) {
-                    categories.add("Bicycles & PMDs");
-                }
+
                 if (Others.isChecked()) {
                     categories.add("Others");
                 }
