@@ -1,6 +1,7 @@
 package com.Team3_6.kifu;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -38,58 +41,46 @@ public class ListActivity extends AppCompatActivity {
 
 
         mUploads = new ArrayList<>();
+        mAdapter = new ImageAdapter(ListActivity.this, mUploads);
+        mRecyclerView.setAdapter(mAdapter);
+
+
         // ImageView in your Activity
-        ImageView imageView = findViewById(R.id.smth);
 
         // Download directly from StorageReference using Glide
         // (See MyAppGlideModule for Loader registration)
-        Glide.with(this)
-                .load(mDataRef)
-                .into(imageView);
-        /*mDataRef.listAll()
+        mDataRef.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
-                    public void onSuccess(ListResult listResult) {
-                        for (StorageReference item : listResult.getItems()) {
-                            upload = new Uploads();
-                            // All the items under listRef.
-                            upload.setmName(item.getName());
-                            Log.e("ListActivityLog", item.getName());
-                            Log.i("ListActivityLog", item.getPath());
-                            item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    upload.setmImageUrl(uri.toString());
-                                    Log.e("ListActivityLog", uri.toString());
-                                    Log.i("ListActivityLog", upload.getmImageUrl());
-                                }
-                            });
-                            mUploads.add(upload);
+                    public void onSuccess(final ListResult listResult) {
+                        for (final StorageReference item : listResult.getItems()) {
+                            if(!item.getName().startsWith("thumb_")){
+                                item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        upload = new Uploads();
+                                        String checkThumb = item.getName();
+                                        String firstsixcheckthumb = "";
+                                        for (int i = 0; i < 6; i++) {
+                                            char c = checkThumb.charAt(i);
+                                            String s = Character.toString(c);
+                                            firstsixcheckthumb += s;
+                                        }
+                                        String thumb = "thumb_";
+                                        if (!firstsixcheckthumb.equals(thumb)){
+                                            upload.setmName(item.getName());
+                                            upload.setmImageUrl(uri);
+                                            mUploads.add(upload);
+                                            mAdapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                });
+                            }
                         }
                         if(mUploads.isEmpty()){
                             Log.i("ListActivityLog", "emptyyyy");
                         }
-                        mAdapter = new ImageAdapter(ListActivity.this, mUploads);
-                        mRecyclerView.setAdapter(mAdapter);
                     }
-                });*/
-        /*mDataRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Uploads upload = postSnapshot.getValue(Uploads.class);
-                    mUploads.add(upload);
-                }
-
-                mAdapter = new ImageAdapter(ListActivity.this, mUploads);
-                mRecyclerView.setAdapter(mAdapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ListActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
+                });
     }
 }

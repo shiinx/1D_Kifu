@@ -1,6 +1,7 @@
 package com.Team3_6.kifu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,19 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Uploads uploadCurrent = mUploads.get(position);
+        final Uploads uploadCurrent = mUploads.get(position);
         holder.textViewTitle.setText(uploadCurrent.getmName());
 
         Glide.with(mContext).load(uploadCurrent.getmImageUrl()).centerCrop().into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, GalleryActivity.class);
+                i.putExtra("image_url", uploadCurrent.toString());
+                i.putExtra("image_title", uploadCurrent.getmName().toString());
+                mContext.startActivity(i);
+            }
+        });
 
     }
 
@@ -59,4 +69,5 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         }
     }
+
 }
