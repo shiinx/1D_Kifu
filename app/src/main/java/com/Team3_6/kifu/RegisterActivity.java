@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editUsername;
     private EditText editBirthday;
     private EditText editLocation;
+    private EditText  editEmail;
 
 
 
@@ -51,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         editUsername = findViewById(R.id.et_name);
         editBirthday = findViewById(R.id.et_birthyear);
         editLocation = findViewById(R.id.et_location);
+        editEmail = findViewById(R.id.et_email);
 
     }
 
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         String username = editUsername.getText().toString();
         String birthday = editBirthday.getText().toString();
         String location = editLocation.getText().toString();
+        String email = editEmail.getText().toString();
 
         Map<String, Object> data = new HashMap<>();
         data.put(key_username, username);
@@ -67,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         // Add a new document with a generated ID
-        db.collection("Users").document(username).set(data)
+        db.collection("Users").document(email).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
