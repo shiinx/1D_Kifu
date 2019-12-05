@@ -87,18 +87,18 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
 
 //        Log.d(DEBUG_LOGIN, "ChatLoginActivity.onCreate: auth state listener created ");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        vLogin = (Button) findViewById(R.id.login);
+        vLogin = findViewById(R.id.login);
         vLogin.setOnClickListener(this);
 
-        vSignUp = (Button) findViewById(R.id.signup);
+        vSignUp = findViewById(R.id.signup);
         vSignUp.setOnClickListener(this);
 
-        vEmail = (EditText) findViewById(R.id.email);
-        vPassword = (EditText) findViewById(R.id.password);
+        vEmail = findViewById(R.id.email);
+        vPassword = findViewById(R.id.password);
         initPasswordIMEAction();
     }
 

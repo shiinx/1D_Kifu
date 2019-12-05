@@ -58,8 +58,8 @@ public class ContactListActivity extends AppCompatActivity implements OnContactC
         // #### BEGIN CONTAINER ####
 
         // #### BEGIN BOX CREATE GROUP ####
-        mBoxCreateGroup = (LinearLayout) findViewById(R.id.box_create_group);
-        mGroupIcon = (ImageView) findViewById(R.id.group_icon);
+        mBoxCreateGroup = findViewById(R.id.box_create_group);
+        mGroupIcon = findViewById(R.id.group_icon);
         initBoxCreateGroup();
         // #### BEGIN BOX CREATE GROUP ####
     }

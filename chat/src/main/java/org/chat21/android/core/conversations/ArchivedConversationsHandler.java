@@ -113,9 +113,7 @@ public class ArchivedConversationsHandler {
                             } else {
                                 // if the unread conversations list contains
                                 // the conversation remove it
-                                if (unreadConversations.contains(conversation)) {
-                                    unreadConversations.remove(conversation);
-                                }
+                                unreadConversations.remove(conversation);
                             }
 
                             // notify to all subscribers that the unread conversations list changed
