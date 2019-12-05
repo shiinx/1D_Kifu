@@ -3,7 +3,10 @@ package com.Team3_6.kifu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,9 +30,11 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText editUsername;
-    private EditText editLocation;
     private EditText editEmail;
+    private Spinner spinnerLocation;
+    private String finalLocation;
     private FirebaseAuth mAuth;
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -52,18 +57,32 @@ public class RegisterActivity extends AppCompatActivity {
         findViewById(R.id.btn_create).setOnClickListener(onClickListener);
 
         editUsername = findViewById(R.id.et_name);
-        editLocation = findViewById(R.id.et_location);
         editEmail = findViewById(R.id.et_email);
+        spinnerLocation = (Spinner)findViewById(R.id.spn_location);
+
+
+
+        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                finalLocation = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
 
     private void writeFirestore(View v) {
         String username = editUsername.getText().toString();
-        String location = editLocation.getText().toString();
         String email = editEmail.getText().toString();
 
         Map<String, Object> data = new HashMap<>();
         data.put(key_username, username);
-        data.put(key_location, location);
+        data.put(key_location, finalLocation);
 
 
         // Add a new document with a generated ID
@@ -88,36 +107,40 @@ public class RegisterActivity extends AppCompatActivity {
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();
         String passwordConfirm = ((EditText) findViewById(R.id.et_confirmpass)).getText().toString();
         String username = ((EditText) findViewById(R.id.et_name)).getText().toString();
-        String location = ((EditText) findViewById(R.id.et_location)).getText().toString();
+        String chosenLocation = ((Spinner)findViewById(R.id.spn_location)).getSelectedItem().toString();
 
-        if (email.length() > 0 && password.length() > 0 && passwordConfirm.length() > 0) {
-            if (password.equals(passwordConfirm)) {
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    startToast("Congratulations! Your account has been successfully created! Please login.");
-                                    startLoginActivity();
+        if (email.length() > 0 && password.length() > 0 && passwordConfirm.length() > 0 && username.length() > 0) {
+            if (chosenLocation.equals("Location")) {
+                startToast("Please choose your location.");
+            } else {
+                if (password.equals(passwordConfirm)) {
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        startToast("Congratulations! Your account has been successfully created! Please login.");
+                                        startLoginActivity();
 
-                                } else {
-                                    if (task.getException() != null) {
-                                        startToast(task.getException().toString());
+                                    } else {
+                                        if (task.getException() != null) {
+                                            startToast(task.getException().toString());
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
 
-            } else {
-                startToast("Passwords do not match. Please check again.");
+                } else {
+                    startToast("Passwords do not match. Please check again.");
+                }
             }
         } else {
-            startToast("Please enter your email or password.");
+            startToast("Please enter your email, password, username and location.");
         }
-
-
     }
+
+
 
     private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
