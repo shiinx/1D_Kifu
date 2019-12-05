@@ -1,16 +1,15 @@
 package com.Team3_6.kifu;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     AccountFragment accountFragment;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frameLayout, mFragment).commit();
 
         // initialise bottom navigation bar
-        bottomNavBar =findViewById(R.id.bottomNavBar);
+        bottomNavBar = findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frameLayout);
 
         ChatManager.Configuration mChatConfiguration =
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // switch between different fragments
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_home:
                         LoadFragment(homeFragment);
                         //findViewById(R.id.mainact).setVisibility(View.VISIBLE);
@@ -101,15 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     // methods to change to other fragments
-    private void LoadFragment(Fragment fragment){
+    private void LoadFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //findViewById(R.id.mainact).setVisibility(View.GONE);
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity (intent);
+        startActivity(intent);
     }
 
     @Override
@@ -132,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private  IChatUser convertFirebaseUserToChatUser (FirebaseUser firebaseUser) {
-        if (firebaseUser!=null){
+    private IChatUser convertFirebaseUserToChatUser(FirebaseUser firebaseUser) {
+        if (firebaseUser != null) {
             return new ChatUser(firebaseUser.getUid(), firebaseUser.getDisplayName());
-        }else {
+        } else {
             return null;
         }
     }

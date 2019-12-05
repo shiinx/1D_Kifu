@@ -19,6 +19,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_create:
+                    register();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_create:
-                    register();
-                    break;
-            }
-        }
-    };
 
     private void register() {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
@@ -80,12 +79,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void startToast (String msg) {
+    private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity (intent);
+        startActivity(intent);
     }
 }

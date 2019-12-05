@@ -88,7 +88,7 @@ public class ChatManager {
 
     public boolean isUserLogged() {
         Log.d(TAG, "ChatManager.isUserLogged");
-        boolean isUserLogged = getLoggedUser() != null ? true : false;
+        boolean isUserLogged = getLoggedUser() != null;
         Log.d(TAG, "ChatManager.isUserLogged: isUserLogged == " + isUserLogged);
         return isUserLogged;
     }
@@ -278,10 +278,10 @@ public class ChatManager {
 //        IOUtils.saveObjectToFile(context, _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER, currentUser);
         chat.setLoggedUser(currentUser);
 
-        chat.appId = configuration.appId;
+        chat.appId = Configuration.appId;
 
         // serialize the appId
-        IOUtils.saveObjectToFile(context, _SERIALIZED_CHAT_CONFIGURATION_TENANT, configuration.appId);
+        IOUtils.saveObjectToFile(context, _SERIALIZED_CHAT_CONFIGURATION_TENANT, Configuration.appId);
 
         chat.initContactsSyncronizer();
 
@@ -606,9 +606,9 @@ public class ChatManager {
         public Configuration(Builder builder) {
             Log.v(TAG, "Configuration constructor called");
 
-            this.appId = builder.mAppId;
-            this.firebaseUrl = builder.mFirebaseUrl;
-            this.storageBucket = builder.mStorageBucket;
+            appId = builder.mAppId;
+            firebaseUrl = builder.mFirebaseUrl;
+            storageBucket = builder.mStorageBucket;
         }
 
         /**

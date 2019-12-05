@@ -46,13 +46,13 @@ class RecipientViewHolder extends RecyclerView.ViewHolder {
 
     RecipientViewHolder(View itemView) {
         super(itemView);
-        mMessage = (EmojiTextView) itemView.findViewById(R.id.message);
-        mDate = (TextView) itemView.findViewById(R.id.date);
-        mTimestamp = (TextView) itemView.findViewById(R.id.timestamp);
+        mMessage = itemView.findViewById(R.id.message);
+        mDate = itemView.findViewById(R.id.date);
+        mTimestamp = itemView.findViewById(R.id.timestamp);
         mBackgroundBubble = itemView.findViewById(R.id.message_group);
-        mSenderDisplayName = (TextView) itemView.findViewById(R.id.sender_display_name);
-        mPreview = (ImageView) itemView.findViewById(R.id.preview); // Resolve Issue #32
-        mProgressBar = (ProgressBar) itemView.findViewById(R.id.progress);  // Resolve Issue #52
+        mSenderDisplayName = itemView.findViewById(R.id.sender_display_name);
+        mPreview = itemView.findViewById(R.id.preview); // Resolve Issue #32
+        mProgressBar = itemView.findViewById(R.id.progress);  // Resolve Issue #52
     }
 
     void bind(final Message previousMessage, final Message message,
