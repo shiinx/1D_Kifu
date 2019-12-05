@@ -53,7 +53,8 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(final ListResult listResult) {
                         for (final StorageReference item : listResult.getItems()) {
-                            item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            if(!item.getName().startsWith("thumb_")){
+                                item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         upload = new Uploads();
@@ -71,10 +72,9 @@ public class ListActivity extends AppCompatActivity {
                                             mUploads.add(upload);
                                             mAdapter.notifyDataSetChanged();
                                         }
-
-
                                     }
                                 });
+                            }
                         }
                         if(mUploads.isEmpty()){
                             Log.i("ListActivityLog", "emptyyyy");
