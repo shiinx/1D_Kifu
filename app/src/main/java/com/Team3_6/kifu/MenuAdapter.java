@@ -46,7 +46,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         holder.categoryCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ClothesList.class);
+                Intent intent = new Intent(mContext, ListActivity.class);
                 mContext.startActivity(intent);
             }
         });

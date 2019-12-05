@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         //findViewById(R.id.mainact).setVisibility(View.VISIBLE);
                         return true;
                     case R.id.navigation_post:
-                        LoadFragment(postFragment);
+                        goToPostActivity();
                         return true;
                     case R.id.navigation_chat:
                         LoadFragment(chatFragment);
@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         //findViewById(R.id.mainact).setVisibility(View.GONE);
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
+    }
+    private void goToPostActivity(){
+        Intent i = new Intent(this, PostActivity.class);
+        startActivity(i);
     }
 
 
