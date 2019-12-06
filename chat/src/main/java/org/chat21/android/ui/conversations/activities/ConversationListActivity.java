@@ -1,6 +1,7 @@
 package org.chat21.android.ui.conversations.activities;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 

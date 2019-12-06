@@ -1,9 +1,10 @@
 package org.chat21.android.ui.messages.adapters;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -20,11 +21,10 @@ import java.util.List;
  */
 public class MessageListAdapter extends AbstractRecyclerAdapter<Message, RecyclerView.ViewHolder> {
 
+    private static final String TAG = MessageListAdapter.class.getName();
     private IChatUser loggedUser;
     private String sender;
     private OnMessageClickListener onMessageClickListener;
-
-    private static final String TAG = MessageListAdapter.class.getName();
 
     public MessageListAdapter(Context context, List<Message> items) {
         super(context, items);
@@ -61,7 +61,7 @@ public class MessageListAdapter extends AbstractRecyclerAdapter<Message, Recycle
                 StringUtils.isValid(messageSubType) && messageSubType.equals("info") ||
                 message.getType().equals("info/support") ||
                 StringUtils.isValid(messageSubType) && messageSubType.equals("info/support")
-                ) {
+        ) {
             viewType = R.id.row_system;
         } else {
             viewType = R.id.row_recipient;

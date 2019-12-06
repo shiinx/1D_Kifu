@@ -2,13 +2,6 @@ package org.chat21.android.ui.conversations.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +12,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GetTokenResult;
@@ -188,17 +188,17 @@ public class ConversationListFragment extends Fragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-       int itemId =  item.getItemId();
+        int itemId = item.getItemId();
 
-       if(itemId == R.id.action_archived) {
+        if (itemId == R.id.action_archived) {
 
 //           Toast.makeText(getActivity(), "action archived clicked", Toast.LENGTH_SHORT).show();
 
-           Intent i = new Intent(getActivity(), ArchivedConversationListActivity.class);
-           startActivity(i);
+            Intent i = new Intent(getActivity(), ArchivedConversationListActivity.class);
+            startActivity(i);
 
-           return true;
-       }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -1,7 +1,5 @@
 package org.chat21.android.core.chat_groups.models;
 
-import android.util.Log;
-
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
@@ -120,7 +118,7 @@ public class ChatGroup implements Serializable {
                 // add user id
                 // TODO: 30/04/18 hardcoded username "system"
 //                Log.d("entry", entry.toString());
-                if(!entry.getKey().equals("system")) {
+                if (!entry.getKey().equals("system")) {
                     patchedMembers.add(new ChatUser(entry.getKey(), ""));
                 }
             }

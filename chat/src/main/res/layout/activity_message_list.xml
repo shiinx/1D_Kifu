@@ -29,7 +29,7 @@
             <include layout="@layout/layout_toolbar_message_list" />
 
         </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout >
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_activity_recycler_view"
@@ -74,12 +74,12 @@
         <com.vanniktech.emoji.EmojiEditText
             android:id="@+id/main_activity_chat_bottom_message_edittext"
             android:layout_width="0dp"
-            app:emojiSize="@dimen/chat_activity_message_list_last_message_emoji_size"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:imeOptions="actionSend|flagNoExtractUi"
             android:inputType="textCapSentences|textMultiLine"
-            android:maxLines="3" />
+            android:maxLines="3"
+            app:emojiSize="@dimen/chat_activity_message_list_last_message_emoji_size" />
 
         <ImageView
             android:id="@+id/main_activity_send"

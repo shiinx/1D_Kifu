@@ -14,12 +14,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import org.chat21.android.core.ChatManager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import org.chat21.android.core.ChatManager;
 
 /**
  * Created by stefanodp91 on 02/08/17.
@@ -29,29 +29,22 @@ public class ImageCompressor {
         new Compressor.CompressorTask(contentResolver, callback).execute(uri);
     }
 
-    private static class Compressor {
-        private static class CompressorTask extends AsyncTask<Uri, Uri, Uri> {
-            private ContentResolver contentResolver;
-            private OnImageCompressListener callback;
-
-            private CompressorTask(ContentResolver contentResolver, OnImageCompressListener callback) {
-                this.contentResolver = contentResolver;
-                this.callback = callback;
-            }
-
-            @Override
-            protected Uri doInBackground(Uri... uris) {
-                return compressImage(contentResolver, uris[0]);
-            }
-
-            @Override
-            protected void onPostExecute(Uri path) {
-                // super.onPostExecute(s);
-                callback.onImageCompressed(path);
-            }
+    private static String getRealPathFromURI(ContentResolver contentResolver, Uri contentUri) {
+        Cursor cursor = contentResolver.query(contentUri, null, null, null, null);
+        if (cursor == null) {
+            return contentUri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(index);
         }
+    }
 
+    public interface OnImageCompressListener {
+        void onImageCompressed(Uri path);
+    }
 
+    private static class Compressor {
         private static Uri compressImage(ContentResolver contentResolver, Uri imageUri) {
             String filePath = getRealPathFromURI(contentResolver, imageUri);
             Bitmap scaledBitmap = null;
@@ -197,20 +190,26 @@ public class ImageCompressor {
             String uriSting = (file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
             return uriSting;
         }
-    }
 
-    private static String getRealPathFromURI(ContentResolver contentResolver, Uri contentUri) {
-        Cursor cursor = contentResolver.query(contentUri, null, null, null, null);
-        if (cursor == null) {
-            return contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(index);
+        private static class CompressorTask extends AsyncTask<Uri, Uri, Uri> {
+            private ContentResolver contentResolver;
+            private OnImageCompressListener callback;
+
+            private CompressorTask(ContentResolver contentResolver, OnImageCompressListener callback) {
+                this.contentResolver = contentResolver;
+                this.callback = callback;
+            }
+
+            @Override
+            protected Uri doInBackground(Uri... uris) {
+                return compressImage(contentResolver, uris[0]);
+            }
+
+            @Override
+            protected void onPostExecute(Uri path) {
+                // super.onPostExecute(s);
+                callback.onImageCompressed(path);
+            }
         }
-    }
-
-    public interface OnImageCompressListener {
-        void onImageCompressed(Uri path);
     }
 }

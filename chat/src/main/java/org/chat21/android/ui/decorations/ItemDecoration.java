@@ -4,11 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.view.View;
+
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.View;
 
 /**
  * Created by stefanodp91 on 27/02/18.
@@ -16,9 +17,9 @@ import android.view.View;
 
 public class ItemDecoration extends DividerItemDecoration {
 
+    private final Rect mBounds = new Rect();
     private Context mContext;
     private Drawable mDivider;
-    private final Rect mBounds = new Rect();
 
     /**
      * Creates a divider {@link RecyclerView.ItemDecoration} that can be used with a

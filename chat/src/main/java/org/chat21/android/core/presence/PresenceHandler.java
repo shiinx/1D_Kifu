@@ -8,13 +8,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.chat21.android.core.presence.listeners.PresenceListener;
+import org.chat21.android.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.chat21.android.core.presence.listeners.PresenceListener;
-import org.chat21.android.utils.StringUtils;
 
 import static org.chat21.android.utils.DebugConstants.DEBUG_USER_PRESENCE;
 

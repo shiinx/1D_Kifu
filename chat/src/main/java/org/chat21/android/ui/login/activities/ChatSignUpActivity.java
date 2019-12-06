@@ -2,18 +2,19 @@ package org.chat21.android.ui.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputEditText ;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,13 +22,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
 import org.chat21.android.utils.StringUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.chat21.android.ui.ChatUI.BUNDLE_SIGNED_UP_USER_EMAIL;
 import static org.chat21.android.ui.ChatUI.BUNDLE_SIGNED_UP_USER_PASSWORD;
@@ -50,18 +51,6 @@ public class ChatSignUpActivity extends AppCompatActivity {
     private TextInputEditText inputPassword;
     private TextInputEditText inputRepeatPassword;
     private Button btnSignup;
-
-    private interface OnUserCreatedOnFirebaseCallback {
-        void onUserCreatedSuccess(String userUID);
-
-        void onUserCreatedError(Exception e);
-    }
-
-    private interface OnUserCreatedOnContactsCallback {
-        void onUserCreatedSuccess();
-
-        void onUserCreatedError(Exception e);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -239,7 +228,6 @@ public class ChatSignUpActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void createUserOnFirebaseAuthentication(final String email,
                                                     final String password,
                                                     final OnUserCreatedOnFirebaseCallback onUserCreatedOnFirebaseCallback) {
@@ -296,5 +284,17 @@ public class ChatSignUpActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    private interface OnUserCreatedOnFirebaseCallback {
+        void onUserCreatedSuccess(String userUID);
+
+        void onUserCreatedError(Exception e);
+    }
+
+    private interface OnUserCreatedOnContactsCallback {
+        void onUserCreatedSuccess();
+
+        void onUserCreatedError(Exception e);
     }
 }

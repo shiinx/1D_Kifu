@@ -48,7 +48,7 @@ public abstract class TextViewLinkHandler extends LinkMovementMethod {
                     onLinkClick(link[0]);
 //                    URLSpan[] linkUrlSpan = buffer.getSpans(off, off, URLSpan.class);
 //                    if (linkUrlSpan[0].getURL().toString().startsWith(urlStartWith)) {
-                        //onLinkClick(linkUrlSpan[0].getURL());
+                    //onLinkClick(linkUrlSpan[0].getURL());
 //                    }else {
 //                        link[0].onClick(widget);
 //                    }

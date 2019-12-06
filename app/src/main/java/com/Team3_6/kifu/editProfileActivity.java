@@ -1,6 +1,5 @@
 package com.Team3_6.kifu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,15 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class editProfileActivity extends AppCompatActivity {
 
@@ -36,18 +30,13 @@ public class editProfileActivity extends AppCompatActivity {
     private static final String NAME_KEY = "username";
     private static final String LOCATION_KEY = "location";
     FirebaseFirestore db;
-    private FirebaseAuth mAuth;
     String user_email;
-
-
     EditText username_new;
     EditText stay_new;
     Button updatebutt;
-
     TextView email_read;
     EditText bio;
-
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +74,7 @@ public class editProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
-                    if (doc.get(NAME_KEY).toString() != ""){
+                    if (doc.get(NAME_KEY).toString() != "") {
                         username_new.setText(doc.get(NAME_KEY).toString());
                     }
                     if (doc.get(LOCATION_KEY).toString() != "") {
@@ -109,8 +98,8 @@ public class editProfileActivity extends AppCompatActivity {
     private void UpdateData() {
         DocumentReference userdeets = db.collection("Users").document(user_email);
 
-        if (username_new.getText().toString() != ""){
-            userdeets.update(NAME_KEY,username_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+        if (username_new.getText().toString() != "") {
+            userdeets.update(NAME_KEY, username_new.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",
@@ -120,7 +109,7 @@ public class editProfileActivity extends AppCompatActivity {
             username_new.setText("");
         }
         if (stay_new.getText().toString() != "") {
-            userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+            userdeets.update(LOCATION_KEY, stay_new.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",
@@ -130,7 +119,7 @@ public class editProfileActivity extends AppCompatActivity {
             stay_new.setText("");
         }
         // initially database doesnt have bio so need to write to firebase
-        if (bio.getText().toString() == ""){
+        if (bio.getText().toString() == "") {
             // Create a Map to store the data we want to set
             Map<String, Object> docData = new HashMap<>();
             docData.put("bio", bio.getText().toString());
@@ -149,9 +138,8 @@ public class editProfileActivity extends AppCompatActivity {
                         }
                     });
 
-        }
-        else{
-            userdeets.update("bio", bio.getText().toString()).addOnSuccessListener(new OnSuccessListener< Void >() {
+        } else {
+            userdeets.update("bio", bio.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(editProfileActivity.this, "Updated Successfully",

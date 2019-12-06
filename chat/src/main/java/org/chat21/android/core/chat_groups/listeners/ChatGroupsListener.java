@@ -1,7 +1,7 @@
 package org.chat21.android.core.chat_groups.listeners;
 
-import org.chat21.android.core.exception.ChatRuntimeException;
 import org.chat21.android.core.chat_groups.models.ChatGroup;
+import org.chat21.android.core.exception.ChatRuntimeException;
 
 /**
  * Created by stefanodp91 on 24/01/18.

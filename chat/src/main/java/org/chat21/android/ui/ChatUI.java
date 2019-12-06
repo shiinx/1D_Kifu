@@ -3,10 +3,11 @@ package org.chat21.android.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.util.Log;
 
 import com.vanniktech.emoji.EmojiManager;
 import com.vanniktech.emoji.ios.IosEmojiProvider;
@@ -34,22 +35,21 @@ import java.io.Serializable;
 
 public class ChatUI implements Serializable {
 
-    private static final String TAG = ChatUI.class.getName();
-
     public static final String BUNDLE_RECIPIENT = "BUNDLE_RECIPIENT";
     // target class to be called in listeners (such as OnProfileClickListener)
     public static final String BUNDLE_MESSAGE = "BUNDLE_MESSAGE";
     public static final String BUNDLE_CHAT_GROUP = "BUNDLE_CHAT_GROUP";
     public static final String BUNDLE_GROUP_ID = "BUNDLE_GROUP_ID";
     public static final String BUNDLE_CHANNEL_TYPE = "BUNDLE_CHANNEL_TYPE";
-
     public static final String BUNDLE_SIGNED_UP_USER_EMAIL = "BUNDLE_SIGNED_UP_USER_EMAIL";
     public static final String BUNDLE_SIGNED_UP_USER_PASSWORD = "BUNDLE_SIGNED_UP_USER_PASSWORD";
-
     // request constants
     public static final int REQUEST_CODE_CREATE_GROUP = 100;
     public static final int REQUEST_CODE_SIGNUP_ACTIVITY = 200;
-
+    private static final String TAG = ChatUI.class.getName();
+    // singleton
+    // source : https://android.jlelse.eu/how-to-make-the-perfect-singleton-de6b951dfdb0
+    private static volatile ChatUI instance;
     private Context mContext;
     private OnNewConversationClickListener onNewConversationClickListener;
     private OnMessageClickListener onMessageClickListener;
@@ -58,10 +58,6 @@ public class ChatUI implements Serializable {
     private OnContactClickListener onContactClickListener;
     private OnCreateGroupClickListener onCreateGroupClickListener;
     private boolean groupsEnabled = false;
-
-    // singleton
-    // source : https://android.jlelse.eu/how-to-make-the-perfect-singleton-de6b951dfdb0
-    private static volatile ChatUI instance;
 
     //private constructor.
     private ChatUI() {
@@ -139,11 +135,6 @@ public class ChatUI implements Serializable {
         this.onContactClickListener = onContactClickListener;
     }
 
-    public void setOnNewConversationClickListener(OnNewConversationClickListener onNewConversationClickListener) {
-        Log.d(TAG, "setOnNewConversationClickListener");
-        this.onNewConversationClickListener = onNewConversationClickListener;
-    }
-
     public void setDefaultOnNewConversationClickListener() {
         this.onNewConversationClickListener = new OnNewConversationClickListener() {
             @Override
@@ -162,14 +153,19 @@ public class ChatUI implements Serializable {
         return onNewConversationClickListener;
     }
 
-    public void setOnCreateGroupClickListener(OnCreateGroupClickListener onCreateGroupClickListener) {
-        Log.d(TAG, "setOnCreateGroupClickListener");
-        this.onCreateGroupClickListener = onCreateGroupClickListener;
+    public void setOnNewConversationClickListener(OnNewConversationClickListener onNewConversationClickListener) {
+        Log.d(TAG, "setOnNewConversationClickListener");
+        this.onNewConversationClickListener = onNewConversationClickListener;
     }
 
     public OnCreateGroupClickListener getOnCreateGroupClickListener() {
         Log.d(TAG, "getOnCreateGroupClickListener");
         return onCreateGroupClickListener;
+    }
+
+    public void setOnCreateGroupClickListener(OnCreateGroupClickListener onCreateGroupClickListener) {
+        Log.d(TAG, "setOnCreateGroupClickListener");
+        this.onCreateGroupClickListener = onCreateGroupClickListener;
     }
 
     public void enableGroups(boolean groupsEnabled) {

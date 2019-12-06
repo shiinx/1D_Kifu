@@ -9,8 +9,9 @@ import org.chat21.android.core.messages.models.Message;
 
 public interface ConversationMessagesListener {
 
-        void onConversationMessageReceived(Message message, ChatRuntimeException e);
-        void onConversationMessageChanged(Message message, ChatRuntimeException e);
+    void onConversationMessageReceived(Message message, ChatRuntimeException e);
+
+    void onConversationMessageChanged(Message message, ChatRuntimeException e);
 
 }
 

@@ -8,17 +8,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.chat21.android.core.chat_groups.listeners.ChatGroupCreatedListener;
 import org.chat21.android.core.chat_groups.listeners.ChatGroupsListener;
 import org.chat21.android.core.chat_groups.models.ChatGroup;
 import org.chat21.android.core.exception.ChatRuntimeException;
 import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.utils.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static org.chat21.android.utils.DebugConstants.DEBUG_GROUPS;
 
@@ -243,7 +243,7 @@ public class GroupsSyncronizer {
                 String iconURL = (String) map.get("iconURL");
                 chatGroup.setIconURL(iconURL);
             } catch (Exception e) {
-                Log.w(DEBUG_GROUPS,  "GroupsSyncronizer.decodeGroupFromSnapshot: cannot retrieve iconURL");
+                Log.w(DEBUG_GROUPS, "GroupsSyncronizer.decodeGroupFromSnapshot: cannot retrieve iconURL");
             }
 
             String owner = (String) map.get("owner");

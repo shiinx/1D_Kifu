@@ -9,9 +9,11 @@ import org.chat21.android.core.users.models.IChatUser;
 
 public interface ContactListener {
 
-        void onContactReceived(IChatUser contact, ChatRuntimeException e);
-        void onContactChanged(IChatUser contact, ChatRuntimeException e);
-        void onContactRemoved(IChatUser contact, ChatRuntimeException e);
+    void onContactReceived(IChatUser contact, ChatRuntimeException e);
+
+    void onContactChanged(IChatUser contact, ChatRuntimeException e);
+
+    void onContactRemoved(IChatUser contact, ChatRuntimeException e);
 
 }
 

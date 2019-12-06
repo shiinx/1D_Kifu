@@ -1,17 +1,15 @@
 package org.chat21.android.ui.chat_groups.adapters;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.Glide;
 
 import org.chat21.android.R;
 import org.chat21.android.core.users.models.IChatUser;
@@ -19,6 +17,9 @@ import org.chat21.android.ui.adapters.AbstractRecyclerAdapter;
 import org.chat21.android.ui.chat_groups.listeners.OnGroupMemberClickListener;
 import org.chat21.android.utils.StringUtils;
 import org.chat21.android.utils.image.CropCircleTransformation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by stefano on 29/06/2017.

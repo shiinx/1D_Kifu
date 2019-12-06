@@ -22,8 +22,8 @@
         android:layout_below="@+id/error_image"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/chat_margin_small"
-        android:layout_marginRight="@dimen/chat_margin_small"
         android:layout_marginTop="@dimen/chat_margin_normal"
+        android:layout_marginRight="@dimen/chat_margin_small"
         android:gravity="center_horizontal"
         android:text="@string/label_no_conversation_error_title"
         android:textColor="@color/error_view_text"
@@ -37,8 +37,8 @@
         android:layout_below="@+id/error_title"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/chat_margin_small"
-        android:layout_marginRight="@dimen/chat_margin_small"
         android:layout_marginTop="@dimen/chat_margin_small"
+        android:layout_marginRight="@dimen/chat_margin_small"
         android:text="@string/label_no_conversation_error_subtitle"
         android:textColor="@color/error_view_text_light" />
 </RelativeLayout>

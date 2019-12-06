@@ -2,7 +2,6 @@ package org.chat21.android.ui.archived_conversations.adapters;
 
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.swipe.SwipeLayout;
@@ -42,6 +43,10 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
     private OnConversationLongClickListener onConversationLongClickListener;
     private OnSwipeMenuReopenClickListener onSwipeMenuReopenClickListener;
 
+    public ArchivedConversationsListAdapter(Context context, List<Conversation> conversations) {
+        super(context, conversations);
+    }
+
     public OnConversationClickListener getOnConversationClickListener() {
         return onConversationClickListener;
     }
@@ -59,16 +64,12 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
         this.onConversationLongClickListener = onConversationLongClickListener;
     }
 
-    public void setOnSwipeMenuReopenClickListener(OnSwipeMenuReopenClickListener onSwipeMenuReopenClickListener) {
-        this.onSwipeMenuReopenClickListener = onSwipeMenuReopenClickListener;
-    }
-
     public OnSwipeMenuReopenClickListener getOnSwipeMenuReopenClickListener() {
         return onSwipeMenuReopenClickListener;
     }
 
-    public ArchivedConversationsListAdapter(Context context, List<Conversation> conversations) {
-        super(context, conversations);
+    public void setOnSwipeMenuReopenClickListener(OnSwipeMenuReopenClickListener onSwipeMenuReopenClickListener) {
+        this.onSwipeMenuReopenClickListener = onSwipeMenuReopenClickListener;
     }
 
     @Override
@@ -268,6 +269,7 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
 
     /**
      * Dismiss the swipe menu for the view at position
+     *
      * @param position the position of the item to dismiss
      */
     public void dismissSwipeMenu(RecyclerView recyclerView, int position) {
@@ -275,7 +277,7 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
         RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(position);
 
         // check if the viewholder is an instance of ConversationListAdapter.ViewHolder
-        if(viewHolder instanceof ViewHolder) {
+        if (viewHolder instanceof ViewHolder) {
 
             // cast the holder to ConversationListAdapter.ViewHolder
             ViewHolder holder = (ViewHolder) viewHolder;

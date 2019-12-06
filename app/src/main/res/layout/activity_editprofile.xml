@@ -7,50 +7,49 @@
     tools:context=".editProfileActivity">
 
 
-
     <TextView
         android:id="@+id/profileinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile Information"
         android:paddingVertical="10dp"
+        android:text="Profile Information"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/emailadd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email Address"
         android:paddingVertical="10dp"
-        android:textStyle="bold"/>
+        android:text="Email Address"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/email_read"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"/>
-                                          
+        android:layout_marginBottom="15dp" />
+
     <TextView
         android:id="@+id/userbio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bio"
         android:paddingVertical="10dp"
-        android:textStyle="bold"/>
+        android:text="Bio"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Bio"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:hint="Bio" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
         android:paddingVertical="10dp"
+        android:text="Username"
         android:textStyle="bold" />
 
 
@@ -58,8 +57,8 @@
         android:id="@+id/username_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Edit Username Here"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:hint="Edit Username Here" />
 
 
     <TextView

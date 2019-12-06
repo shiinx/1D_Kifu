@@ -3,13 +3,15 @@ package org.chat21.android.ui.messages.fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.chat21.android.R;
 import org.chat21.android.core.users.models.IChatUser;
@@ -106,7 +108,7 @@ public class BottomSheetAttach extends BottomSheetDialogFragment implements
                 ChatUI.getInstance().getOnAttachDocumentsClickListener();
 
         if (onAttachDocumentsClickListener != null) {
-            onAttachDocumentsClickListener.onAttachDocumentsClicked(recipient, channelType,null);
+            onAttachDocumentsClickListener.onAttachDocumentsClicked(recipient, channelType, null);
         }
 
         // dismiss the bottomsheet

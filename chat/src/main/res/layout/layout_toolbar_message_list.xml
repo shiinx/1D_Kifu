@@ -25,10 +25,10 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/conversation_image"
         android:orientation="vertical"
-        android:paddingBottom="2.0dip"
         android:paddingStart="4.0dip"
+        android:paddingTop="0.0dip"
         android:paddingEnd="0.0dip"
-        android:paddingTop="0.0dip">
+        android:paddingBottom="2.0dip">
 
         <TextView
             android:id="@+id/toolbar_title"

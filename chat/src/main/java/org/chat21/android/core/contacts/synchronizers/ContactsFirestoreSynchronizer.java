@@ -1,7 +1,8 @@
 package org.chat21.android.core.contacts.synchronizers;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -10,10 +11,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.chat21.android.core.users.models.IChatUser;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.chat21.android.core.users.models.IChatUser;
 
 /**
  * Created by andrealeo on 03/01/18.
@@ -21,10 +22,9 @@ import org.chat21.android.core.users.models.IChatUser;
 
 public class ContactsFirestoreSynchronizer {
 
+    private static final String TAG = ContactsFirestoreSynchronizer.class.getName();
     FirebaseFirestore contactStore;
     CollectionReference contactsCollReference;
-
-    private static final String TAG = ContactsFirestoreSynchronizer.class.getName();
 
     public ContactsFirestoreSynchronizer() {
         contactStore = FirebaseFirestore.getInstance();
@@ -48,7 +48,7 @@ public class ContactsFirestoreSynchronizer {
                 }
             }
         });
-        return  null;
+        return null;
 
     }
 }

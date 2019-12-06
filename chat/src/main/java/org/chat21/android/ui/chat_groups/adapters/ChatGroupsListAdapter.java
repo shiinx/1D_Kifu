@@ -1,12 +1,13 @@
 package org.chat21.android.ui.chat_groups.adapters;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -27,17 +28,17 @@ public class ChatGroupsListAdapter extends AbstractRecyclerAdapter<ChatGroup, Ch
 
     private OnGroupClickListener onGroupClickListener;
 
+    public ChatGroupsListAdapter(Context context, List<ChatGroup> mList) {
+        super(context, mList);
+        setList(mList);
+    }
+
     public OnGroupClickListener getOnGroupClickListener() {
         return onGroupClickListener;
     }
 
     public void setOnGroupClickListener(OnGroupClickListener onGroupClickListener) {
         this.onGroupClickListener = onGroupClickListener;
-    }
-
-    public ChatGroupsListAdapter(Context context, List<ChatGroup> mList) {
-        super(context, mList);
-        setList(mList);
     }
 
     private void sortItems(List<ChatGroup> mList) {

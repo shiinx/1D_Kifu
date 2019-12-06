@@ -17,37 +17,6 @@ public abstract class AbstractNetworkReceiver extends BroadcastReceiver {
         // java.lang.InstantiationException: <AbstractNetworkReceiver> has no zero argument constructor
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (null != intent) {
-            NetworkInfo.State wifiState = null;
-            NetworkInfo.State mobileState = null;
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            wifiState = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
-            mobileState = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
-            if (wifiState != null && mobileState != null
-                    && NetworkInfo.State.CONNECTED != wifiState
-                    && NetworkInfo.State.CONNECTED == mobileState) {
-                // phone network connect success
-                mobileNetwork();
-            } else if (wifiState != null && mobileState != null
-                    && NetworkInfo.State.CONNECTED != wifiState
-                    && NetworkInfo.State.CONNECTED != mobileState) {
-                // no network
-                noNetwork();
-            } else if (wifiState != null && NetworkInfo.State.CONNECTED == wifiState) {
-                // wify connect success
-                WIFINetwork();
-            }
-        }
-    }
-
-    public abstract void noNetwork();
-
-    public abstract void mobileNetwork();
-
-    public abstract void WIFINetwork();
-
     /**
      * Check the connectivity status and detect which connection type is in use (mobile, wifi.. )
      *
@@ -79,4 +48,35 @@ public abstract class AbstractNetworkReceiver extends BroadcastReceiver {
 
         return isConnected;
     }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (null != intent) {
+            NetworkInfo.State wifiState = null;
+            NetworkInfo.State mobileState = null;
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            wifiState = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+            mobileState = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
+            if (wifiState != null && mobileState != null
+                    && NetworkInfo.State.CONNECTED != wifiState
+                    && NetworkInfo.State.CONNECTED == mobileState) {
+                // phone network connect success
+                mobileNetwork();
+            } else if (wifiState != null && mobileState != null
+                    && NetworkInfo.State.CONNECTED != wifiState
+                    && NetworkInfo.State.CONNECTED != mobileState) {
+                // no network
+                noNetwork();
+            } else if (wifiState != null && NetworkInfo.State.CONNECTED == wifiState) {
+                // wify connect success
+                WIFINetwork();
+            }
+        }
+    }
+
+    public abstract void noNetwork();
+
+    public abstract void mobileNetwork();
+
+    public abstract void WIFINetwork();
 }

@@ -3,8 +3,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/windowBackground"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </com.google.android.material.appbar.AppBarLayout >
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -51,7 +51,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout >
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--first name-->
             <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +66,7 @@
                     android:inputType="textPersonName|textCapWords"
                     android:maxLines="1"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout >
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--last name-->
             <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +81,7 @@
                     android:inputType="textPersonName|textCapWords"
                     android:maxLines="1"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout >
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--password-->
             <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +98,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout >
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--repeat password-->
             <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +115,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout >
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/signup"
