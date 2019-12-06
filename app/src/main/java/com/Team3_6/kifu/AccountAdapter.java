@@ -2,6 +2,10 @@ package com.Team3_6.kifu;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,11 +50,24 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AccountViewHolder holder, final int position) {
         Glide.with(this.aContext)
                 .load(aList.get(position))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.aItemImage);
+
+
+        holder.accountList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(aContext, ItemDetailActivity.class);
+                intent.putExtra("Item", aList.get(position));
+                aContext.startActivity(intent);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -59,12 +78,14 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     public static class AccountViewHolder extends RecyclerView.ViewHolder {
 
         ImageView aItemImage;
+        CardView accountList;
 
         public AccountViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             aItemImage = itemView.findViewById(R.id.aCardImageView);
+            accountList = itemView.findViewById(R.id.account_list);
 
 
         }
