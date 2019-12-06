@@ -43,7 +43,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             public void onClick(View v) {
                 Intent i = new Intent(mContext, ItemDetailActivity.class);
                 i.putExtra("image_url", uploadCurrent.toString());
-                i.putExtra("image_title", uploadCurrent.getmName().toString());
+                i.putExtra("image_title", uploadCurrent.getmName());
                 mContext.startActivity(i);
             }
         });

@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         editUsername = findViewById(R.id.et_name);
         editEmail = findViewById(R.id.et_email);
-        spinnerLocation = (Spinner) findViewById(R.id.spn_location);
+        spinnerLocation = findViewById(R.id.spn_location);
 
 
         spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
