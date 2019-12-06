@@ -58,14 +58,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
     public static class AccountViewHolder extends RecyclerView.ViewHolder {
 
-        TextView aItemTitle;
         ImageView aItemImage;
 
         public AccountViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            aItemTitle = itemView.findViewById(R.id.aCardTextView);
             aItemImage = itemView.findViewById(R.id.aCardImageView);
 
 

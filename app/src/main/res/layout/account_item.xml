@@ -3,7 +3,7 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/account_list"
     android:layout_width="150dp"
-    android:layout_height="170dp"
+    android:layout_height="150dp"
     android:layout_margin="25dp"
     android:orientation="vertical"
     cardview:cardCornerRadius="20dp">
@@ -19,12 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@color/white" />
-        <TextView
-            android:id="@+id/aCardTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Clothes"
-            android:textAlignment="center" />
+
 
 
     </LinearLayout>

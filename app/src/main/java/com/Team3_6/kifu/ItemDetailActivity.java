@@ -20,22 +20,14 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         iv = findViewById(R.id.image);
         name = findViewById(R.id.textView2);
-        getIncomingIntent();
 
-    }
-
-    private void getIncomingIntent() {
         if (getIntent().hasExtra("image_url") && getIntent().hasExtra("image_title")) {
             String imageUrl = getIntent().getStringExtra("image_url");
             String imageTitle = getIntent().getStringExtra("image_title");
-            setImage(imageUrl, imageTitle);
+
+            name.setText(imageTitle);
+            Glide.with(this).asBitmap().load(imageUrl).into(iv);
         }
-    }
-
-    private void setImage(String imageUrl, String imageTitle) {
-
-        name.setText(imageTitle);
-        Glide.with(this).asBitmap().load(imageUrl).into(iv);
 
     }
 }
