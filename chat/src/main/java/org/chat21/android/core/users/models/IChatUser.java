@@ -6,17 +6,17 @@ import java.io.Serializable;
  * Created by frontiere21 on 27/09/16.
  */
 public interface IChatUser extends Serializable {
-    void setId(String id);
-
     String getId();
 
-    void setFullName(String fullName);
+    void setId(String id);
 
     String getFullName();
 
-    void setEmail(String email);
+    void setFullName(String fullName);
 
     String getEmail();
+
+    void setEmail(String email);
 
 //    void setPassword(String password);
 //

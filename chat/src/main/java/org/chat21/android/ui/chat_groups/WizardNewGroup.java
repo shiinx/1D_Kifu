@@ -10,11 +10,10 @@ public class WizardNewGroup {
 //    private static final String PRIVATE_NEW_GROUP_WIZARD_SERIALIZABLE_CHAT_GROUP =
 //            "PRIVATE_NEW_GROUP_WIZARD_SERIALIZABLE_CHAT_GROUP";
 
-    private ChatGroup tempChatGroup = new ChatGroup();
-
     // singleton
     // source : https://android.jlelse.eu/how-to-make-the-perfect-singleton-de6b951dfdb0
     private static volatile WizardNewGroup instance;
+    private ChatGroup tempChatGroup = new ChatGroup();
 
     //private constructor.
     private WizardNewGroup() {

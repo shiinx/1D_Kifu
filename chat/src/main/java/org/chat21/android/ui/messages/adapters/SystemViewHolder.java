@@ -1,10 +1,10 @@
 package org.chat21.android.ui.messages.adapters;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanniktech.emoji.EmojiTextView;
 

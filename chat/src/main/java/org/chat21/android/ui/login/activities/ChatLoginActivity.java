@@ -4,11 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,24 +57,47 @@ import static org.chat21.android.utils.DebugConstants.DEBUG_LOGIN;
 public class ChatLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "ChatLoginActivity";
-
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
     private Toolbar toolbar;
     private EditText vEmail;
     private EditText vPassword;
     private Button vLogin;
     private Button vSignUp;
-    private FirebaseAuth mAuth;
 
 //    private String email, username, password;
+    private FirebaseAuth mAuth;
 
-    private interface OnUserLookUpComplete {
-        void onUserRetrievedSuccess(IChatUser loggedUser);
+    private static IChatUser decodeContactSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
+        Log.v(TAG, "decodeContactSnapShop called");
 
-        void onUserRetrievedError(Exception e);
+        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+//        String contactId = dataSnapshot.getKey();
+
+        String uid = (String) map.get("uid");
+        if (uid == null) {
+            throw new ChatFieldNotFoundException("Required uid field is null for contact id : " + uid);
+        }
+
+//        String timestamp = (String) map.get("timestamp");
+
+        String lastname = (String) map.get("lastname");
+        String firstname = (String) map.get("firstname");
+        String imageurl = (String) map.get("imageurl");
+        String email = (String) map.get("email");
+
+
+        IChatUser contact = new ChatUser();
+        contact.setId(uid);
+        contact.setEmail(email);
+        contact.setFullName(firstname + " " + lastname);
+        contact.setProfilePictureUrl(imageurl);
+
+        Log.v(TAG, "decodeContactSnapShop.contact : " + contact);
+
+        return contact;
     }
-
-    @VisibleForTesting
-    public ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -445,34 +469,9 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    private static IChatUser decodeContactSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
-        Log.v(TAG, "decodeContactSnapShop called");
+    private interface OnUserLookUpComplete {
+        void onUserRetrievedSuccess(IChatUser loggedUser);
 
-        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-
-//        String contactId = dataSnapshot.getKey();
-
-        String uid = (String) map.get("uid");
-        if (uid == null) {
-            throw new ChatFieldNotFoundException("Required uid field is null for contact id : " + uid);
-        }
-
-//        String timestamp = (String) map.get("timestamp");
-
-        String lastname = (String) map.get("lastname");
-        String firstname = (String) map.get("firstname");
-        String imageurl = (String) map.get("imageurl");
-        String email = (String) map.get("email");
-
-
-        IChatUser contact = new ChatUser();
-        contact.setId(uid);
-        contact.setEmail(email);
-        contact.setFullName(firstname + " " + lastname);
-        contact.setProfilePictureUrl(imageurl);
-
-        Log.v(TAG, "decodeContactSnapShop.contact : " + contact);
-
-        return contact;
+        void onUserRetrievedError(Exception e);
     }
 }

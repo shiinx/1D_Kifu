@@ -8,7 +8,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
 import org.chat21.android.core.exception.ChatFieldNotFoundException;
 import org.chat21.android.core.exception.ChatRuntimeException;
@@ -83,6 +82,90 @@ public class ConversationMessagesHandler {
 //        this.conversationMessagesListeners = new ArrayList<ConversationsListener>();
 //        this.conversationMessagesListeners.add(conversationMessagesListener);
     }
+
+    /**
+     * @param dataSnapshot the datasnapshot to decode
+     * @return the decoded message
+     */
+    public static Message decodeMessageSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
+        Log.v(TAG, "decodeMessageSnapShop called");
+
+        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+        String messageId = dataSnapshot.getKey();
+
+        String sender = (String) map.get("sender");
+        if (sender == null) {
+            throw new ChatFieldNotFoundException("Required sender field is null for message id : " + messageId);
+        }
+
+        String recipient = (String) map.get("recipient");
+        if (recipient == null) {
+            throw new ChatFieldNotFoundException("Required recipient field is null for message id : " + messageId);
+        }
+
+        String sender_fullname = (String) map.get("sender_fullname");
+        String recipient_fullname = (String) map.get("recipient_fullname");
+
+        Long status = null;
+        if (map.containsKey("status")) {
+            status = (Long) map.get("status");
+        }
+
+        String text = (String) map.get("text");
+
+        Long timestamp = null;
+        if (map.containsKey("timestamp")) {
+            timestamp = (Long) map.get("timestamp");
+        }
+
+        String type = (String) map.get("type");
+
+        String channelType = (String) map.get("channel_type");
+
+        // if metadata is a string ignore it
+        Map<String, Object> metadata = null;
+        if (map.containsKey("metadata") && !(map.get("metadata") instanceof String)) {
+            metadata = (Map<String, Object>) map.get("metadata");
+        }
+
+        // if metadata is a string ignore it
+        Map<String, Object> attributes = null;
+        if (map.containsKey("attributes") && !(map.get("attributes") instanceof String)) {
+            attributes = (Map<String, Object>) map.get("attributes");
+        }
+
+        Message message = new Message();
+
+        message.setId(messageId);
+        message.setSender(sender);
+        message.setSenderFullname(sender_fullname);
+        message.setRecipient(recipient);
+        message.setRecipientFullname(recipient_fullname);
+        message.setStatus(status);
+        message.setText(text);
+        message.setTimestamp(timestamp);
+        message.setType(type);
+        message.setChannelType(channelType);
+        if (metadata != null) message.setMetadata(metadata);
+        if (attributes != null) message.setAttributes(attributes);
+
+        Log.v(TAG, "decodeMessageSnapShop.message : " + message);
+
+//        Log.d(TAG, "message >: " + dataSnapshot.toString());
+
+        return message;
+    }
+
+//    private Message createMessageForFirebase(Message message) {
+//        Message messageForFirebase = (Message) message.clone();
+//        messageForFirebase.setSender(null);
+//        messageForFirebase.setRecipient(null);
+//        messageForFirebase.setStatus(null);
+//        messageForFirebase.setTimestamp(ServerValue.TIMESTAMP);
+//
+//        return messageForFirebase;
+//    }
 
     public void sendMessage(String type, String text, String channelType, final Map<String,
             Object> metadata, final SendMessageListener sendMessageListener) {
@@ -174,16 +257,6 @@ public class ConversationMessagesHandler {
         }
     }
 
-//    private Message createMessageForFirebase(Message message) {
-//        Message messageForFirebase = (Message) message.clone();
-//        messageForFirebase.setSender(null);
-//        messageForFirebase.setRecipient(null);
-//        messageForFirebase.setStatus(null);
-//        messageForFirebase.setTimestamp(ServerValue.TIMESTAMP);
-//
-//        return messageForFirebase;
-//    }
-
     // it checks if the message already exists.
     // if the message exists update it, add it otherwise
     private void saveOrUpdateMessageInMemory(Message newMessage) {
@@ -243,92 +316,92 @@ public class ConversationMessagesHandler {
 
             conversationMessagesChildEventListener = conversationMessagesNode.orderByChild(Message.TIMESTAMP_FIELD_KEY)
                     .addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                    Log.v(TAG, "ConversationMessagesHandler.connect.onChildAdded");
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                            Log.v(TAG, "ConversationMessagesHandler.connect.onChildAdded");
 
-                    try {
-                        Message message = decodeMessageSnapShop(dataSnapshot);
-                        Log.d(TAG, "ConversationMessagesHandler.connect.onChildAdded.message : " + message);
+                            try {
+                                Message message = decodeMessageSnapShop(dataSnapshot);
+                                Log.d(TAG, "ConversationMessagesHandler.connect.onChildAdded.message : " + message);
 
 
-                        if (message.getStatus() < Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT
-                                && !message.getSender().equals(currentUser.getId())
-                                && message.isDirectChannel()) {
+                                if (message.getStatus() < Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT
+                                        && !message.getSender().equals(currentUser.getId())
+                                        && message.isDirectChannel()) {
 
-                            dataSnapshot.getRef().child(Message.STATUS_FIELD_KEY)
-                                    .setValue(Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT);
-                            Log.d(TAG, "Message with id : " + message.getId() +
-                                    " is received from the recipient client and the status field of the message has beed set to " +
-                                    Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT);
-                        }
+                                    dataSnapshot.getRef().child(Message.STATUS_FIELD_KEY)
+                                            .setValue(Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT);
+                                    Log.d(TAG, "Message with id : " + message.getId() +
+                                            " is received from the recipient client and the status field of the message has beed set to " +
+                                            Message.STATUS_RECEIVED_FROM_RECIPIENT_CLIENT);
+                                }
 
-                        saveOrUpdateMessageInMemory(message);
+                                saveOrUpdateMessageInMemory(message);
 
-                        if (conversationMessagesListeners != null) {
-                            for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
-                                conversationMessagesListener.onConversationMessageReceived(message, null);
+                                if (conversationMessagesListeners != null) {
+                                    for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
+                                        conversationMessagesListener.onConversationMessageReceived(message, null);
+                                    }
+                                }
+
+                                //TODO settare status a 200 qui
+
+                            } catch (ChatFieldNotFoundException cfnfe) {
+                                Log.w(TAG, "Error decoding message on onChildAdded " + cfnfe.getMessage());
+                            } catch (Exception e) {
+                                if (conversationMessagesListeners != null) {
+                                    for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
+                                        conversationMessagesListener.onConversationMessageReceived(null, new ChatRuntimeException(e));
+                                    }
+                                }
                             }
                         }
 
-                        //TODO settare status a 200 qui
+                        //for return recepit
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                            Log.v(TAG, "ConversationMessagesHandler.connect.onChildChanged");
 
-                    } catch (ChatFieldNotFoundException cfnfe) {
-                        Log.w(TAG, "Error decoding message on onChildAdded " + cfnfe.getMessage());
-                    } catch (Exception e) {
-                        if (conversationMessagesListeners != null) {
-                            for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
-                                conversationMessagesListener.onConversationMessageReceived(null, new ChatRuntimeException(e));
+                            try {
+                                Message message = decodeMessageSnapShop(dataSnapshot);
+
+                                Log.d(TAG, "ConversationMessagesHandler.connect.onChildChanged.message : " + message);
+
+                                saveOrUpdateMessageInMemory(message);
+
+                                if (conversationMessagesListeners != null) {
+                                    for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
+                                        conversationMessagesListener.onConversationMessageChanged(message, null);
+                                    }
+                                }
+
+                            } catch (ChatFieldNotFoundException cfnfe) {
+                                Log.w(TAG, "Error decoding message on onChildChanged " + cfnfe.getMessage());
+                            } catch (Exception e) {
+                                if (conversationMessagesListeners != null) {
+                                    for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
+                                        conversationMessagesListener.onConversationMessageChanged(null, new ChatRuntimeException(e));
+                                    }
+                                }
                             }
                         }
-                    }
-                }
 
-                //for return recepit
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                    Log.v(TAG, "ConversationMessagesHandler.connect.onChildChanged");
-
-                    try {
-                        Message message = decodeMessageSnapShop(dataSnapshot);
-
-                        Log.d(TAG, "ConversationMessagesHandler.connect.onChildChanged.message : " + message);
-
-                        saveOrUpdateMessageInMemory(message);
-
-                        if (conversationMessagesListeners != null) {
-                            for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
-                                conversationMessagesListener.onConversationMessageChanged(message, null);
-                            }
-                        }
-
-                    } catch (ChatFieldNotFoundException cfnfe) {
-                        Log.w(TAG, "Error decoding message on onChildChanged " + cfnfe.getMessage());
-                    } catch (Exception e) {
-                        if (conversationMessagesListeners != null) {
-                            for (ConversationMessagesListener conversationMessagesListener : conversationMessagesListeners) {
-                                conversationMessagesListener.onConversationMessageChanged(null, new ChatRuntimeException(e));
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
 //                Log.d(TAG, "observeMessages.onChildRemoved");
-                }
+                        }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
 //                Log.d(TAG, "observeMessages.onChildMoved");
-                }
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 //                Log.d(TAG, "observeMessages.onCancelled");
 
-                }
-            });
+                        }
+                    });
 
             Log.i(TAG, "connected for recipientId: " + recipient.getId());
 
@@ -337,81 +410,6 @@ public class ConversationMessagesHandler {
         }
 
         return conversationMessagesChildEventListener;
-    }
-
-
-    /**
-     * @param dataSnapshot the datasnapshot to decode
-     * @return the decoded message
-     */
-    public static Message decodeMessageSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
-        Log.v(TAG, "decodeMessageSnapShop called");
-
-        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-
-        String messageId = dataSnapshot.getKey();
-
-        String sender = (String) map.get("sender");
-        if (sender == null) {
-            throw new ChatFieldNotFoundException("Required sender field is null for message id : " + messageId);
-        }
-
-        String recipient = (String) map.get("recipient");
-        if (recipient == null) {
-            throw new ChatFieldNotFoundException("Required recipient field is null for message id : " + messageId);
-        }
-
-        String sender_fullname = (String) map.get("sender_fullname");
-        String recipient_fullname = (String) map.get("recipient_fullname");
-
-        Long status = null;
-        if (map.containsKey("status")) {
-            status = (Long) map.get("status");
-        }
-
-        String text = (String) map.get("text");
-
-        Long timestamp = null;
-        if (map.containsKey("timestamp")) {
-            timestamp = (Long) map.get("timestamp");
-        }
-
-        String type = (String) map.get("type");
-
-        String channelType = (String) map.get("channel_type");
-
-        // if metadata is a string ignore it
-        Map<String, Object> metadata = null;
-        if (map.containsKey("metadata") && !(map.get("metadata") instanceof String)) {
-            metadata = (Map<String, Object>) map.get("metadata");
-        }
-
-        // if metadata is a string ignore it
-        Map<String, Object> attributes = null;
-        if (map.containsKey("attributes") && !(map.get("attributes") instanceof String)) {
-            attributes = (Map<String, Object>) map.get("attributes");
-        }
-
-        Message message = new Message();
-
-        message.setId(messageId);
-        message.setSender(sender);
-        message.setSenderFullname(sender_fullname);
-        message.setRecipient(recipient);
-        message.setRecipientFullname(recipient_fullname);
-        message.setStatus(status);
-        message.setText(text);
-        message.setTimestamp(timestamp);
-        message.setType(type);
-        message.setChannelType(channelType);
-        if (metadata != null) message.setMetadata(metadata);
-        if (attributes != null) message.setAttributes(attributes);
-
-        Log.v(TAG, "decodeMessageSnapShop.message : " + message);
-
-//        Log.d(TAG, "message >: " + dataSnapshot.toString());
-
-        return message;
     }
 
     public List<ConversationMessagesListener> getConversationMessagesListener() {

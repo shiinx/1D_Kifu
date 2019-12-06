@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,17 +40,13 @@ import static org.chat21.android.utils.DebugConstants.DEBUG_LOGIN;
  * Created by stefano on 19/05/2016.
  */
 public class ChatManager {
-    private static final String TAG = ChatManager.class.getName();
-    private static final String TAG_TOKEN = "TAG_TOKEN";
-
-    private static final String _SERIALIZED_CHAT_CONFIGURATION_TENANT =
-            "_SERIALIZED_CHAT_CONFIGURATION_TENANT";
-
     public static final String _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER =
             "_SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER";
-
     public static final String _DEFAULT_APP_ID_VALUE = "default";
-
+    private static final String TAG = ChatManager.class.getName();
+    private static final String TAG_TOKEN = "TAG_TOKEN";
+    private static final String _SERIALIZED_CHAT_CONFIGURATION_TENANT =
+            "_SERIALIZED_CHAT_CONFIGURATION_TENANT";
     private static ChatManager mInstance;
 
     private IChatUser loggedUser;
@@ -73,75 +68,6 @@ public class ChatManager {
 
         presenceHandlerMap = new HashMap<>();
     }
-
-    public void setLoggedUser(IChatUser loggedUser) {
-        this.loggedUser = loggedUser;
-        Log.d(TAG, "ChatManager.setloggedUser: loggedUser == " + loggedUser.toString());
-        // serialize on disk
-        IOUtils.saveObjectToFile(mContext, _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER, loggedUser);
-    }
-
-    public IChatUser getLoggedUser() {
-//        Log.v(TAG, "ChatManager.getloggedUser");
-        return loggedUser;
-    }
-
-    public boolean isUserLogged() {
-        Log.d(TAG, "ChatManager.isUserLogged");
-        boolean isUserLogged = getLoggedUser() != null;
-        Log.d(TAG, "ChatManager.isUserLogged: isUserLogged == " + isUserLogged);
-        return isUserLogged;
-    }
-
-    public String getAppId() {
-        Log.d(TAG, "getAppId");
-
-        return this.appId;
-    }
-
-    private void setContext(Context context) {
-        mContext = context;
-    }
-
-    public Context getContext() {
-        return mContext;
-    }
-
-    public void createContactFor(String uid, String email,
-                                 String firstName, String lastName,
-                                 final OnContactCreatedCallback callback) {
-        final Map<String, Object> user = new HashMap<>();
-        user.put("uid", uid);
-        user.put("email", email);
-        user.put("firstname", firstName);
-        user.put("lastname", lastName);
-        user.put("timestamp", new Date().getTime());
-        user.put("imageurl", "");
-
-        DatabaseReference contactsNode;
-        if (StringUtils.isValid(ChatManager.Configuration.firebaseUrl)) {
-            contactsNode = FirebaseDatabase.getInstance()
-                    .getReferenceFromUrl(ChatManager.Configuration.firebaseUrl)
-                    .child("/apps/" + ChatManager.Configuration.appId + "/contacts");
-        } else {
-            contactsNode = FirebaseDatabase.getInstance()
-                    .getReference()
-                    .child("/apps/" + ChatManager.Configuration.appId + "/contacts");
-        }
-
-        // save the user on contacts node
-        contactsNode.child(uid).setValue(user, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError == null) {
-                    callback.onContactCreatedSuccess(null);
-                } else {
-                    callback.onContactCreatedSuccess(new ChatRuntimeException(databaseError.toException()));
-                }
-            }
-        });
-    }
-
 
     /**
      * It initializes the SDK Anonymously using  DEFAULT appId.
@@ -288,6 +214,87 @@ public class ChatManager {
         chat.initGroupsSyncronizer();
     }
 
+    /**
+     * Return the instance of the Chat
+     *
+     * @return the instance
+     */
+    public static ChatManager getInstance() {
+//        Log.v(TAG, "getInstance");
+        if (mInstance == null) {
+            throw new RuntimeException("instance cannot be null. call start first.");
+        }
+        return mInstance;
+    }
+
+    public IChatUser getLoggedUser() {
+//        Log.v(TAG, "ChatManager.getloggedUser");
+        return loggedUser;
+    }
+
+    public void setLoggedUser(IChatUser loggedUser) {
+        this.loggedUser = loggedUser;
+        Log.d(TAG, "ChatManager.setloggedUser: loggedUser == " + loggedUser.toString());
+        // serialize on disk
+        IOUtils.saveObjectToFile(mContext, _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER, loggedUser);
+    }
+
+    public boolean isUserLogged() {
+        Log.d(TAG, "ChatManager.isUserLogged");
+        boolean isUserLogged = getLoggedUser() != null;
+        Log.d(TAG, "ChatManager.isUserLogged: isUserLogged == " + isUserLogged);
+        return isUserLogged;
+    }
+
+    public String getAppId() {
+        Log.d(TAG, "getAppId");
+
+        return this.appId;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    private void setContext(Context context) {
+        mContext = context;
+    }
+
+    public void createContactFor(String uid, String email,
+                                 String firstName, String lastName,
+                                 final OnContactCreatedCallback callback) {
+        final Map<String, Object> user = new HashMap<>();
+        user.put("uid", uid);
+        user.put("email", email);
+        user.put("firstname", firstName);
+        user.put("lastname", lastName);
+        user.put("timestamp", new Date().getTime());
+        user.put("imageurl", "");
+
+        DatabaseReference contactsNode;
+        if (StringUtils.isValid(ChatManager.Configuration.firebaseUrl)) {
+            contactsNode = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(ChatManager.Configuration.firebaseUrl)
+                    .child("/apps/" + ChatManager.Configuration.appId + "/contacts");
+        } else {
+            contactsNode = FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("/apps/" + ChatManager.Configuration.appId + "/contacts");
+        }
+
+        // save the user on contacts node
+        contactsNode.child(uid).setValue(user, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    callback.onContactCreatedSuccess(null);
+                } else {
+                    callback.onContactCreatedSuccess(new ChatRuntimeException(databaseError.toException()));
+                }
+            }
+        });
+    }
+
     public void initContactsSyncronizer() {
         this.contactsSynchronizer = getContactsSynchronizer();
         this.contactsSynchronizer.connect();
@@ -298,10 +305,33 @@ public class ChatManager {
         this.groupsSyncronizer.connect();
     }
 
+//    private void deleteInstanceId() {
+//
+//        DatabaseReference root;
+//        if (StringUtils.isValid(Configuration.firebaseUrl)) {
+//            root = FirebaseDatabase.getInstance().getReferenceFromUrl(Configuration.firebaseUrl);
+//        } else {
+//            root = FirebaseDatabase.getInstance().getReference();
+//        }
+//
+//        // remove the instanceId for the logged user
+//        DatabaseReference firebaseUsersPath = root
+//                .child("apps/" + ChatManager.Configuration.appId + "/users/" +
+//                        loggedUser.getId() + "/instanceId");
+//        firebaseUsersPath.removeValue();
+//
+//        try {
+//            FirebaseInstanceId.getInstance().deleteInstanceId();
+//        } catch (IOException e) {
+//            Log.e(DEBUG_LOGIN, "cannot delete instanceId. " + e.getMessage());
+//            return;
+//        }
+//    }
+
     public void dispose() {
 
         // dispose myPresenceHandler
-        if (myPresenceHandler!=null) {
+        if (myPresenceHandler != null) {
             myPresenceHandler.dispose(); // disconnect all listeners
         }
         myPresenceHandler = null; // destroy it
@@ -317,13 +347,13 @@ public class ChatManager {
         }
 
         //dispose conversationsHandler
-        if (this.conversationsHandler!=null){
+        if (this.conversationsHandler != null) {
             this.conversationsHandler.disconnect();
         }
         this.conversationsHandler = null;
 
         //dispose archivedConversationsHandler
-        if (this.archivedConversationsHandler!=null) {   //can be already null
+        if (this.archivedConversationsHandler != null) {   //can be already null
             this.archivedConversationsHandler.disconnect();
         }
         this.archivedConversationsHandler = null;
@@ -356,29 +386,6 @@ public class ChatManager {
         removeLoggedUser();
     }
 
-//    private void deleteInstanceId() {
-//
-//        DatabaseReference root;
-//        if (StringUtils.isValid(Configuration.firebaseUrl)) {
-//            root = FirebaseDatabase.getInstance().getReferenceFromUrl(Configuration.firebaseUrl);
-//        } else {
-//            root = FirebaseDatabase.getInstance().getReference();
-//        }
-//
-//        // remove the instanceId for the logged user
-//        DatabaseReference firebaseUsersPath = root
-//                .child("apps/" + ChatManager.Configuration.appId + "/users/" +
-//                        loggedUser.getId() + "/instanceId");
-//        firebaseUsersPath.removeValue();
-//
-//        try {
-//            FirebaseInstanceId.getInstance().deleteInstanceId();
-//        } catch (IOException e) {
-//            Log.e(DEBUG_LOGIN, "cannot delete instanceId. " + e.getMessage());
-//            return;
-//        }
-//    }
-
     private void deleteInstanceId() {
 
         DatabaseReference root;
@@ -407,19 +414,6 @@ public class ChatManager {
     private void removeLoggedUser() {
         // clear all logged user data
         IOUtils.deleteObject(mContext, _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER);
-    }
-
-    /**
-     * Return the instance of the Chat
-     *
-     * @return the instance
-     */
-    public static ChatManager getInstance() {
-//        Log.v(TAG, "getInstance");
-        if (mInstance == null) {
-            throw new RuntimeException("instance cannot be null. call start first.");
-        }
-        return mInstance;
     }
 
 //
@@ -490,7 +484,7 @@ public class ChatManager {
         }
     }
 
-  public ArchivedConversationsHandler getArchivedConversationsHandler() {
+    public ArchivedConversationsHandler getArchivedConversationsHandler() {
         if (this.archivedConversationsHandler != null) {
             return this.archivedConversationsHandler;
         } else {

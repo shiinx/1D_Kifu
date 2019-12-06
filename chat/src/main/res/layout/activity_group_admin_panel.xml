@@ -2,9 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator"
-    android:background="@color/windowBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/windowBackground"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -49,10 +49,10 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/conversation_image"
                     android:orientation="vertical"
-                    android:paddingBottom="2.0dip"
-                    android:paddingEnd="0.0dip"
                     android:paddingStart="4.0dip"
-                    android:paddingTop="0.0dip">
+                    android:paddingTop="0.0dip"
+                    android:paddingEnd="0.0dip"
+                    android:paddingBottom="2.0dip">
 
                     <TextView
                         android:id="@+id/toolbar_title"
@@ -83,7 +83,7 @@
 
             </androidx.appcompat.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout >
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -108,10 +108,10 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:focusableInTouchMode="true"
                         android:id="@+id/box_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusableInTouchMode="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -130,9 +130,9 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/chat_margin_small"
                             android:orientation="horizontal"
-                            android:paddingBottom="@dimen/chat_padding_small"
-                            android:paddingEnd="@dimen/chat_padding_small"
                             android:paddingStart="@dimen/chat_padding_small"
+                            android:paddingEnd="@dimen/chat_padding_small"
+                            android:paddingBottom="@dimen/chat_padding_small"
                             android:visibility="gone">
 
                             <ImageView
@@ -147,8 +147,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="@dimen/chat_margin_small"
                                 android:orientation="vertical"
-                                android:paddingEnd="@dimen/chat_padding_small"
-                                android:paddingStart="@dimen/chat_padding_small">
+                                android:paddingStart="@dimen/chat_padding_small"
+                                android:paddingEnd="@dimen/chat_padding_small">
 
                                 <TextView
                                     android:id="@+id/add_member_title"
@@ -161,10 +161,10 @@
 
                         <!--line separator-->
                         <View
-                            android:focusableInTouchMode="true"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/grey_300"></View>
+                            android:background="@color/grey_300"
+                            android:focusableInTouchMode="true"></View>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/members"
@@ -200,10 +200,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/chat_padding_normal"
                     android:paddingLeft="@dimen/chat_padding_normal"
+                    android:paddingTop="@dimen/chat_padding_normal"
                     android:paddingRight="@dimen/chat_padding_normal"
-                    android:paddingTop="@dimen/chat_padding_normal">
+                    android:paddingBottom="@dimen/chat_padding_normal">
 
                     <!--<TextView-->
                     <!--android:id="@+id/created_by"-->

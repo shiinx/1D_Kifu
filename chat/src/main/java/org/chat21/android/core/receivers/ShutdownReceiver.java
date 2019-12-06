@@ -20,7 +20,7 @@ public class ShutdownReceiver extends BroadcastReceiver {
             Log.i(TAG, "System shutting down");
 
             // disconnect the current user when the phone shutdown
-            if(ChatManager.getInstance() != null) {
+            if (ChatManager.getInstance() != null) {
                 ChatManager.getInstance().getMyPresenceHandler().dispose();
             }
         }

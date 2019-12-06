@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -58,8 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         editUsername = findViewById(R.id.et_name);
         editEmail = findViewById(R.id.et_email);
-        spinnerLocation = (Spinner)findViewById(R.id.spn_location);
-
+        spinnerLocation = (Spinner) findViewById(R.id.spn_location);
 
 
         spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -107,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = ((EditText) findViewById(R.id.et_pass)).getText().toString();
         String passwordConfirm = ((EditText) findViewById(R.id.et_confirmpass)).getText().toString();
         String username = ((EditText) findViewById(R.id.et_name)).getText().toString();
-        String chosenLocation = ((Spinner)findViewById(R.id.spn_location)).getSelectedItem().toString();
+        String chosenLocation = ((Spinner) findViewById(R.id.spn_location)).getSelectedItem().toString();
 
         if (email.length() > 0 && password.length() > 0 && passwordConfirm.length() > 0 && username.length() > 0) {
             if (chosenLocation.equals("Location")) {
@@ -139,7 +137,6 @@ public class RegisterActivity extends AppCompatActivity {
             startToast("Please enter your email, password, username and location.");
         }
     }
-
 
 
     private void startToast(String msg) {

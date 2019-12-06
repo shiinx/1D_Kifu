@@ -3,10 +3,10 @@ package org.chat21.android.core.conversations.models;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
+import org.chat21.android.core.messages.models.Message;
+
 import java.io.Serializable;
 import java.util.Map;
-
-import org.chat21.android.core.messages.models.Message;
 
 /**
  * Created by stefano on 06/10/2015.

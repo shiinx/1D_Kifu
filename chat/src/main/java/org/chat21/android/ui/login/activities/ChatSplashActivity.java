@@ -2,9 +2,10 @@ package org.chat21.android.ui.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,12 +28,7 @@ import static org.chat21.android.utils.DebugConstants.DEBUG_LOGIN;
 // https://bitbucket.org/frontiere21/smart21-android-aste/src/dce43efe4ae649a1516d4b5e397eff4ba77676f9/app/src/main/java/it/smart21/android/aste/activities/DispatchActivity.java?at=default&fileviewer=file-view-default
 public abstract class ChatSplashActivity extends AppCompatActivity {
 
-    /**
-     * The class to start when the login process has been finished
-     *
-     * @return the target class
-     */
-    protected abstract Class<?> getTargetClass();
+    private static final int LOGIN_REQUEST = 0;
 
 //    /**
 //     * The intent to launch to perform the login activity
@@ -40,17 +36,21 @@ public abstract class ChatSplashActivity extends AppCompatActivity {
 //     * @return the chat login intent
 //     */
 //    protected abstract Intent getLoginIntent();
-
-    private static final int LOGIN_REQUEST = 0;
     private static final int TARGET_REQUEST = 1;
-
     private ChatAuthentication.OnAuthStateChangeListener onAuthStateChangeListener =
             new ChatAuthentication.OnAuthStateChangeListener() {
-        @Override
-        public void onAuthStateChanged(FirebaseUser user) {
-            runDispatch();
-        }
-    };
+                @Override
+                public void onAuthStateChanged(FirebaseUser user) {
+                    runDispatch();
+                }
+            };
+
+    /**
+     * The class to start when the login process has been finished
+     *
+     * @return the target class
+     */
+    protected abstract Class<?> getTargetClass();
 
     @Override
     final protected void onCreate(Bundle savedInstanceState) {

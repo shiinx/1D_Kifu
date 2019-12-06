@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -57,34 +58,18 @@ public final class ChatAuthentication {
 //    example here
 //    https://github.com/firebase/quickstart-android/blob/master/auth/app/src/main/java/com/google/firebase/quickstart/auth/CustomAuthActivity.java
 
-    public interface OnChatLoginCallback {
-        void onChatLoginSuccess(IChatUser currentUser);
-
-        void onChatLoginError(Exception e);
-    }
-
-    public interface OnChatLogoutCallback {
-        void onChatLogoutSuccess();
-
-        void onChatLogoutError(Exception e);
-    }
-
+    private static ChatAuthentication authInstance;
     // auth token
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String mCustomToken;
     private TokenBroadcastReceiver mTokenReceiver;
-
     // auth data
     private String email;
     private String fullName;
     private String tenant;
     private boolean isEmailUpdated = false;
     private boolean isUserProfileUpdated = false;
-
-    private static ChatAuthentication authInstance;
-
-
     private ChatAuthentication() {
 // Prevent form the reflection api.
         if (authInstance != null) {
@@ -92,7 +77,21 @@ public final class ChatAuthentication {
         }
     }
 
-    //firebase auth END
+    public static ChatAuthentication getInstance() {
+        Log.d(DEBUG_LOGIN, "getInstance");
+
+        if (authInstance == null) {
+            authInstance = new ChatAuthentication();
+            Log.d(DEBUG_LOGIN, "creating new Chat.Authentication instance");
+        } else {
+            Log.d(DEBUG_LOGIN, "Chat.Authentication instance already exists");
+        }
+
+        authInstance.mAuth = FirebaseAuth.getInstance();
+        Log.d(DEBUG_LOGIN, "mAuth.hashCode() : " + authInstance.mAuth.hashCode());
+
+        return authInstance;
+    }
 
     public void removeAuthStateListener() {
         Log.i(DEBUG_LOGIN, "removeAuthStateListener");
@@ -101,6 +100,8 @@ public final class ChatAuthentication {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+    //firebase auth END
 
     public void registerFirebaseReceiver(Context context) {
         Log.d(DEBUG_LOGIN, "registerFirebaseReceiver");
@@ -177,7 +178,6 @@ public final class ChatAuthentication {
             }
         }).execute(generateTokenUrl);
     }
-
 
     private void createContactNode(String appId, String userId) {
         Log.d(DEBUG_LOGIN, "createContactNode: userId == " + userId);
@@ -273,11 +273,10 @@ public final class ChatAuthentication {
                 });
     }
 
-
-    private  IChatUser convertFirebaseUserToChatUser (FirebaseUser firebaseUser) {
-        if (firebaseUser!=null){
+    private IChatUser convertFirebaseUserToChatUser(FirebaseUser firebaseUser) {
+        if (firebaseUser != null) {
             return new ChatUser(firebaseUser.getUid(), firebaseUser.getDisplayName());
-        }else {
+        } else {
             return null;
         }
     }
@@ -390,7 +389,6 @@ public final class ChatAuthentication {
             }
         });
     }
-
 
     /*
      * Method to check whether to check Google Play Services is up to date.
@@ -646,25 +644,21 @@ public final class ChatAuthentication {
         return mAuthListener;
     }
 
-    public static ChatAuthentication getInstance() {
-        Log.d(DEBUG_LOGIN, "getInstance");
-
-        if (authInstance == null) {
-            authInstance = new ChatAuthentication();
-            Log.d(DEBUG_LOGIN, "creating new Chat.Authentication instance");
-        } else {
-            Log.d(DEBUG_LOGIN, "Chat.Authentication instance already exists");
-        }
-
-        authInstance.mAuth = FirebaseAuth.getInstance();
-        Log.d(DEBUG_LOGIN, "mAuth.hashCode() : " + authInstance.mAuth.hashCode());
-
-        return authInstance;
-    }
-
     public void destroyInstance() {
         authInstance = null;
         Log.d(DEBUG_LOGIN, "authInstance destroyed");
+    }
+
+    public interface OnChatLoginCallback {
+        void onChatLoginSuccess(IChatUser currentUser);
+
+        void onChatLoginError(Exception e);
+    }
+
+    public interface OnChatLogoutCallback {
+        void onChatLogoutSuccess();
+
+        void onChatLogoutError(Exception e);
     }
 
     public interface OnAuthStateChangeListener {

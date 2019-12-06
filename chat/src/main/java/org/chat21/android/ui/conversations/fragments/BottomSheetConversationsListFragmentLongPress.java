@@ -2,15 +2,17 @@ package org.chat21.android.ui.conversations.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -37,6 +39,35 @@ public class BottomSheetConversationsListFragmentLongPress extends BottomSheetDi
     private Button mDeleteConversationView;
 
     private ConversationsHandler conversationsHandler;
+    private ConversationsListener conversationsListener = new ConversationsListener() {
+
+        @Override
+        public void onConversationAdded(Conversation conversation, ChatRuntimeException e) {
+            // do nothing
+        }
+
+        @Override
+        public void onConversationChanged(Conversation conversation, ChatRuntimeException e) {
+            // do nothing
+        }
+
+        @Override
+        public void onConversationRemoved(ChatRuntimeException e) {
+            if (e == null) {
+                Log.d(DEBUG_TAG, "BSArchivedConversationsListFragmentLongPress" +
+                        ".conversationsListener.onConversationRemoved: no errors");
+
+                // dismiss the bottomsheet
+                getDialog().dismiss();
+            } else {
+                // there are error
+                Log.d(DEBUG_TAG, "BSArchivedConversationsListFragmentLongPress" +
+                        ".conversationsListener.onConversationRemoved: " + e.toString());
+
+                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public static BottomSheetConversationsListFragmentLongPress
     newInstance(Conversation conversation) {
@@ -132,38 +163,8 @@ public class BottomSheetConversationsListFragmentLongPress extends BottomSheetDi
 
         String conversationId = mConversation.getConversationId();
 
-        if(getConversationsHandler() != null) {
+        if (getConversationsHandler() != null) {
             getConversationsHandler().deleteConversation(conversationId, conversationsListener);
         }
     }
-
-    private ConversationsListener conversationsListener = new ConversationsListener() {
-
-        @Override
-        public void onConversationAdded(Conversation conversation, ChatRuntimeException e) {
-            // do nothing
-        }
-
-        @Override
-        public void onConversationChanged(Conversation conversation, ChatRuntimeException e) {
-            // do nothing
-        }
-
-        @Override
-        public void onConversationRemoved(ChatRuntimeException e) {
-            if(e == null) {
-                Log.d(DEBUG_TAG, "BSArchivedConversationsListFragmentLongPress" +
-                        ".conversationsListener.onConversationRemoved: no errors");
-
-                // dismiss the bottomsheet
-                getDialog().dismiss();
-            } else {
-                // there are error
-                Log.d(DEBUG_TAG, "BSArchivedConversationsListFragmentLongPress" +
-                        ".conversationsListener.onConversationRemoved: " + e.toString());
-
-                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 }

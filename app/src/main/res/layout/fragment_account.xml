@@ -39,14 +39,14 @@
                     android:id="@+id/userLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="location"/>
+                    android:text="location" />
 
                 <TextView
                     android:id="@+id/userbio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="bio"/>
-              
+                    android:text="bio" />
+
             </LinearLayout>
 
         </LinearLayout>

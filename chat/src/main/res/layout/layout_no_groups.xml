@@ -3,8 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/no_offers_available_layout"
     android:layout_width="match_parent"
-    android:background="@color/windowBackground"
     android:layout_height="match_parent"
+    android:background="@color/windowBackground"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -22,8 +22,8 @@
         android:layout_below="@+id/error_image"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/chat_margin_small"
-        android:layout_marginRight="@dimen/chat_margin_small"
         android:layout_marginTop="@dimen/chat_margin_normal"
+        android:layout_marginRight="@dimen/chat_margin_small"
         android:gravity="center_horizontal"
         android:text="@string/activity_my_groups_list_error_title"
         android:textColor="@color/error_view_text"
@@ -33,13 +33,13 @@
     <TextView
         android:id="@+id/error_subtitle"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_below="@+id/error_title"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/chat_margin_small"
-        android:layout_marginRight="@dimen/chat_margin_small"
         android:layout_marginTop="@dimen/chat_margin_small"
+        android:layout_marginRight="@dimen/chat_margin_small"
+        android:gravity="center_horizontal"
         android:text="@string/activity_my_groups_list_error_subtitle"
         android:textColor="@color/error_view_text_light" />
 </RelativeLayout>

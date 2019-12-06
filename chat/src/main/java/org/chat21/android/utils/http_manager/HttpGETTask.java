@@ -101,27 +101,27 @@ class HttpGETTask extends AsyncTask<String, Void, String> {
         }
     }
 
-    public void setContentType(String contentType) {
-        Log.d(TAG, "setContentType");
-
-        mContentType = contentType;
-    }
-
     public String getContentType() {
         Log.d(TAG, "getContentType");
 
         return mContentType;
     }
 
-    public void setTimeout(int timeout) {
-        Log.d(TAG, "setTimeout");
+    public void setContentType(String contentType) {
+        Log.d(TAG, "setContentType");
 
-        mTimeout = timeout;
+        mContentType = contentType;
     }
 
     public int getTimeout() {
         Log.d(TAG, "getTimeout");
 
         return mTimeout;
+    }
+
+    public void setTimeout(int timeout) {
+        Log.d(TAG, "setTimeout");
+
+        mTimeout = timeout;
     }
 }

@@ -21,7 +21,6 @@
             android:background="@color/white" />
 
 
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

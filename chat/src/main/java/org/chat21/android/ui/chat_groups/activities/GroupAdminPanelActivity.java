@@ -2,13 +2,6 @@ package org.chat21.android.ui.chat_groups.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.Glide;
 
 import org.chat21.android.R;
 import org.chat21.android.connectivity.AbstractNetworkReceiver;
@@ -35,6 +33,9 @@ import org.chat21.android.ui.chat_groups.fragments.BottomSheetGroupAdminPanelMem
 import org.chat21.android.ui.chat_groups.listeners.OnGroupMemberClickListener;
 import org.chat21.android.ui.decorations.ItemDecoration;
 import org.chat21.android.utils.TimeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.chat21.android.ui.ChatUI.BUNDLE_CHAT_GROUP;
 import static org.chat21.android.ui.ChatUI.BUNDLE_GROUP_ID;

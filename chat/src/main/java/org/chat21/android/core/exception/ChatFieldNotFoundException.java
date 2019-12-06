@@ -11,7 +11,7 @@ public class ChatFieldNotFoundException extends Exception {
     }
 
     public ChatFieldNotFoundException(String message) {
-       super(message);
+        super(message);
     }
 
     public ChatFieldNotFoundException(String message, Throwable cause) {

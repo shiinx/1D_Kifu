@@ -82,6 +82,106 @@ public class ArchivedConversationsHandler {
 //        Log.d(TAG, "ConversationsHandler.conversationsNode == " + conversationsNode.toString());
     }
 
+    public static Conversation decodeConversationFromSnapshot(DataSnapshot dataSnapshot) {
+        Log.d(TAG, "ConversationHandler.decodeConversationFromSnapshop");
+
+        Conversation conversation = new Conversation();
+
+        // conversationId
+        conversation.setConversationId(dataSnapshot.getKey());
+        Log.d(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop: conversationId = " +
+                conversation.getConversationId());
+
+        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+        // is_new
+        try {
+            boolean is_new = (boolean) map.get("is_new");
+            conversation.setIs_new(is_new);
+        } catch (Exception e) {
+            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop:" +
+                    " cannot retrieve is_new");
+        }
+
+        // last_message_text
+        try {
+            String last_message_text = (String) map.get("last_message_text");
+            conversation.setLast_message_text(last_message_text);
+        } catch (Exception e) {
+            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop: " +
+                    "cannot retrieve last_message_text");
+        }
+
+        // recipient
+        try {
+            String recipient = (String) map.get("recipient");
+            conversation.setRecipient(recipient);
+        } catch (Exception e) {
+            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop:" +
+                    " cannot retrieve recipient");
+        }
+
+        // rrecipient_fullname
+        try {
+            String recipientFullName = (String) map.get("recipient_fullname");
+            conversation.setRecipientFullName(recipientFullName);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve recipient_fullname");
+        }
+
+        // sender
+        try {
+            String sender = (String) map.get("sender");
+            conversation.setSender(sender);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve sender");
+        }
+
+        // sender_fullname
+        try {
+            String sender_fullname = (String) map.get("sender_fullname");
+            conversation.setSender_fullname(sender_fullname);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve sender_fullname");
+        }
+
+        // status
+        try {
+            long status = (long) map.get("status");
+            conversation.setStatus((int) status);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve status");
+        }
+
+        // timestamp
+        try {
+            long timestamp = (long) map.get("timestamp");
+            conversation.setTimestamp(timestamp);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve timestamp");
+        }
+
+        try {
+            String channelType = (String) map.get("channel_type");
+            conversation.setChannelType(channelType);
+        } catch (Exception e) {
+            Log.e(TAG, "cannot retrieve channel_type");
+        }
+
+
+        // convers with
+        if (conversation.getRecipient()
+                .equals(ChatManager.getInstance().getLoggedUser().getId())) {
+            conversation.setConvers_with(conversation.getSender());
+            conversation.setConvers_with_fullname(conversation.getSender_fullname());
+        } else {
+            conversation.setConvers_with(conversation.getRecipient());
+            conversation.setConvers_with_fullname(conversation.getRecipientFullName());
+        }
+
+        return conversation;
+    }
+
     public ChildEventListener connect(ConversationsListener conversationsListener) {
         this.upsertConversationsListener(conversationsListener);
         return connect();
@@ -223,6 +323,24 @@ public class ArchivedConversationsHandler {
         return conversations;
     }
 
+//    // it checks if the conversation already exists.
+//    // if the conversation exists delete it
+//    private void deleteConversationFromMemory(Conversation conversationToDelete) {
+//        // look for the conversation
+//        int index = -1;
+//        for (Conversation tempConversation : conversations) {
+//            if (tempConversation.equals(conversationToDelete)) {
+//                index = conversations.indexOf(tempConversation);
+//                break;
+//            }
+//        }
+//
+//        if (index != -1) {
+//            // conversation already exists
+//            conversations.remove(index); // delete existing conversation
+//        }
+//    }
+
     // it checks if the conversation already exists.
     // if the conversation exists update it, add it otherwise
     private void saveOrUpdateConversationInMemory(Conversation newConversation) {
@@ -245,36 +363,18 @@ public class ArchivedConversationsHandler {
         }
     }
 
-//    // it checks if the conversation already exists.
-//    // if the conversation exists delete it
-//    private void deleteConversationFromMemory(Conversation conversationToDelete) {
-//        // look for the conversation
-//        int index = -1;
-//        for (Conversation tempConversation : conversations) {
-//            if (tempConversation.equals(conversationToDelete)) {
-//                index = conversations.indexOf(tempConversation);
-//                break;
-//            }
-//        }
-//
-//        if (index != -1) {
-//            // conversation already exists
-//            conversations.remove(index); // delete existing conversation
-//        }
-//    }
-
     // it checks if the conversation already exists through its conversationId
     // if the conversation exists delete it
     public void deleteConversationFromMemory(String conversationId) {
         int index = -1;
-        for(Conversation tempConversation : conversations) {
-            if(tempConversation.getConversationId().equals(conversationId)) {
+        for (Conversation tempConversation : conversations) {
+            if (tempConversation.getConversationId().equals(conversationId)) {
                 index = conversations.indexOf(tempConversation);
                 break;
             }
         }
 
-        if(index != -1) {
+        if (index != -1) {
             conversations.remove(index);
             sortConversationsInMemory();
             notifyConversationRemoved(null);
@@ -337,107 +437,6 @@ public class ArchivedConversationsHandler {
             }
         }
     }
-
-    public static Conversation decodeConversationFromSnapshot(DataSnapshot dataSnapshot) {
-        Log.d(TAG, "ConversationHandler.decodeConversationFromSnapshop");
-
-        Conversation conversation = new Conversation();
-
-        // conversationId
-        conversation.setConversationId(dataSnapshot.getKey());
-        Log.d(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop: conversationId = " +
-                conversation.getConversationId());
-
-        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-
-        // is_new
-        try {
-            boolean is_new = (boolean) map.get("is_new");
-            conversation.setIs_new(is_new);
-        } catch (Exception e) {
-            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop:" +
-                    " cannot retrieve is_new");
-        }
-
-        // last_message_text
-        try {
-            String last_message_text = (String) map.get("last_message_text");
-            conversation.setLast_message_text(last_message_text);
-        } catch (Exception e) {
-            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop: " +
-                    "cannot retrieve last_message_text");
-        }
-
-        // recipient
-        try {
-            String recipient = (String) map.get("recipient");
-            conversation.setRecipient(recipient);
-        } catch (Exception e) {
-            Log.e(TAG, "ArchivedConversationsHandler.decodeConversationSnapshop:" +
-                    " cannot retrieve recipient");
-        }
-
-        // rrecipient_fullname
-        try {
-            String recipientFullName = (String) map.get("recipient_fullname");
-            conversation.setRecipientFullName(recipientFullName);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve recipient_fullname");
-        }
-
-        // sender
-        try {
-            String sender = (String) map.get("sender");
-            conversation.setSender(sender);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve sender");
-        }
-
-        // sender_fullname
-        try {
-            String sender_fullname = (String) map.get("sender_fullname");
-            conversation.setSender_fullname(sender_fullname);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve sender_fullname");
-        }
-
-        // status
-        try {
-            long status = (long) map.get("status");
-            conversation.setStatus((int) status);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve status");
-        }
-
-        // timestamp
-        try {
-            long timestamp = (long) map.get("timestamp");
-            conversation.setTimestamp(timestamp);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve timestamp");
-        }
-
-        try {
-            String channelType = (String) map.get("channel_type");
-            conversation.setChannelType(channelType);
-        } catch (Exception e) {
-            Log.e(TAG, "cannot retrieve channel_type");
-        }
-
-
-        // convers with
-        if (conversation.getRecipient()
-                .equals(ChatManager.getInstance().getLoggedUser().getId())) {
-            conversation.setConvers_with(conversation.getSender());
-            conversation.setConvers_with_fullname(conversation.getSender_fullname());
-        } else {
-            conversation.setConvers_with(conversation.getRecipient());
-            conversation.setConvers_with_fullname(conversation.getRecipientFullName());
-        }
-
-        return conversation;
-    }
-
 
     public void setConversationRead(final String recipientId) {
         Log.d(TAG, "setConversationRead");

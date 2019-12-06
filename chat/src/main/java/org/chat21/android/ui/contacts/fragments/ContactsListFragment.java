@@ -1,13 +1,6 @@
 package org.chat21.android.ui.contacts.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -110,12 +111,12 @@ public class ContactsListFragment extends Fragment {
         }
     }
 
-    public void setOnContactClickListener(OnContactClickListener onContactClickListener) {
-        this.onContactClickListener = onContactClickListener;
-    }
-
     public OnContactClickListener getOnContactClickListener() {
         return onContactClickListener;
+    }
+
+    public void setOnContactClickListener(OnContactClickListener onContactClickListener) {
+        this.onContactClickListener = onContactClickListener;
     }
 
     @Override

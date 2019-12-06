@@ -9,13 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -92,7 +89,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             Bitmap bitmapDownloaded = null;
 
 
-            try{
+            try {
 
                 InputStream inputStream = new java.net.URL(URL).openStream();
                 bitmapDownloaded = BitmapFactory.decodeStream(inputStream);

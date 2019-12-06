@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
@@ -53,12 +51,12 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(final ListResult listResult) {
                         for (final StorageReference item : listResult.getItems()) {
-                            if(!item.getName().startsWith("thumb_")){
+                            if (!item.getName().startsWith("thumb_")) {
                                 item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         upload = new Uploads();
-                                        upload.setmName(item.getName().substring(0,item.getName().lastIndexOf(".")));
+                                        upload.setmName(item.getName().substring(0, item.getName().lastIndexOf(".")));
                                         upload.setmImageUrl(uri);
                                         mUploads.add(upload);
                                         mAdapter.notifyDataSetChanged();
@@ -66,7 +64,7 @@ public class ListActivity extends AppCompatActivity {
                                 });
                             }
                         }
-                        if(mUploads.isEmpty()){
+                        if (mUploads.isEmpty()) {
                             Log.i("ListActivityLog", "emptyyyy");
                         }
                     }

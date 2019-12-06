@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/windowBackground"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/chat_margin_normal"
     android:paddingLeft="@dimen/chat_margin_normal"
+    android:paddingTop="@dimen/chat_margin_normal"
     android:paddingRight="@dimen/chat_margin_normal"
-    android:paddingTop="@dimen/chat_margin_normal">
+    android:paddingBottom="@dimen/chat_margin_normal">
 
     <TextView
         android:id="@+id/username"

@@ -18,7 +18,6 @@ import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -55,6 +54,40 @@ public class ContactsSynchronizer {
         this.contactsNode.keepSynced(true);
 
         Log.d(DEBUG_CONTACTS_SYNC, "contactsNode : " + contactsNode.toString());
+    }
+
+    public static IChatUser decodeContactSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
+        Log.v(DEBUG_CONTACTS_SYNC, "decodeContactSnapShop called");
+
+        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+        String contactId = dataSnapshot.getKey();
+
+        String uid = (String) map.get("uid");
+        if (uid == null) {
+            throw new ChatFieldNotFoundException("Required uid field is null for contact id : " + contactId);
+        }
+
+        String firstName = (String) map.get("firstname");
+        String lastName = (String) map.get("lastname");
+        String imageUrl = (String) map.get("imageurl");
+        String email = (String) map.get("email");
+
+
+        Long timestamp = null;
+        if (map.containsKey("timestamp")) {
+            timestamp = (Long) map.get("timestamp");
+        }
+
+        IChatUser contact = new ChatUser();
+        contact.setId(uid);
+        contact.setFullName(firstName + " " + lastName);
+        contact.setProfilePictureUrl(imageUrl);
+        contact.setEmail(email);
+
+        Log.v(DEBUG_CONTACTS_SYNC, "decodeContactSnapShop.contact : " + contact);
+
+        return contact;
     }
 
     public synchronized ChildEventListener connect() {
@@ -178,23 +211,6 @@ public class ContactsSynchronizer {
         return contactsChildEventListener;
     }
 
-    private void saveOrUpdateContactInMemory(IChatUser contact) {
-        Log.d(DEBUG_CONTACTS_SYNC, "saveOrUpdateContactInMemory  for contact : " + contact);
-
-        int index = contacts.indexOf(contact);
-
-        if (index > -1) {
-            contacts.set(index, contact);
-            Log.v(DEBUG_CONTACTS_SYNC, "contact " + contact +
-                    "updated into contacts at position " + index);
-
-        } else {
-            contacts.add(contact);
-            Log.v(DEBUG_CONTACTS_SYNC, "contact " + contact + "is not found into contacts." +
-                    " The contact was added at the end of the list");
-        }
-    }
-
 //    private void saveOrUpdateContactOnStorage(IChatUser contact) {
 //        Log.d(DEBUG_CONTACTS_SYNC, "saveOrUpdateContactOnStorage  for contact : " + contact);
 //
@@ -211,6 +227,23 @@ public class ContactsSynchronizer {
 //                    " contact " + contact + " saved: " + isSaved);
 //        }
 //    }
+
+    private void saveOrUpdateContactInMemory(IChatUser contact) {
+        Log.d(DEBUG_CONTACTS_SYNC, "saveOrUpdateContactInMemory  for contact : " + contact);
+
+        int index = contacts.indexOf(contact);
+
+        if (index > -1) {
+            contacts.set(index, contact);
+            Log.v(DEBUG_CONTACTS_SYNC, "contact " + contact +
+                    "updated into contacts at position " + index);
+
+        } else {
+            contacts.add(contact);
+            Log.v(DEBUG_CONTACTS_SYNC, "contact " + contact + "is not found into contacts." +
+                    " The contact was added at the end of the list");
+        }
+    }
 
     public CopyOnWriteArrayList<IChatUser> getContacts() {
         return contacts;
@@ -314,7 +347,6 @@ public class ContactsSynchronizer {
 //        return null;
 
 
-
 //        Iterator<IChatUser> contactsIterator = contacts.iterator();
 //        if (contactsIterator.hasNext()) {
 //            IChatUser contact = contactsIterator.next();
@@ -337,40 +369,6 @@ public class ContactsSynchronizer {
         if (contact.getId().equals(loggedUser.getId())) {
             ChatManager.getInstance().setLoggedUser(contact);
         }
-    }
-
-    public static IChatUser decodeContactSnapShop(DataSnapshot dataSnapshot) throws ChatFieldNotFoundException {
-        Log.v(DEBUG_CONTACTS_SYNC, "decodeContactSnapShop called");
-
-        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-
-        String contactId = dataSnapshot.getKey();
-
-        String uid = (String) map.get("uid");
-        if (uid == null) {
-            throw new ChatFieldNotFoundException("Required uid field is null for contact id : " + contactId);
-        }
-
-        String firstName = (String) map.get("firstname");
-        String lastName = (String) map.get("lastname");
-        String imageUrl = (String) map.get("imageurl");
-        String email = (String) map.get("email");
-
-
-        Long timestamp = null;
-        if (map.containsKey("timestamp")) {
-            timestamp = (Long) map.get("timestamp");
-        }
-
-        IChatUser contact = new ChatUser();
-        contact.setId(uid);
-        contact.setFullName(firstName + " " + lastName);
-        contact.setProfilePictureUrl(imageUrl);
-        contact.setEmail(email);
-
-        Log.v(DEBUG_CONTACTS_SYNC, "decodeContactSnapShop.contact : " + contact);
-
-        return contact;
     }
 
     public void disconnect() {

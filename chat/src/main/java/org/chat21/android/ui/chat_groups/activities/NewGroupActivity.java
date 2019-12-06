@@ -1,9 +1,6 @@
 package org.chat21.android.ui.chat_groups.activities;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,7 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import java.util.Map;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -23,6 +22,8 @@ import org.chat21.android.core.exception.ChatRuntimeException;
 import org.chat21.android.core.messages.models.Message;
 import org.chat21.android.ui.chat_groups.WizardNewGroup;
 import org.chat21.android.utils.StringUtils;
+
+import java.util.Map;
 
 import static org.chat21.android.utils.DebugConstants.DEBUG_GROUPS;
 

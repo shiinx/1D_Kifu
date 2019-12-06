@@ -8,16 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Px;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
@@ -30,6 +20,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Px;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -84,27 +85,38 @@ import static org.chat21.android.utils.DebugConstants.DEBUG_USER_PRESENCE;
  */
 public class MessageListActivity extends AppCompatActivity
         implements ConversationMessagesListener, PresenceListener, ChatGroupsListener {
-    private static final String TAG = MessageListActivity.class.getName();
-
     public static final int _INTENT_ACTION_GET_PICTURE = 853;
+    private static final String TAG = MessageListActivity.class.getName();
+    /**
+     * Listener called when a message is clicked.
+     */
+    public OnMessageClickListener onMessageClickListener = new OnMessageClickListener() {
+        @Override
+        public void onMessageLinkClick(TextView messageView, ClickableSpan clickableSpan) {
+            Log.d(TAG, "onMessageClickListener.onMessageLinkClick");
+            Log.d(TAG, "text: " + messageView.getText().toString());
 
+            if (ChatUI.getInstance().getOnMessageClickListener() != null) {
+                ChatUI.getInstance().getOnMessageClickListener()
+                        .onMessageLinkClick(messageView, clickableSpan);
+            } else {
+                Log.d(TAG, "Chat.Configuration.getMessageClickListener() == null");
+            }
+        }
+    };
     private PresenceHandler presenceHandler = null;
     private ConversationMessagesHandler conversationMessagesHandler;
     private boolean conversWithOnline = false;
     private long conversWithLastOnline = -1;
-
     private GroupsSyncronizer groupsSyncronizer = null;
-
     private RecyclerView recyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private MessageListAdapter messageListAdapter;
     private Toolbar toolbar;
-
     private ImageView mPictureView;
     private TextView mTitleTextView;
     private TextView mSubTitleTextView;
     private RelativeLayout mNoMessageLayout;
-
     private EmojiPopup emojiPopup;
     private EmojiEditText editText;
     private ViewGroup rootView;
@@ -112,7 +124,6 @@ public class MessageListActivity extends AppCompatActivity
     private ImageView attachButton;
     private ImageView sendButton;
     private LinearLayout mEmojiBar;
-
     /**
      * {@code recipient} is the real contact whom is talking with.
      * it contains all the info to start a conversation.
@@ -143,7 +154,7 @@ public class MessageListActivity extends AppCompatActivity
         if (contactsSynchronizer != null) {
             IChatUser matchedContact = contactsSynchronizer.findById(recipient.getId());
 
-            if(matchedContact != null) {
+            if (matchedContact != null) {
                 recipient = matchedContact;
             }
         }
@@ -190,7 +201,6 @@ public class MessageListActivity extends AppCompatActivity
 //            // retrieve the updated recipient
 //            recipient = ChatManager.getInstance().getContactsSynchronizer().findById(recipientId);
 //        }
-
 
 
         // ######### begin conversation messages handler
@@ -435,24 +445,6 @@ public class MessageListActivity extends AppCompatActivity
             mLinearLayoutManager.scrollToPositionWithOffset(position, 0);
         }
     }
-
-    /**
-     * Listener called when a message is clicked.
-     */
-    public OnMessageClickListener onMessageClickListener = new OnMessageClickListener() {
-        @Override
-        public void onMessageLinkClick(TextView messageView, ClickableSpan clickableSpan) {
-            Log.d(TAG, "onMessageClickListener.onMessageLinkClick");
-            Log.d(TAG, "text: " + messageView.getText().toString());
-
-            if (ChatUI.getInstance().getOnMessageClickListener() != null) {
-                ChatUI.getInstance().getOnMessageClickListener()
-                        .onMessageLinkClick(messageView, clickableSpan);
-            } else {
-                Log.d(TAG, "Chat.Configuration.getMessageClickListener() == null");
-            }
-        }
-    };
 
     private void initInputPanel() {
         Log.d(TAG, "initInputPanel");

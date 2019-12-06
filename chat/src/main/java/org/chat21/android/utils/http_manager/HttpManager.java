@@ -68,7 +68,7 @@ public class HttpManager {
     }
 
     public void makeHttpDELETECall(final OnResponseRetrievedCallback<String> callback, String url,
-                                 Map<String, String> headerParams, String queryParams) {
+                                   Map<String, String> headerParams, String queryParams) {
 
         OnResponseRetrievedCallback<String> mCallback = new OnResponseRetrievedCallback<String>() {
             @Override
@@ -94,7 +94,7 @@ public class HttpManager {
     }
 
     public void makeHttpPUTCall(final OnResponseRetrievedCallback<String> callback, String url,
-                                   Map<String, String> headerParams, String queryParams) {
+                                Map<String, String> headerParams, String queryParams) {
 
         OnResponseRetrievedCallback<String> mCallback = new OnResponseRetrievedCallback<String>() {
             @Override

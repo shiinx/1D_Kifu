@@ -9,11 +9,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.chat21.android.core.presence.listeners.MyPresenceListener;
 import org.chat21.android.utils.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.chat21.android.utils.DebugConstants.DEBUG_MY_PRESENCE;
 
@@ -23,21 +23,17 @@ import static org.chat21.android.utils.DebugConstants.DEBUG_MY_PRESENCE;
 
 public class MyPresenceHandler {
 
+    // the device that is currently connected
+    String deviceId = null;
     // since I can connect from multiple devices, we store each connection instance separately
     // any time that connectionsRef's value is null (i.e. has no children) I am offline
     private FirebaseDatabase database;
     private DatabaseReference connectionsRef;
-
     // stores the timestamp of my last disconnect (the last time I was seen online)
     private DatabaseReference lastOnlineRef;
-
     private DatabaseReference connectedRef;
-
     private ValueEventListener valueEventListener;
-
     private List<MyPresenceListener> myPresenceListeners;
-    // the device that is currently connected
-    String deviceId = null;
 
     public MyPresenceHandler(String firebaseUrl, String appId, String userId) {
         myPresenceListeners = new ArrayList<>();

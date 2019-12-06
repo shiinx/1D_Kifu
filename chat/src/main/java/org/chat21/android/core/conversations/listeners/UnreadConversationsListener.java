@@ -1,6 +1,5 @@
 package org.chat21.android.core.conversations.listeners;
 
-import org.chat21.android.core.conversations.models.Conversation;
 import org.chat21.android.core.exception.ChatRuntimeException;
 
 /**

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_item"
+    clickToClose="true"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    clickToClose="true">
+    android:layout_height="80dp">
 
 
     <!--left swipe menu-->
@@ -101,14 +100,14 @@
 
                 <TextView
                     android:id="@+id/closed_label"
-                    android:paddingLeft="@dimen/chat_padding_x_small"
-                    android:paddingRight="@dimen/chat_padding_x_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="@dimen/chat_margin_small"
                     android:layout_marginRight="@dimen/chat_margin_small"
                     android:background="@drawable/border_row_closed_archived_conversation"
+                    android:paddingLeft="@dimen/chat_padding_x_small"
+                    android:paddingRight="@dimen/chat_padding_x_small"
                     android:text="@string/row_archived_conversations_closed_label"
                     android:textAllCaps="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -131,6 +130,7 @@
 
                 <com.vanniktech.emoji.EmojiTextView
                     android:id="@+id/last_text_message"
+                    emojiSize="@dimen/chat_row_conversation_recipient_last_message_emoji_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -138,8 +138,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textSize="@dimen/chat_row_conversation_recipient_last_message_text_size"
-                    emojiSize="@dimen/chat_row_conversation_recipient_last_message_emoji_size" />
+                    android:textSize="@dimen/chat_row_conversation_recipient_last_message_text_size" />
 
                 <TextView
                     android:id="@+id/last_message_timestamp"

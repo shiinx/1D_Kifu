@@ -35,6 +35,24 @@ class HttpPUTTask extends AsyncTask<Object, String, String> {
         this.callback = callback;
     }
 
+    // source : https://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
+    public static String convertStreamToString(InputStream inputStream) throws IOException {
+
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) != -1) {
+            result.write(buffer, 0, length);
+        }
+// StandardCharsets.UTF_8.name() > JDK 7
+
+        String res = "";
+        if (result.toString("UTF-8").isEmpty())
+            res = "success";
+
+        return res;
+    }
+
     @Override
     protected String doInBackground(Object... params) {
         OutputStream os = null;
@@ -93,25 +111,6 @@ class HttpPUTTask extends AsyncTask<Object, String, String> {
 
         return responseData;
     }
-
-    // source : https://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
-    public static String convertStreamToString(InputStream inputStream) throws IOException {
-
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) != -1) {
-            result.write(buffer, 0, length);
-        }
-// StandardCharsets.UTF_8.name() > JDK 7
-
-        String res = "";
-        if (result.toString("UTF-8").isEmpty())
-            res = "success";
-
-        return res;
-    }
-
 
     @Override
     protected void onPostExecute(String response) {

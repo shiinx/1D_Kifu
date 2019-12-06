@@ -10,11 +10,11 @@ import java.util.Observable;
 public class ObservableNetwork extends Observable {
     private static ObservableNetwork instance = new ObservableNetwork();
 
-    public static ObservableNetwork getInstance() {
-        return instance;
+    private ObservableNetwork() {
     }
 
-    private ObservableNetwork() {
+    public static ObservableNetwork getInstance() {
+        return instance;
     }
 
     public void updateValue(Object data) {

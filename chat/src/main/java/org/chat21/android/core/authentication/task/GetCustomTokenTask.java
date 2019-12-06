@@ -34,6 +34,37 @@ public class GetCustomTokenTask extends AsyncTask<Object, Void, String> {
         this.onCustomAuthTokenCallback = onCustomAuthTokenCallback;
     }
 
+    private static String readInputStreamToString(HttpURLConnection connection) {
+        Log.d(TAG, "readInputStreamToString");
+
+        String result = null;
+        StringBuffer sb = new StringBuffer();
+        InputStream is = null;
+
+        try {
+            is = new BufferedInputStream(connection.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String inputLine = "";
+            while ((inputLine = br.readLine()) != null) {
+                sb.append(inputLine);
+            }
+            result = sb.toString();
+        } catch (Exception e) {
+            Log.d(TAG, "Error reading InputStream");
+            result = null;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    Log.d(TAG, "Error closing InputStream");
+                }
+            }
+        }
+
+        return result;
+    }
+
     @Override
     protected String doInBackground(Object... params) {
         Log.d(TAG, "doInBackground");
@@ -112,37 +143,6 @@ public class GetCustomTokenTask extends AsyncTask<Object, Void, String> {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private static String readInputStreamToString(HttpURLConnection connection) {
-        Log.d(TAG, "readInputStreamToString");
-
-        String result = null;
-        StringBuffer sb = new StringBuffer();
-        InputStream is = null;
-
-        try {
-            is = new BufferedInputStream(connection.getInputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String inputLine = "";
-            while ((inputLine = br.readLine()) != null) {
-                sb.append(inputLine);
-            }
-            result = sb.toString();
-        } catch (Exception e) {
-            Log.d(TAG, "Error reading InputStream");
-            result = null;
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    Log.d(TAG, "Error closing InputStream");
-                }
-            }
-        }
-
-        return result;
     }
 
     @Override
