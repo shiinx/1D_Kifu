@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -52,6 +55,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.firebase.ui.auth.AuthUI.TAG;
 
@@ -67,13 +74,19 @@ public class AccountFragment extends Fragment {
     private static final String LOCATION_KEY = "location";
     private static final String USERNAME_KEY = "username";
 
+
     private FirebaseFirestore db;
     private CollectionReference usersRef;
+    private CollectionReference userImage;
     private DocumentReference currentUserRef = null;
+
+    private RecyclerView AccountRecyclerView;
 
 
     ImageView UserProfile;
-    TextView UserName,UserGender,UserLocation,UserDescription,UserBirthday, userbio;
+    TextView UserName,UserLocation,UserDescription, userbio;
+
+    List<String> aList;
 
 
     public AccountFragment() {}
@@ -91,6 +104,8 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         usersRef = db.collection("Users");
+        userImage = db.collection("Images");
+
 
         //initialize imageview and textview
         UserProfile = rootview.findViewById(R.id.userProfile);
@@ -99,8 +114,47 @@ public class AccountFragment extends Fragment {
         UserDescription = rootview.findViewById(R.id.username);
         userbio = rootview.findViewById(R.id.userbio);
 
+        aList= new ArrayList<>();
+        AccountRecyclerView = rootview.findViewById(R.id.account_list);
+
         // method that displays user info on UI
         LoadUserInformation();
+
+        userImage.document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+
+                    //Log.i("hi",documentSnapshot.getData().toString());
+
+                    Map<String, Object> mapdata = new HashMap<>();
+                    mapdata = documentSnapshot.getData();
+                    for (Object data: mapdata.values()){
+                        Log.i("hi",data.toString());
+                        aList.add(data.toString());
+
+                    }
+
+                    AccountAdapter accountAdapter = new AccountAdapter(getActivity(),aList);
+                    AccountRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                    AccountRecyclerView.setAdapter(accountAdapter);
+
+
+
+                }else{
+                    Toast.makeText(getActivity(),"Document does not exist",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(),"Error!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         return rootview;
 
@@ -233,6 +287,7 @@ public class AccountFragment extends Fragment {
                     Toast.makeText(getActivity(),"Error!",Toast.LENGTH_SHORT).show();
                 }
             });
+
 
         }
     }

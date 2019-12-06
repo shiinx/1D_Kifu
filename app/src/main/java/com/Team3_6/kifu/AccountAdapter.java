@@ -2,6 +2,9 @@ package com.Team3_6.kifu;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -22,9 +32,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
 
     private Context aContext;
-    private List<AccountItem> aList;
+    private List<String> aList;
 
-    public AccountAdapter(Context aContext, List<AccountItem> aList) {
+    public AccountAdapter(Context aContext, List<String> aList) {
         this.aContext = aContext;
         this.aList = aList;
     }
@@ -42,7 +52,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
     @Override
     public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
-        // TODO
+
+
+        Picasso.with(this.aContext)
+                .load(aList.get(position))
+                .into(holder.aItemImage);
+
     }
 
     @Override
@@ -52,17 +67,49 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
     public static class AccountViewHolder extends RecyclerView.ViewHolder {
 
-        TextView aItemTitle;
+
         ImageView aItemImage;
 
         public AccountViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            aItemTitle = itemView.findViewById(R.id.aCardTextView);
             aItemImage = itemView.findViewById(R.id.aCardImageView);
 
 
+        }
+    }
+
+
+    class GetUserItem extends AsyncTask<String, Void, Bitmap> {
+
+        ImageView UserItem;
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+
+            String URL = urls[0];
+            Bitmap bitmapDownloaded = null;
+
+
+            try{
+
+                InputStream inputStream = new java.net.URL(URL).openStream();
+                bitmapDownloaded = BitmapFactory.decodeStream(inputStream);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return bitmapDownloaded;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            UserItem.setImageBitmap(bitmap);
         }
     }
 

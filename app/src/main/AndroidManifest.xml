@@ -38,7 +38,8 @@
             android:label="Edit Profile"
             android:parentActivityName=".MainActivity"/>
 
-        <activity android:name=".ListActivity" />
+        <activity android:name=".ListActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".PostActivity" />
         <activity android:name=".GalleryActivity"/>
