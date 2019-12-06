@@ -1,5 +1,6 @@
 package com.Team3_6.kifu;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,25 +13,30 @@ import com.bumptech.glide.Glide;
 import static java.lang.System.load;
 
 public class GalleryActivity extends AppCompatActivity {
+    private ImageView iv;
+    private TextView name;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        iv = findViewById(R.id.image);
+        name = findViewById(R.id.textView2);
         getIncomingIntent();
+
     }
     private void getIncomingIntent(){
         if(getIntent().hasExtra("image_url") && getIntent().hasExtra("image_title")){
             String imageUrl = getIntent().getStringExtra("image_url");
             String imageTitle = getIntent().getStringExtra("image_title");
-            setImsge("image_url", "image_title");
+            setImage(imageUrl, imageTitle);
         }
     }
-    private void setImsge(String imageUrl, String imageTitle){
-        TextView name = findViewById(R.id.image_title);
-        name.setText(imageTitle);
+    private void setImage(String imageUrl, String imageTitle){
 
-        ImageView image = findViewById(R.id.image);
-        Glide.with(this).asBitmap().load(imageUrl).into(image);
+        name.setText(imageTitle);
+        Glide.with(this).asBitmap().load(imageUrl).into(iv);
 
     }
 }
